@@ -19,7 +19,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 ## Research Before Planning (REQUIRED)
 
-**REQUIRED SUB-SKILL:** Use superpowers:researching before writing any implementation details.
+**REQUIRED SUB-SKILL:** Use harness:researching before writing any implementation details.
 
 Before specifying versions, APIs, or code patterns:
 - **Verify package versions** - Research current stable versions for package.json/requirements.txt
@@ -45,7 +45,7 @@ Include a **Research Summary** section in the plan header documenting key findin
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **For Claude:** REQUIRED SUB-SKILL: Use harness:executing-plans to implement this plan task-by-task.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -53,7 +53,7 @@ Include a **Research Summary** section in the plan header documenting key findin
 
 **Tech Stack:** [Key technologies/libraries with VERIFIED current versions]
 
-**Research Summary:** [Key findings from superpowers:researching - versions verified, patterns confirmed, deprecations avoided]
+**Research Summary:** [Key findings from harness:researching - versions verified, patterns confirmed, deprecations avoided]
 
 **Sources:** [URLs to documentation referenced]
 
@@ -125,10 +125,10 @@ After saving the plan, offer execution choice:
 **Which approach?"**
 
 **If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
+- **REQUIRED SUB-SKILL:** Use harness:subagent-driven-development
 - Stay in this session
 - Fresh subagent per task + code review
 
 **If Parallel Session chosen:**
 - Guide them to open new session in worktree
-- **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
+- **REQUIRED SUB-SKILL:** New session uses harness:executing-plans

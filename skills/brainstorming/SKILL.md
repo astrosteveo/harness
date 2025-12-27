@@ -21,7 +21,7 @@ Start by understanding the current project context, then ask questions one at a 
 - Focus on understanding: purpose, constraints, success criteria
 
 **Researching current technologies (REQUIRED):**
-- **REQUIRED SUB-SKILL:** Use superpowers:researching before proposing approaches
+- **REQUIRED SUB-SKILL:** Use harness:researching before proposing approaches
 - Identify any external libraries, frameworks, or APIs involved
 - Research current versions, best practices, and recommended patterns
 - Never rely on training data for version numbers or API signatures
@@ -50,8 +50,8 @@ Start by understanding the current project context, then ask questions one at a 
 
 **Implementation (if continuing):**
 - Ask: "Ready to set up for implementation?"
-- Use superpowers:using-git-worktrees to create isolated workspace
-- Use superpowers:writing-plans to create detailed implementation plan
+- Use harness:using-git-worktrees to create isolated workspace
+- Use harness:writing-plans to create detailed implementation plan
 
 ## Key Principles
 

@@ -34,16 +34,16 @@ OpenCode.ai is a coding agent similar to Claude Code and Codex. Previous attempt
    - Used by both Codex and OpenCode implementations
 
 2. **Platform-Specific Wrappers**
-   - Codex: CLI script (`.codex/superpowers-codex`)
-   - OpenCode: Plugin module (`.opencode/plugin/superpowers.js`)
+   - Codex: CLI script (`.codex/harness-codex`)
+   - OpenCode: Plugin module (`.opencode/plugin/harness.js`)
 
 3. **Skill Directories**
-   - Core: `~/.config/opencode/superpowers/skills/` (or installed location)
+   - Core: `~/.config/opencode/harness/skills/` (or installed location)
    - Personal: `~/.config/opencode/skills/` (shadows core skills)
 
 ### Code Reuse Strategy
 
-Extract common functionality from `.codex/superpowers-codex` into shared module:
+Extract common functionality from `.codex/harness-codex` into shared module:
 
 ```javascript
 // lib/skills-core.js
@@ -80,7 +80,7 @@ Loads a specific skill's content into the conversation (equivalent to Claude's S
   name: 'use_skill',
   description: 'Load and read a specific skill to guide your work',
   schema: z.object({
-    skill_name: z.string().describe('Name of skill (e.g., "superpowers:brainstorming")')
+    skill_name: z.string().describe('Name of skill (e.g., "harness:brainstorming")')
   }),
   execute: async ({ skill_name }) => {
     const { skillPath, content, frontmatter } = resolveAndReadSkill(skill_name);
@@ -121,7 +121,7 @@ Lists all available skills with metadata.
 When a new session starts (`session.started` event):
 
 1. **Inject using-superpowers content**
-   - Full content of the using-superpowers skill
+   - Full content of the using-harness skill
    - Establishes mandatory workflows
 
 2. **Run find_skills automatically**
@@ -150,24 +150,24 @@ When a new session starts (`session.started` event):
 ### Plugin Structure
 
 ```javascript
-// .opencode/plugin/superpowers.js
+// .opencode/plugin/harness.js
 const skillsCore = require('../../lib/skills-core');
 const path = require('path');
 const fs = require('fs');
 const { z } = require('zod');
 
-export const SuperpowersPlugin = async ({ client, directory, $ }) => {
-  const superpowersDir = path.join(process.env.HOME, '.config/opencode/superpowers');
+export const HarnessPlugin = async ({ client, directory, $ }) => {
+  const harnessDir = path.join(process.env.HOME, '.config/opencode/harness');
   const personalDir = path.join(process.env.HOME, '.config/opencode/skills');
 
   return {
     'session.started': async () => {
-      const usingSuperpowers = await readSkill('using-superpowers');
+      const usingHarness = await readSkill('using-superpowers');
       const skillsList = await findAllSkills();
       const toolMapping = getToolMappingInstructions();
 
       return {
-        context: `${usingSuperpowers}\n\n${skillsList}\n\n${toolMapping}`
+        context: `${usingHarness}\n\n${skillsList}\n\n${toolMapping}`
       };
     },
 
@@ -202,8 +202,8 @@ superpowers/
 ├── lib/
 │   └── skills-core.js           # NEW: Shared skill logic
 ├── .codex/
-│   ├── superpowers-codex        # UPDATED: Use skills-core
-│   ├── superpowers-bootstrap.md
+│   ├── harness-codex        # UPDATED: Use skills-core
+│   ├── harness-bootstrap.md
 │   └── INSTALL.md
 ├── .opencode/
 │   ├── plugin/
@@ -217,12 +217,12 @@ superpowers/
 ### Phase 1: Refactor Shared Core
 
 1. Create `lib/skills-core.js`
-   - Extract frontmatter parsing from `.codex/superpowers-codex`
+   - Extract frontmatter parsing from `.codex/harness-codex`
    - Extract skill discovery logic
    - Extract path resolution (with shadowing)
    - Update to use only `name` and `description` (no `when_to_use`)
 
-2. Update `.codex/superpowers-codex` to use shared core
+2. Update `.codex/harness-codex` to use shared core
    - Import from `../lib/skills-core.js`
    - Remove duplicated code
    - Keep CLI wrapper logic
@@ -234,7 +234,7 @@ superpowers/
 
 ### Phase 2: Build OpenCode Plugin
 
-1. Create `.opencode/plugin/superpowers.js`
+1. Create `.opencode/plugin/harness.js`
    - Import shared core from `../../lib/skills-core.js`
    - Implement plugin function
    - Define custom tools (use_skill, find_skills)

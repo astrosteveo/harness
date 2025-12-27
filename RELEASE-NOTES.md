@@ -1,10 +1,10 @@
-# Superpowers Release Notes
+# Harness Release Notes
 
 ## v4.0.3 (2025-12-26)
 
 ### Improvements
 
-**Strengthened using-superpowers skill for explicit skill requests**
+**Strengthened using-harness skill for explicit skill requests**
 
 Addressed a failure mode where Claude would skip invoking a skill even when the user explicitly requested it by name (e.g., "subagent-driven-development, please"). Claude would think "I know what that means" and start working directly instead of loading the skill.
 
@@ -26,7 +26,7 @@ New test suite in `tests/explicit-skill-requests/` that verifies Claude correctl
 
 Added `disable-model-invocation: true` to all three slash commands (`/brainstorm`, `/execute-plan`, `/write-plan`). Claude can no longer invoke these commands via the Skill toolâ€”they're restricted to manual user invocation only.
 
-The underlying skills (`superpowers:brainstorming`, `superpowers:executing-plans`, `superpowers:writing-plans`) remain available for Claude to invoke autonomously. This change prevents confusion when Claude would invoke a command that just redirects to a skill anyway.
+The underlying skills (`harness:brainstorming`, `harness:executing-plans`, `harness:writing-plans`) remain available for Claude to invoke autonomously. This change prevents confusion when Claude would invoke a command that just redirects to a skill anyway.
 
 ## v4.0.1 (2025-12-23)
 
@@ -34,11 +34,11 @@ The underlying skills (`superpowers:brainstorming`, `superpowers:executing-plans
 
 **Clarified how to access skills in Claude Code**
 
-Fixed a confusing pattern where Claude would invoke a skill via the Skill tool, then try to Read the skill file separately. The `using-superpowers` skill now explicitly states that the Skill tool loads skill content directlyâ€”no need to read files.
+Fixed a confusing pattern where Claude would invoke a skill via the Skill tool, then try to Read the skill file separately. The `using-harness` skill now explicitly states that the Skill tool loads skill content directlyâ€”no need to read files.
 
-- Added "How to Access Skills" section to `using-superpowers`
+- Added "How to Access Skills" section to `using-harness`
 - Changed "read the skill" â†’ "invoke the skill" in instructions
-- Updated slash commands to use fully qualified skill names (e.g., `superpowers:brainstorming`)
+- Updated slash commands to use fully qualified skill names (e.g., `harness:brainstorming`)
 
 **Added GitHub thread reply guidance to receiving-code-review** (h/t @ralphbean)
 
@@ -110,7 +110,7 @@ Rewrote key skills using DOT/GraphViz flowcharts as the authoritative process de
 
 **The Description Trap** (documented in `writing-skills`): Discovered that skill descriptions override flowchart content when descriptions contain workflow summaries. Claude follows the short description instead of reading the detailed flowchart. Fix: descriptions must be trigger-only ("Use when X") with no process details.
 
-**Skill priority in using-superpowers**
+**Skill priority in using-harness**
 
 When multiple skills apply, process skills (brainstorming, debugging) now explicitly come before implementation skills. "Build X" triggers brainstorming first, then domain skills.
 
@@ -129,7 +129,7 @@ Description changed to imperative: "You MUST use this before any creative workâ€
 ### Other Improvements
 
 - **render-graphs.js** - Tool to extract DOT diagrams from skills and render to SVG
-- **Rationalizations table** in using-superpowers - Scannable format including new entries: "I need more context first", "Let me explore first", "This feels productive"
+- **Rationalizations table** in using-harness - Scannable format including new entries: "I need more context first", "Let me explore first", "This feels productive"
 - **docs/testing.md** - Guide to testing skills with Claude Code integration tests
 
 ---
@@ -151,7 +151,7 @@ Description changed to imperative: "You MUST use this before any creative workâ€
 
 - **OpenCode Bootstrap Refactor**: Switched from `chat.message` hook to `session.created` event for bootstrap injection
   - Bootstrap now injects at session creation via `session.prompt()` with `noReply: true`
-  - Explicitly tells the model that using-superpowers is already loaded to prevent redundant skill loading
+  - Explicitly tells the model that using-harness is already loaded to prevent redundant skill loading
   - Consolidated bootstrap content generation into shared `getBootstrapContent()` helper
   - Cleaner single-implementation approach (removed fallback pattern)
 
@@ -166,7 +166,7 @@ Description changed to imperative: "You MUST use this before any creative workâ€
   - Message insertion pattern for skill persistence across context compaction
   - Automatic context injection via chat.message hook
   - Auto re-injection on session.compacted events
-  - Three-tier skill priority: project > personal > superpowers
+  - Three-tier skill priority: project > personal > harness
   - Project-local skills support (`.opencode/skills/`)
   - Shared core module (`lib/skills-core.js`) for code reuse with Codex
   - Automated test suite with proper isolation (`tests/opencode/`)
@@ -191,7 +191,7 @@ Description changed to imperative: "You MUST use this before any creative workâ€
 
 ### Improvements
 
-- Optimized superpowers bootstrap to eliminate redundant skill execution. The `using-superpowers` skill content is now provided directly in session context, with clear guidance to use the Skill tool only for other skills. This reduces overhead and prevents the confusing loop where agents would execute `using-superpowers` manually despite already having the content from session start.
+- Optimized harness bootstrap to eliminate redundant skill execution. The `using-harness` skill content is now provided directly in session context, with clear guidance to use the Skill tool only for other skills. This reduces overhead and prevents the confusing loop where agents would execute `using-harness` manually despite already having the content from session start.
 
 ## v3.4.0 (2025-10-30)
 
@@ -215,10 +215,10 @@ Description changed to imperative: "You MUST use this before any creative workâ€
 ### New Features
 
 **Experimental Codex Support**
-- Added unified `superpowers-codex` script with bootstrap/use-skill/find-skills commands
+- Added unified `harness-codex` script with bootstrap/use-skill/find-skills commands
 - Cross-platform Node.js implementation (works on Windows, macOS, Linux)
-- Namespaced skills: `superpowers:skill-name` for superpowers skills, `skill-name` for personal
-- Personal skills override superpowers skills when names match
+- Namespaced skills: `harness:skill-name` for harness skills, `skill-name` for personal
+- Personal skills override harness skills when names match
 - Clean skill display: shows name/description without raw frontmatter
 - Helpful context: shows supporting files directory for each skill
 - Tool mapping for Codex: TodoWriteâ†’update_plan, subagentsâ†’manual fallback, etc.
@@ -229,12 +229,12 @@ Description changed to imperative: "You MUST use this before any creative workâ€
 - Single unified script instead of separate tools
 - Tool substitution system for Codex-specific equivalents
 - Simplified subagent handling (manual work instead of delegation)
-- Updated terminology: "Superpowers skills" instead of "Core skills"
+- Updated terminology: "Harness skills" instead of "Core skills"
 
 ### Files Added
 - `.codex/INSTALL.md` - Installation guide for Codex users
-- `.codex/superpowers-bootstrap.md` - Bootstrap instructions with Codex adaptations
-- `.codex/superpowers-codex` - Unified Node.js executable with all functionality
+- `.codex/harness-bootstrap.md` - Bootstrap instructions with Codex adaptations
+- `.codex/harness-codex` - Unified Node.js executable with all functionality
 
 **Note:** Codex support is experimental. The integration provides core superpowers functionality but may require refinement based on user feedback.
 
@@ -242,7 +242,7 @@ Description changed to imperative: "You MUST use this before any creative workâ€
 
 ### Improvements
 
-**Updated using-superpowers skill to use Skill tool instead of Read tool**
+**Updated using-harness skill to use Skill tool instead of Read tool**
 - Changed skill invocation instructions from Read tool to Skill tool
 - Updated description: "using Read tool" â†’ "using Skill tool"
 - Updated step 3: "Use the Read tool" â†’ "Use the Skill tool to read and run"
@@ -251,13 +251,13 @@ Description changed to imperative: "You MUST use this before any creative workâ€
 The Skill tool is the proper mechanism for invoking skills in Claude Code. This update corrects the bootstrap instructions to guide agents toward the correct tool.
 
 ### Files Changed
-- Updated: `skills/using-superpowers/SKILL.md` - Changed tool references from Read to Skill
+- Updated: `skills/using-harness/SKILL.md` - Changed tool references from Read to Skill
 
 ## v3.2.2 (2025-10-21)
 
 ### Improvements
 
-**Strengthened using-superpowers skill against agent rationalization**
+**Strengthened using-harness skill against agent rationalization**
 - Added EXTREMELY-IMPORTANT block with absolute language about mandatory skill checking
   - "If even 1% chance a skill applies, you MUST read it"
   - "You do not have a choice. You cannot rationalize your way out."
@@ -273,23 +273,23 @@ The Skill tool is the proper mechanism for invoking skills in Claude Code. This 
 These changes address observed agent behavior where they rationalize around skill usage despite clear instructions. The forceful language and pre-emptive counter-arguments aim to make non-compliance harder.
 
 ### Files Changed
-- Updated: `skills/using-superpowers/SKILL.md` - Added three layers of enforcement to prevent skill-skipping rationalization
+- Updated: `skills/using-harness/SKILL.md` - Added three layers of enforcement to prevent skill-skipping rationalization
 
 ## v3.2.1 (2025-10-20)
 
 ### New Features
 
 **Code reviewer agent now included in plugin**
-- Added `superpowers:code-reviewer` agent to plugin's `agents/` directory
+- Added `harness:code-reviewer` agent to plugin's `agents/` directory
 - Agent provides systematic code review against plans and coding standards
 - Previously required users to have personal agent configuration
-- All skill references updated to use namespaced `superpowers:code-reviewer`
+- All skill references updated to use namespaced `harness:code-reviewer`
 - Fixes #55
 
 ### Files Changed
 - New: `agents/code-reviewer.md` - Agent definition with review checklist and output format
-- Updated: `skills/requesting-code-review/SKILL.md` - References to `superpowers:code-reviewer`
-- Updated: `skills/subagent-driven-development/SKILL.md` - References to `superpowers:code-reviewer`
+- Updated: `skills/requesting-code-review/SKILL.md` - References to `harness:code-reviewer`
+- Updated: `skills/subagent-driven-development/SKILL.md` - References to `harness:code-reviewer`
 
 ## v3.2.0 (2025-10-18)
 
@@ -305,8 +305,8 @@ These changes address observed agent behavior where they rationalize around skil
 ### Breaking Changes
 
 **Skill reference namespace standardization**
-- All internal skill references now use `superpowers:` namespace prefix
-- Updated format: `superpowers:test-driven-development` (previously just `test-driven-development`)
+- All internal skill references now use `harness:` namespace prefix
+- Updated format: `harness:test-driven-development` (previously just `test-driven-development`)
 - Affects all REQUIRED SUB-SKILL, RECOMMENDED SUB-SKILL, and REQUIRED BACKGROUND references
 - Aligns with how skills are invoked using the Skill tool
 - Files updated: brainstorming, executing-plans, subagent-driven-development, systematic-debugging, testing-skills-with-subagents, writing-plans, writing-skills
@@ -322,7 +322,7 @@ These changes address observed agent behavior where they rationalize around skil
 
 ### Bug Fixes
 
-- **Fixed command syntax in README** (#44) - Updated all command references to use correct namespaced syntax (`/superpowers:brainstorm` instead of `/brainstorm`). Plugin-provided commands are automatically namespaced by Claude Code to avoid conflicts between plugins.
+- **Fixed command syntax in README** (#44) - Updated all command references to use correct namespaced syntax (`/harness:brainstorm` instead of `/brainstorm`). Plugin-provided commands are automatically namespaced by Claude Code to avoid conflicts between plugins.
 
 ## v3.1.0 (2025-10-17)
 
@@ -405,13 +405,13 @@ We now use Anthropic's first-party skills system!
 
 ---
 
-# Superpowers v2.0.0 Release Notes
+# Harness v2.0.0 Release Notes
 
 ## Overview
 
-Superpowers v2.0 makes skills more accessible, maintainable, and community-driven through a major architectural shift.
+Harness v2.0 makes skills more accessible, maintainable, and community-driven through a major architectural shift.
 
-The headline change is **skills repository separation**: all skills, scripts, and documentation have moved from the plugin into a dedicated repository ([obra/superpowers-skills](https://github.com/obra/superpowers-skills)). This transforms superpowers from a monolithic plugin into a lightweight shim that manages a local clone of the skills repository. Skills auto-update on session start. Users fork and contribute improvements via standard git workflows. The skills library versions independently from the plugin.
+The headline change is **skills repository separation**: all skills, scripts, and documentation have moved from the plugin into a dedicated repository ([astrosteveo/harness-skills](https://github.com/astrosteveo/harness-skills)). This transforms superpowers from a monolithic plugin into a lightweight shim that manages a local clone of the skills repository. Skills auto-update on session start. Users fork and contribute improvements via standard git workflows. The skills library versions independently from the plugin.
 
 Beyond infrastructure, this release adds nine new skills focused on problem-solving, research, and architecture. We rewrote the core **using-skills** documentation with imperative tone and clearer structure, making it easier for Claude to understand when and how to use skills. **find-skills** now outputs paths you can paste directly into the Read tool, eliminating friction in the skills discovery workflow.
 
@@ -421,11 +421,11 @@ Users experience seamless operation: the plugin handles cloning, forking, and up
 
 ### Skills Repository Separation
 
-**The biggest change:** Skills no longer live in the plugin. They've been moved to a separate repository at [obra/superpowers-skills](https://github.com/obra/superpowers-skills).
+**The biggest change:** Skills no longer live in the plugin. They've been moved to a separate repository at [astrosteveo/harness-skills](https://github.com/astrosteveo/harness-skills).
 
 **What this means for you:**
 
-- **First install:** Plugin automatically clones skills to `~/.config/superpowers/skills/`
+- **First install:** Plugin automatically clones skills to `~/.config/harness/skills/`
 - **Forking:** During setup, you'll be offered the option to fork the skills repo (if `gh` is installed)
 - **Updates:** Skills auto-update on session start (fast-forward when possible)
 - **Contributing:** Work on branches, commit locally, submit PRs to upstream
@@ -434,9 +434,9 @@ Users experience seamless operation: the plugin handles cloning, forking, and up
 **Migration:**
 
 If you have an existing installation:
-1. Your old `~/.config/superpowers/.git` will be backed up to `~/.config/superpowers/.git.bak`
-2. Old skills will be backed up to `~/.config/superpowers/skills.bak`
-3. Fresh clone of obra/superpowers-skills will be created at `~/.config/superpowers/skills/`
+1. Your old `~/.config/harness/.git` will be backed up to `~/.config/harness/.git.bak`
+2. Old skills will be backed up to `~/.config/harness/skills.bak`
+3. Fresh clone of astrosteveo/harness-skills will be created at `~/.config/harness/skills/`
 
 ### Removed Features
 
@@ -448,7 +448,7 @@ If you have an existing installation:
 ### Skills Repository Infrastructure
 
 **Automatic Clone & Setup** (`lib/initialize-skills.sh`)
-- Clones obra/superpowers-skills on first run
+- Clones astrosteveo/harness-skills on first run
 - Offers fork creation if GitHub CLI is installed
 - Sets up upstream/origin remotes correctly
 - Handles migration from old installation
@@ -519,7 +519,7 @@ If you have an existing installation:
 - Moved "skills behind" warning to end of output
 
 **Environment Variables**
-- `SUPERPOWERS_SKILLS_ROOT` set to `~/.config/superpowers/skills`
+- `SUPERPOWERS_SKILLS_ROOT` set to `~/.config/harness/skills`
 - Used consistently throughout all paths
 
 ## Bug Fixes
@@ -533,7 +533,7 @@ If you have an existing installation:
 
 ### README
 - Updated for new skills repository architecture
-- Prominent link to superpowers-skills repo
+- Prominent link to harness-skills repo
 - Updated auto-update description
 - Fixed skill names and references
 - Updated Meta skills list
@@ -553,12 +553,12 @@ If you have an existing installation:
 - `.claude-plugin/marketplace.json` - Local testing config
 
 **Removed:**
-- `skills/` directory (82 files) - Now in obra/superpowers-skills
-- `scripts/` directory - Now in obra/superpowers-skills/skills/using-skills/
+- `skills/` directory (82 files) - Now in astrosteveo/harness-skills
+- `scripts/` directory - Now in astrosteveo/harness-skills/skills/using-skills/
 - `hooks/setup-personal-superpowers.sh` - Obsolete
 
 **Modified:**
-- `hooks/session-start.sh` - Use skills from ~/.config/superpowers/skills
+- `hooks/session-start.sh` - Use skills from ~/.config/harness/skills
 - `commands/brainstorm.md` - Updated paths to SUPERPOWERS_SKILLS_ROOT
 - `commands/write-plan.md` - Updated paths to SUPERPOWERS_SKILLS_ROOT
 - `commands/execute-plan.md` - Updated paths to SUPERPOWERS_SKILLS_ROOT
@@ -578,8 +578,8 @@ This release includes:
 
 ```bash
 # In Claude Code
-/plugin marketplace add obra/superpowers-marketplace
-/plugin install superpowers@superpowers-marketplace
+/plugin marketplace add astrosteveo/harness-marketplace
+/plugin install harness@harness-marketplace
 ```
 
 The plugin handles everything automatically.
@@ -588,7 +588,7 @@ The plugin handles everything automatically.
 
 1. **Backup your personal skills** (if you have any):
    ```bash
-   cp -r ~/.config/superpowers/skills ~/superpowers-skills-backup
+   cp -r ~/.config/harness/skills ~/harness-skills-backup
    ```
 
 2. **Update the plugin:**
@@ -617,7 +617,7 @@ The plugin handles everything automatically.
 
 ### For Contributors
 
-- Skills repository is now at https://github.com/obra/superpowers-skills
+- Skills repository is now at https://github.com/astrosteveo/harness-skills
 - Fork â†’ Branch â†’ PR workflow
 - See skills/meta/writing-skills/SKILL.md for TDD approach to documentation
 
@@ -633,6 +633,6 @@ None at this time.
 
 ---
 
-**Full Changelog:** https://github.com/obra/superpowers/compare/dd013f6...main
-**Skills Repository:** https://github.com/obra/superpowers-skills
-**Issues:** https://github.com/obra/superpowers/issues
+**Full Changelog:** https://github.com/astrosteveo/harness/compare/dd013f6...main
+**Skills Repository:** https://github.com/astrosteveo/harness-skills
+**Issues:** https://github.com/astrosteveo/harness/issues
