@@ -20,10 +20,19 @@ Start by understanding the current project context, then ask questions one at a 
 - Only one question per message - if a topic needs more exploration, break it into multiple questions
 - Focus on understanding: purpose, constraints, success criteria
 
+**Researching current technologies (REQUIRED):**
+- **REQUIRED SUB-SKILL:** Use superpowers:researching before proposing approaches
+- Identify any external libraries, frameworks, or APIs involved
+- Research current versions, best practices, and recommended patterns
+- Never rely on training data for version numbers or API signatures
+- Flag any deprecated approaches or better alternatives discovered
+
 **Exploring approaches:**
 - Propose 2-3 different approaches with trade-offs
+- **Inform recommendations with research findings** - cite current versions and practices
 - Present options conversationally with your recommendation and reasoning
 - Lead with your recommended option and explain why
+- Explicitly note if research contradicts common assumptions
 
 **Presenting the design:**
 - Once you believe you understand what you're building, present the design
@@ -46,9 +55,11 @@ Start by understanding the current project context, then ask questions one at a 
 
 ## Key Principles
 
+- **Research before recommending** - Never assume versions or APIs from training data
 - **One question at a time** - Don't overwhelm with multiple questions
 - **Multiple choice preferred** - Easier to answer than open-ended when possible
 - **YAGNI ruthlessly** - Remove unnecessary features from all designs
 - **Explore alternatives** - Always propose 2-3 approaches before settling
 - **Incremental validation** - Present design in sections, validate each
 - **Be flexible** - Go back and clarify when something doesn't make sense
+- **Cite current sources** - Reference documentation URLs when making recommendations

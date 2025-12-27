@@ -17,6 +17,18 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 
+## Research Before Planning (REQUIRED)
+
+**REQUIRED SUB-SKILL:** Use superpowers:researching before writing any implementation details.
+
+Before specifying versions, APIs, or code patterns:
+- **Verify package versions** - Research current stable versions for package.json/requirements.txt
+- **Confirm API signatures** - Never assume method names or parameters from training data
+- **Check for deprecations** - Ensure planned code doesn't use deprecated methods
+- **Validate patterns** - Confirm design patterns match current recommendations
+
+Include a **Research Summary** section in the plan header documenting key findings.
+
 ## Bite-Sized Task Granularity
 
 **Each step is one action (2-5 minutes):**
@@ -39,7 +51,11 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Architecture:** [2-3 sentences about approach]
 
-**Tech Stack:** [Key technologies/libraries]
+**Tech Stack:** [Key technologies/libraries with VERIFIED current versions]
+
+**Research Summary:** [Key findings from superpowers:researching - versions verified, patterns confirmed, deprecations avoided]
+
+**Sources:** [URLs to documentation referenced]
 
 ---
 ```
@@ -88,11 +104,13 @@ git commit -m "feat: add specific feature"
 ```
 
 ## Remember
+- **Research first** - Verify versions and APIs before writing code examples
 - Exact file paths always
 - Complete code in plan (not "add validation")
 - Exact commands with expected output
 - Reference relevant skills with @ syntax
 - DRY, YAGNI, TDD, frequent commits
+- **Never assume from training data** - Always verify external library details
 
 ## Execution Handoff
 
