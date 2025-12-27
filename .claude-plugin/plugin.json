@@ -1,7 +1,6 @@
 {
   "name": "harness",
   "description": "Structured development workflow with research-driven planning, TDD implementation, and verified delivery",
-  "version": "1.0.0",
   "author": {
     "name": "Steven Mosley",
     "email": "stevengmjr@gmail.com"
