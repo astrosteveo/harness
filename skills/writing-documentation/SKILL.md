@@ -85,3 +85,15 @@ REFACTOR: Trim verbosity
 - Public APIs documented
 - Doc linting passes
 - No anti-patterns present
+
+## Quick Reference
+
+Before committing documentation:
+
+- [ ] Does each comment add non-obvious information?
+- [ ] No "facilitates", "serves to", "is responsible for"?
+- [ ] No qualifiers in parentheses?
+- [ ] Active voice used?
+- [ ] Explains WHY, not WHAT?
+- [ ] Follows project/language conventions?
+- [ ] Doc linting passes?
