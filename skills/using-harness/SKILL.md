@@ -72,7 +72,7 @@ When multiple skills could apply, use this order:
 
 1. **Research skills first** (researching) - verify current versions, APIs, best practices BEFORE making decisions
 2. **Process skills second** (brainstorming, debugging) - these determine HOW to approach the task
-3. **Implementation skills third** (frontend-design, mcp-builder) - these guide execution
+3. **Implementation skills third** (writing-skills, subagent-driven-development) - these guide execution
 
 "Let's build X" → researching + brainstorming first, then implementation skills.
 "Fix this bug" → debugging first, then domain-specific skills.
