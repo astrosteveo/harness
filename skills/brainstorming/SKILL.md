@@ -72,6 +72,19 @@ If any features, bugs, or tasks are identified but deferred during brainstorming
 - Use harness:using-git-worktrees to create isolated workspace
 - Use harness:writing-plans to create detailed implementation plan
 
+## Task Sizing
+
+Before starting the full brainstorming workflow, assess task size:
+
+| Size | Criteria | Workflow |
+|------|----------|----------|
+| **Micro** | < 5 min, single file, obvious fix | Skip to TDD, no brainstorming needed |
+| **Small** | < 30 min, 1-3 files, clear requirements | Abbreviated: quick questions → plan |
+| **Medium** | 30 min - 2 hrs, multiple components | Standard brainstorming workflow |
+| **Large** | > 2 hrs, architectural changes | Full workflow with research |
+
+**For Micro/Small tasks:** Say "This looks like a micro/small task. Skipping full brainstorming - proceeding with [TDD/abbreviated workflow]."
+
 ## Key Principles
 
 - **Research before recommending** - Never assume versions or APIs from training data
