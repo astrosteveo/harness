@@ -21,10 +21,19 @@ Write the test first. Watch it fail. Write minimal code to pass.
 - Refactoring
 - Behavior changes
 
-**Exceptions (ask your human partner):**
-- Throwaway prototypes
-- Generated code
-- Configuration files
+**Exceptions (explicit bypass required):**
+
+To bypass TDD, user must explicitly say ONE of:
+- "Skip TDD for this task"
+- "This is exploratory/spike work"
+- "Prototype only, will rewrite with TDD"
+
+When bypass is granted:
+1. Acknowledge: "Bypassing TDD as requested for [reason]"
+2. Proceed without tests
+3. Add to backlog: "DEBT-XXX: Add tests for [feature]"
+
+**Without explicit bypass, TDD is mandatory.**
 
 Thinking "skip TDD just this once"? Stop. That's rationalization.
 
