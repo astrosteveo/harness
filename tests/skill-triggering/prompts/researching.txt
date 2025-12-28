@@ -1,0 +1,1 @@
+I need to add authentication to my Next.js app. What's the current best practice for implementing OAuth with NextAuth.js?

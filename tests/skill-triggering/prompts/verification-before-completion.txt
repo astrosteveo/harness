@@ -1,0 +1,1 @@
+I've finished implementing the user registration feature. The code looks good and I think it should work. Let me know if we're done here.

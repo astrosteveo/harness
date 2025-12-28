@@ -1,0 +1,1 @@
+While implementing this feature, I noticed there's a bug in the date picker component. It's not related to what we're working on, but we should fix it eventually. Can you make a note of it?
