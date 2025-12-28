@@ -43,10 +43,29 @@ Start by understanding the current project context, then ask questions one at a 
 
 ## After the Design
 
-**Documentation:**
-- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- Use elements-of-style:writing-clearly-and-concisely skill if available
-- Commit the design document to git
+**Documentation Structure:**
+
+All project documents are saved to `.harness/NNN-feature-slug/` where:
+- `NNN` is a zero-padded sequence number (001, 002, etc.)
+- `feature-slug` is a kebab-case name for the feature
+
+**To determine the next sequence number:**
+1. Check existing `.harness/` directories
+2. Find the highest NNN prefix
+3. Increment by 1 for the new feature
+
+**Save documents:**
+- Requirements: `.harness/NNN-feature-slug/requirements.md`
+- Research: `.harness/NNN-feature-slug/research.md` (from harness:researching)
+- Design: `.harness/NNN-feature-slug/design.md`
+- Plan: `.harness/NNN-feature-slug/plan.md` (from harness:writing-plans)
+
+**Commit the design document to git after saving.**
+
+**Deferred Items:**
+If any features, bugs, or tasks are identified but deferred during brainstorming:
+- Add them to `.harness/BACKLOG.md`
+- Use the backlog format (see harness:backlog-tracking)
 
 **Implementation (if continuing):**
 - Ask: "Ready to set up for implementation?"

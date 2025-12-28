@@ -15,7 +15,9 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** This should be run in a dedicated worktree (created by brainstorming skill).
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to:** `.harness/NNN-feature-slug/plan.md`
+
+The plan should be saved in the same `.harness/NNN-feature-slug/` directory as the design and research documents. If the directory doesn't exist yet, create it following the naming convention (see brainstorming skill for details).
 
 ## Research Before Planning (REQUIRED)
 
@@ -112,11 +114,18 @@ git commit -m "feat: add specific feature"
 - DRY, YAGNI, TDD, frequent commits
 - **Never assume from training data** - Always verify external library details
 
+## Deferred Items
+
+If any tasks are identified but deferred during planning:
+- Add them to `.harness/BACKLOG.md`
+- Include context about why it was deferred
+- Reference the feature directory (e.g., "See .harness/001-feature-name/")
+
 ## Execution Handoff
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to `.harness/NNN-feature-slug/plan.md`. Two execution options:**
 
 **1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
 

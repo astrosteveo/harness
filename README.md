@@ -15,6 +15,10 @@ A structured development workflow for coding agents that emphasizes **research-d
 
 **Skills-Based Architecture** - Composable skills that trigger automatically based on context. Your agent just works the right way.
 
+**Organized Documentation** - All project artifacts are stored in `.harness/NNN-feature-slug/` directories with structured documents for requirements, research, design, and implementation plans.
+
+**Backlog Tracking** - Bugs, deferred features, and technical debt are tracked in `.harness/BACKLOG.md` so nothing falls through the cracks.
+
 ## Installation
 
 ### Claude Code (Plugin System)
@@ -77,6 +81,25 @@ Two execution modes:
 ### 5. Finishing Up
 Verifies all tests pass, presents options (merge/PR/keep/discard), cleans up worktree.
 
+## Project Documentation Structure
+
+All documentation is organized in `.harness/`:
+
+```
+.harness/
+├── BACKLOG.md                    # Bugs, deferred tasks, tech debt
+├── 001-user-auth/
+│   ├── requirements.md           # User story and acceptance criteria
+│   ├── research.md               # Technology research findings
+│   ├── design.md                 # Architecture decisions
+│   └── plan.md                   # Implementation tasks
+├── 002-api-caching/
+│   └── ...
+```
+
+- **NNN** - Zero-padded sequence number (001, 002, 003...)
+- **feature-slug** - Kebab-case description of the feature
+
 ## Skills Library
 
 ### Core Workflow
@@ -85,6 +108,7 @@ Verifies all tests pass, presents options (merge/PR/keep/discard), cleans up wor
 - **writing-plans** - Detailed implementation plans
 - **executing-plans** - Batch execution with checkpoints
 - **subagent-driven-development** - Fast iteration with two-stage review
+- **backlog-tracking** - Track bugs and deferred items
 
 ### Development Practices
 - **test-driven-development** - RED-GREEN-REFACTOR cycle

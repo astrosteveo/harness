@@ -94,7 +94,9 @@ Create a research summary with this structure:
 - Present key findings to the user before proceeding
 - Highlight any discoveries that contradict common assumptions
 - Flag any version mismatches with existing project dependencies
-- Save comprehensive findings to `docs/research/YYYY-MM-DD-<topic>.md` if significant
+- Save comprehensive findings to `.harness/NNN-feature-slug/research.md`
+
+**Note:** Save research in the same `.harness/NNN-feature-slug/` directory as the related design and plan documents. If a feature directory already exists, use it. Otherwise, create a new one following the naming convention (see brainstorming skill).
 
 ## Research Queries
 
