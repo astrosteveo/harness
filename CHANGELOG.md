@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Phantom skill references in using-harness replaced with actual skill names (frontend-design, mcp-builder → writing-skills, subagent-driven-development)
+
 ## [4.0.3] - 2025-12-26
 
 ### Changed
