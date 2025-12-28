@@ -52,3 +52,17 @@ Comments explain WHY, not WHAT. The code shows WHAT.
 - Qualifiers in parentheses
 - Explaining WHAT instead of WHY
 - Passive voice without reason
+
+## Language Standards
+
+Follow project conventions. When none exist:
+
+| Language | Standard | Key Rule |
+|----------|----------|----------|
+| TypeScript | TSDoc | Don't duplicate types |
+| JavaScript | JSDoc | Focus on WHY |
+| Python | Google style | Type hints in signatures |
+| Markdown | Google Dev Guide | Sentence case headings |
+| API | OpenAPI 3.1+ | Include error responses |
+
+**Always:** Check existing project style first. Consistency > theory.
