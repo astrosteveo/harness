@@ -20,6 +20,7 @@
 | test-driven-development | RED-GREEN-REFACTOR cycle | **Rigid** |
 | systematic-debugging | 4-phase root cause analysis | **Rigid** |
 | verification-before-completion | Evidence before claims | **Rigid** |
+| writing-documentation | Concise, value-adding docs only | **Rigid** |
 
 ## Collaboration Skills
 

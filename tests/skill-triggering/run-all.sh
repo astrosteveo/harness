@@ -19,6 +19,7 @@ SKILLS=(
     "systematic-debugging"
     "test-driven-development"
     "verification-before-completion"
+    "writing-documentation"
     "writing-plans"
 )
 
