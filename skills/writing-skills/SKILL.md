@@ -136,6 +136,12 @@ What goes wrong + fixes
 Concrete results
 ```
 
+**Sub-Skill References:**
+When a skill requires another skill, use this exact format:
+- `**REQUIRED SUB-SKILL:** Use harness:skill-name`
+- Place at the point where the sub-skill should be invoked
+- Don't use backticks around the skill name in this context
+
 
 ## Claude Search Optimization (CSO)
 
