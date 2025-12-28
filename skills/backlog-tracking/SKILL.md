@@ -1,6 +1,6 @@
 ---
 name: backlog-tracking
-description: "\Use when bugs, deferred tasks, or future improvements are identified during development. Tracks items in .harness/BACKLOG.md for future work."
+description: Use when bugs, deferred tasks, or future improvements are identified during development. Tracks items in .harness/BACKLOG.md for future work.
 ---
 
 # Backlog Tracking
