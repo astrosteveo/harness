@@ -32,3 +32,23 @@ Comments explain WHY, not WHAT. The code shows WHAT.
 | Passive voice | "The file is read by..." | "Reads the file" |
 
 **Before writing ANY documentation, check:** Does this add information the code doesn't provide?
+
+## Rationalization Prevention
+
+| Excuse | Reality |
+|--------|---------|
+| "Adding context for clarity" | If code is clear, comment adds noise |
+| "Being thorough" | Thorough ≠ verbose |
+| "User might not understand" | Write for intended audience |
+| "Just being professional" | Professional = concise |
+| "Documenting for completeness" | Undocumented > obvious-stating |
+| "Minor addition" | Minor noise accumulates |
+| "Style guide requires it" | Style guides assume useful docs |
+
+## Red Flags - STOP
+
+- Comment longer than code it describes
+- Words: "facilitates", "serves to", "is responsible for"
+- Qualifiers in parentheses
+- Explaining WHAT instead of WHY
+- Passive voice without reason
