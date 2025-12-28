@@ -66,3 +66,22 @@ Follow project conventions. When none exist:
 | API | OpenAPI 3.1+ | Include error responses |
 
 **Always:** Check existing project style first. Consistency > theory.
+
+## Documentation in TDD
+
+```
+RED:    Write docs with failing test
+GREEN:  Implement, verify docs accurate
+VERIFY: Doc linting passes
+REFACTOR: Trim verbosity
+```
+
+**Verification by language:**
+- TypeScript/JS: `eslint --plugin jsdoc`
+- Python: `pytest --doctest-modules`
+- Markdown: `markdownlint`
+
+**Done means:**
+- Public APIs documented
+- Doc linting passes
+- No anti-patterns present
