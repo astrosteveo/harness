@@ -126,6 +126,13 @@ All documentation is organized in `.harness/`:
 - **using-harness** - Introduction to the skills system
 - **writing-skills** - Create new skills
 
+## Documentation
+
+- [Skill Index](skills/INDEX.md) - Complete list of available skills
+- [Code Review Architecture](docs/CODE-REVIEW-ARCHITECTURE.md) - Understanding review mechanisms
+- [Troubleshooting](docs/TROUBLESHOOTING.md) - Common issues and solutions
+- [Changelog](CHANGELOG.md) - Version history and changes
+
 ## Philosophy
 
 - **Research First** - Never assume versions or APIs from training data
