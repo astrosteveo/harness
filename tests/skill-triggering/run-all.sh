@@ -8,12 +8,18 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROMPTS_DIR="$SCRIPT_DIR/prompts"
 
 SKILLS=(
-    "systematic-debugging"
-    "test-driven-development"
-    "writing-plans"
+    "backlog-tracking"
+    "brainstorming"
     "dispatching-parallel-agents"
     "executing-plans"
+    "finishing-a-development-branch"
     "requesting-code-review"
+    "researching"
+    "subagent-driven-development"
+    "systematic-debugging"
+    "test-driven-development"
+    "verification-before-completion"
+    "writing-plans"
 )
 
 echo "=== Running Skill Triggering Tests ==="
