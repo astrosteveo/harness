@@ -11,6 +11,8 @@ Documentation adds value or gets deleted. Every comment must tell you something 
 
 **Core principle:** If removing the documentation loses no information, remove it.
 
+**Violating the letter of these rules is violating the spirit of these rules.**
+
 ## The Iron Law
 
 ```
@@ -97,3 +99,9 @@ Before committing documentation:
 - [ ] Explains WHY, not WHAT?
 - [ ] Follows project/language conventions?
 - [ ] Doc linting passes?
+
+## The Bottom Line
+
+Less is more. Delete the obvious. Explain the why.
+
+This is non-negotiable.
