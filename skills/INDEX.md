@@ -36,6 +36,7 @@
 | Skill | Description | Type |
 |-------|-------------|------|
 | backlog-tracking | Deferred items management | **Flexible** |
+| resuming-work | Restore context after interruption | **Flexible** |
 | writing-skills | Create new skills | **Flexible** |
 
 ## Skill Types
