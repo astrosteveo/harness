@@ -1,245 +1,81 @@
 # Changelog
 
-All notable changes to the harness plugin will be documented in this file.
+All notable changes to Harness will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+> **Note:** Harness is a fork of [obra/superpowers](https://github.com/obra/superpowers).
+> This changelog tracks changes made in this fork. See `docs/UPSTREAM-CHANGELOG.md` for pre-fork history.
+
 ## [Unreleased]
 
-## [4.1.0] - 2025-12-28
+## [0.1.0] - 2025-12-28
+
+Initial release of the Harness fork with research-driven planning and expanded skill coverage.
 
 ### Added
 
-**8 New Skills:**
-- `resolving-merge-conflicts` - Systematic 5-phase git conflict resolution (Rigid)
-- `working-with-legacy-code` - Characterization tests, strangler fig pattern, finding seams (Flexible)
-- `handling-context-exhaustion` - Proactive checkpointing before hitting context limits (Flexible)
-- `debugging-ci-cd-failures` - CI-specific troubleshooting with decision tree (Flexible)
-- `debugging-flaky-tests` - Flaky test investigation with quarantine strategy (Rigid)
-- `updating-dependencies` - Risk assessment and safe update workflows (Flexible)
-- `database-migrations` - Pre-flight checklist and zero-downtime patterns (Rigid)
-- `security-review` - OWASP-based security code review checklist (Rigid)
-- `performance-optimization` - Profile-first optimization with benchmarking (Flexible)
-- `working-with-monorepos` - Multi-package coordination and impact analysis (Flexible)
+**26 Skills** organized into four categories:
 
-**4 New Documentation Files:**
-- `docs/INTEGRATION-MATRIX.md` - Platform comparison for Claude Code/Codex/OpenCode
-- `docs/BACKLOG-TEMPLATE.md` - Template for project backlog files
+*Core Workflow (6):*
+- `using-harness` - Skill discovery and usage patterns
+- `brainstorming` - Socratic design refinement with research integration
+- `researching` - Verify current versions, APIs, and best practices via web search
+- `writing-plans` - Create detailed implementation plans
+- `executing-plans` - Batch execution with review checkpoints
+- `subagent-driven-development` - Per-task subagent execution with two-stage review
+
+*Development Practice (12):*
+- `test-driven-development` - RED-GREEN-REFACTOR cycle
+- `working-with-legacy-code` - Characterization tests, strangler fig, finding seams
+- `systematic-debugging` - 4-phase root cause analysis
+- `debugging-ci-cd-failures` - CI-specific troubleshooting
+- `debugging-flaky-tests` - Flaky test investigation with quarantine strategy
+- `updating-dependencies` - Safe dependency update workflows
+- `database-migrations` - Pre-flight checklist for schema changes
+- `security-review` - OWASP-based security code review
+- `performance-optimization` - Profile-first optimization
+- `resolving-merge-conflicts` - Systematic 5-phase conflict resolution
+- `verification-before-completion` - Evidence before claims
+- `writing-documentation` - Concise, value-adding docs only
+
+*Collaboration (7):*
+- `using-git-worktrees` - Isolated workspace creation
+- `requesting-code-review` - Dispatch code reviewer
+- `receiving-code-review` - Technical response to feedback
+- `dispatching-parallel-agents` - Parallelize investigations
+- `working-with-monorepos` - Multi-package coordination
+- `finishing-a-development-branch` - Complete and cleanup work
+- `writing-skills` - Create new skills using TDD
+
+*Support (3):*
+- `backlog-tracking` - Deferred items management
+- `resuming-work` - Restore context after interruption
+- `handling-context-exhaustion` - Checkpoint before context limits
+
+**Documentation:**
+- `docs/INTEGRATION-MATRIX.md` - Platform comparison (Claude Code/Codex/OpenCode)
+- `docs/BACKLOG-TEMPLATE.md` - Template for project backlogs
 - `docs/UPSTREAM-CHANGELOG.md` - Fork differences from obra/superpowers
-- `docs/WINDOWS-GUIDE.md` - Windows command translations and guidance
-
-**18 New Test Prompts:**
-- Triggering tests for all new skills plus 5 previously untested skills
-
-**Skill Enhancements:**
-- `test-driven-development` - Added "Adapting TDD" section for integration/E2E/exploratory tests
-- `executing-plans` - Added execution mode comparison and plan invalidation handling
-- `verification-before-completion` - Added rollback procedures and evidence preservation
-- `researching` - Added "Reusing Research" section
-- `backlog-tracking` - Added YAGNI clarification
-- `subagent-driven-development` - Added mixed dependencies handling
+- `docs/WINDOWS-GUIDE.md` - Windows command translations
+- `docs/CODE-REVIEW-ARCHITECTURE.md` - Review mechanisms
+- `docs/TROUBLESHOOTING.md` - Common issues and solutions
 
 **Infrastructure:**
-- `.harness/BACKLOG.md` - Project backlog file (was missing)
-- `skills/INDEX.md` - Complete dependency graph with cross-cutting concerns
-- Test runner macOS compatibility fix (gtimeout detection, --verbose flag)
+- `.harness/` directory structure for project documentation
+- `skills/INDEX.md` with complete dependency graph
+- Test framework with 18 skill-triggering prompts
+- Platform support for Claude Code, Codex, and OpenCode
+- Session hooks for automatic skill injection
 
-### Fixed
-- Phantom skill references in using-harness replaced with actual skill names
-- Test runner now works on macOS (timeout command detection)
+### Fork Enhancements
 
-## [4.0.3] - 2025-12-26
+Key differences from upstream (obra/superpowers):
+- **researching skill** - Prevents outdated training data from informing decisions
+- **`.harness/` structure** - Organized project documentation (requirements, research, design, plan)
+- **backlog-tracking** - Track bugs, deferred features, and tech debt
+- **10 additional skills** - CI/CD, flaky tests, dependencies, migrations, security, performance, monorepos, context exhaustion, merge conflicts, legacy code
 
-### Changed
-- Strengthened using-harness skill for explicit skill requests
-- Updated "The Rule" to emphasize active invocation over passive checking
-- Added reassurance that invoking a wrong skill is okay to reduce hesitation
-
-### Added
-- Explicit skill request tests in `tests/explicit-skill-requests/`
-
-### Fixed
-- Skill invocation now triggers "BEFORE any response or action"
-- Added red flag detection for "I know what that means" rationalization
-
-## [4.0.2] - 2025-12-23
-
-### Changed
-- Slash commands now user-only with `disable-model-invocation: true`
-
-## [4.0.1] - 2025-12-23
-
-### Fixed
-- Clarified how to access skills in Claude Code (Skill tool vs Read tool)
-- Added "How to Access Skills" section to using-harness
-- Updated slash commands to use fully qualified skill names
-
-### Added
-- GitHub thread reply guidance to receiving-code-review
-- Automation-over-documentation guidance to writing-skills
-
-## [4.0.0] - 2025-12-17
-
-### Added
-- Two-stage code review in subagent-driven-development (spec compliance + code quality)
-- Debugging techniques consolidated with tools in systematic-debugging
-- Testing anti-patterns reference in test-driven-development
-- Skill test infrastructure with three test frameworks
-- DOT flowcharts as executable specifications
-- Skill priority in using-harness (process skills before implementation)
-
-### Changed
-- Controller provides full task text to workers in subagent workflows
-- Workers can ask clarifying questions before AND during work
-- Self-review checklist before reporting completion
-- Brainstorming trigger strengthened with imperative language
-
-### Breaking Changes
-- Skill consolidation: root-cause-tracing, defense-in-depth, condition-based-waiting bundled in systematic-debugging
-- testing-skills-with-subagents bundled in writing-skills
-- testing-anti-patterns bundled in test-driven-development
-- sharing-skills removed (obsolete)
-
-## [3.6.2] - 2025-12-03
-
-### Fixed
-- Linux compatibility: Fixed polyglot hook wrapper to use POSIX-compliant syntax
-
-## [3.5.1] - 2025-11-24
-
-### Changed
-- OpenCode bootstrap refactor: switched from chat.message hook to session.created event
-
-## [3.5.0] - 2025-11-23
-
-### Added
-- OpenCode support with native JavaScript plugin
-- Shared core module (lib/skills-core.js) for code reuse with Codex
-
-### Changed
-- Refactored Codex implementation to use shared ES module
-- Improved documentation with clearer problem/solution explanation
-
-## [3.4.1] - 2025-10-31
-
-### Changed
-- Optimized harness bootstrap to eliminate redundant skill execution
-
-## [3.4.0] - 2025-10-30
-
-### Changed
-- Simplified brainstorming skill to return to original conversational vision
-
-## [3.3.1] - 2025-10-28
-
-### Changed
-- Updated brainstorming skill with autonomous recon before questioning
-- Applied writing clarity improvements following Strunk's "Elements of Style"
-
-### Fixed
-- Clarified writing-skills guidance to point to correct agent-specific directories
-
-## [3.3.0] - 2025-10-28
-
-### Added
-- Experimental Codex support with unified harness-codex script
-- Namespaced skills: harness:skill-name format
-- Personal skills override capability
-
-## [3.2.3] - 2025-10-23
-
-### Changed
-- Updated using-harness to use Skill tool instead of Read tool
-
-## [3.2.2] - 2025-10-21
-
-### Changed
-- Strengthened using-harness against agent rationalization
-- Added MANDATORY FIRST RESPONSE PROTOCOL checklist
-- Added Common Rationalizations section with 8 evasion patterns
-
-## [3.2.1] - 2025-10-20
-
-### Added
-- Code reviewer agent included in plugin's agents/ directory
-
-## [3.2.0] - 2025-10-18
-
-### Added
-- Design documentation in brainstorming workflow (Phase 4)
-
-### Breaking Changes
-- All internal skill references now use harness: namespace prefix
-
-## [3.1.1] - 2025-10-17
-
-### Fixed
-- Command syntax in README updated to use namespaced syntax
-
-## [3.1.0] - 2025-10-17
-
-### Breaking Changes
-- Skill names standardized to lowercase kebab-case
-
-### Added
-- Enhanced brainstorming skill with Quick Reference table
-- Anthropic best practices integration in writing-skills
-
-### Fixed
-- Re-added missing command redirects (brainstorm.md, write-plan.md)
-
-## [3.0.1] - 2025-10-16
-
-### Changed
-- Migrated to Anthropic's first-party skills system
-
-## [2.0.2] - 2025-10-12
-
-### Fixed
-- False warning when local skills repo is ahead of upstream
-
-## [2.0.1] - 2025-10-12
-
-### Fixed
-- Session-start hook execution in plugin context
-
-## [2.0.0] - 2025-10-12
-
-### Added
-- Skills repository separation (moved to astrosteveo/harness-skills)
-- Nine new skills: collision-zone-thinking, inversion-exercise, meta-pattern-recognition, scale-game, simplification-cascades, when-stuck, tracing-knowledge-lineages, preserving-productive-tensions
-- Automatic clone and setup with initialize-skills.sh
-- Auto-update on session start
-
-### Breaking Changes
-- Skills no longer live in the plugin (separate repository)
-- Personal superpowers overlay system replaced with git branch workflow
-
-### Changed
-- Renamed using-skills (formerly getting-started)
-- find-skills outputs full paths with /SKILL.md suffix
-
-[Unreleased]: https://github.com/astrosteveo/harness/compare/v4.1.0...HEAD
-[4.1.0]: https://github.com/astrosteveo/harness/compare/v4.0.3...v4.1.0
-[4.0.3]: https://github.com/astrosteveo/harness/compare/v4.0.2...v4.0.3
-[4.0.2]: https://github.com/astrosteveo/harness/compare/v4.0.1...v4.0.2
-[4.0.1]: https://github.com/astrosteveo/harness/compare/v4.0.0...v4.0.1
-[4.0.0]: https://github.com/astrosteveo/harness/compare/v3.6.2...v4.0.0
-[3.6.2]: https://github.com/astrosteveo/harness/compare/v3.5.1...v3.6.2
-[3.5.1]: https://github.com/astrosteveo/harness/compare/v3.5.0...v3.5.1
-[3.5.0]: https://github.com/astrosteveo/harness/compare/v3.4.1...v3.5.0
-[3.4.1]: https://github.com/astrosteveo/harness/compare/v3.4.0...v3.4.1
-[3.4.0]: https://github.com/astrosteveo/harness/compare/v3.3.1...v3.4.0
-[3.3.1]: https://github.com/astrosteveo/harness/compare/v3.3.0...v3.3.1
-[3.3.0]: https://github.com/astrosteveo/harness/compare/v3.2.3...v3.3.0
-[3.2.3]: https://github.com/astrosteveo/harness/compare/v3.2.2...v3.2.3
-[3.2.2]: https://github.com/astrosteveo/harness/compare/v3.2.1...v3.2.2
-[3.2.1]: https://github.com/astrosteveo/harness/compare/v3.2.0...v3.2.1
-[3.2.0]: https://github.com/astrosteveo/harness/compare/v3.1.1...v3.2.0
-[3.1.1]: https://github.com/astrosteveo/harness/compare/v3.1.0...v3.1.1
-[3.1.0]: https://github.com/astrosteveo/harness/compare/v3.0.1...v3.1.0
-[3.0.1]: https://github.com/astrosteveo/harness/compare/v2.0.2...v3.0.1
-[2.0.2]: https://github.com/astrosteveo/harness/compare/v2.0.1...v2.0.2
-[2.0.1]: https://github.com/astrosteveo/harness/compare/v2.0.0...v2.0.1
-[2.0.0]: https://github.com/astrosteveo/harness/releases/tag/v2.0.0
+[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/astrosteveo/harness/releases/tag/v0.1.0
