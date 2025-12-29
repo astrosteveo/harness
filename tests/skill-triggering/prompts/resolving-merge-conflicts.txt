@@ -1,0 +1,1 @@
+I tried to merge the feature branch but got conflicts in several files. Git says there are conflicts in src/config.ts and src/utils/parser.ts. How should I resolve these?

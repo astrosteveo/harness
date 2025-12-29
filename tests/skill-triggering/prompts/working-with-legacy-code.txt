@@ -1,0 +1,1 @@
+I need to modify this old payment processing module but it has no tests and uses a third-party API that's hard to mock. How should I approach making changes safely?
