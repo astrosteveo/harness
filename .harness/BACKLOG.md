@@ -12,16 +12,16 @@
 
 | ID | Description | Priority | Notes |
 |----|-------------|----------|-------|
-| FEAT-001 | Merge conflict resolution skill | High | Common blocker with no guidance; should include git conflict patterns and resolution strategies |
+| ~~FEAT-001~~ | ~~Merge conflict resolution skill~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 | FEAT-002 | CI/CD failure debugging skill | Medium | Pipeline failures need different approach than local debugging |
 | FEAT-003 | Flaky test handling skill | Medium | Extend systematic-debugging with flaky-specific patterns |
 | FEAT-004 | Dependency update skill | Medium | Version bumps, security patches, breaking change handling |
 | FEAT-005 | Database migration skill | Medium | Schema changes, rollback strategies, data migration |
-| FEAT-006 | Legacy code adaptation skill | High | Guidance when TDD isn't feasible (no existing tests, external APIs) |
+| ~~FEAT-006~~ | ~~Legacy code adaptation skill~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 | FEAT-007 | Performance optimization skill | Low | Profiling, bottleneck identification, optimization strategies |
 | FEAT-008 | Security review skill | Medium | Security-focused code review patterns |
 | FEAT-009 | Monorepo/multi-project skill | Low | Cross-project coordination and dependencies |
-| FEAT-010 | Context exhaustion handling | High | Different from session restart; mid-task context limits |
+| ~~FEAT-010~~ | ~~Context exhaustion handling~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 
 ## Technical Debt
 
@@ -38,7 +38,7 @@
 | ID | Description | Priority | Notes |
 |----|-------------|----------|-------|
 | IMP-001 | Add BACKLOG.md template to docs | Medium | Help users understand expected format |
-| IMP-002 | Document TDD exceptions | High | When to adapt rigid TDD (integration tests, E2E, exploratory) |
+| ~~IMP-002~~ | ~~Document TDD exceptions~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 | IMP-003 | Add research caching strategy | Low | Avoid repeated web searches for same info |
 | IMP-004 | Clarify executing-plans vs subagent-driven-development selection | Medium | Decision matrix for which to choose |
 | IMP-005 | Add plan invalidation handling | Medium | External changes during execution |
@@ -54,3 +54,7 @@
 | BUG-001 | Create missing BACKLOG.md | 2024-12-28 | This file |
 | DEBT-001 | Missing test prompts for 5 skills | 2024-12-28 | Added prompts for using-harness, using-git-worktrees, receiving-code-review, resuming-work, writing-skills |
 | DEBT-002 | Implicit skill dependencies not documented | 2024-12-28 | Updated INDEX.md with full dependency graph + cross-cutting concerns |
+| FEAT-001 | Merge conflict resolution skill | 2024-12-28 | Created skills/resolving-merge-conflicts/SKILL.md |
+| FEAT-006 | Legacy code adaptation skill | 2024-12-28 | Created skills/working-with-legacy-code/SKILL.md |
+| FEAT-010 | Context exhaustion handling | 2024-12-28 | Created skills/handling-context-exhaustion/SKILL.md |
+| IMP-002 | Document TDD exceptions | 2024-12-28 | Added "Adapting TDD" section to test-driven-development skill |

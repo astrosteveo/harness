@@ -18,6 +18,7 @@
 | Skill | Description | Type |
 |-------|-------------|------|
 | test-driven-development | RED-GREEN-REFACTOR cycle | **Rigid** |
+| working-with-legacy-code | Adapting TDD for legacy systems | **Flexible** |
 | systematic-debugging | 4-phase root cause analysis | **Rigid** |
 | verification-before-completion | Evidence before claims | **Rigid** |
 | writing-documentation | Concise, value-adding docs only | **Rigid** |
@@ -27,6 +28,7 @@
 | Skill | Description | Type |
 |-------|-------------|------|
 | using-git-worktrees | Isolated workspace creation | **Flexible** |
+| resolving-merge-conflicts | Systematic conflict resolution | **Rigid** |
 | requesting-code-review | Dispatch code reviewer | **Flexible** |
 | receiving-code-review | Technical response to feedback | **Rigid** |
 | dispatching-parallel-agents | Parallelize investigations | **Flexible** |
@@ -38,6 +40,7 @@
 |-------|-------------|------|
 | backlog-tracking | Deferred items management | **Flexible** |
 | resuming-work | Restore context after interruption | **Flexible** |
+| handling-context-exhaustion | Checkpoint before context limits | **Flexible** |
 | writing-skills | Create new skills | **Flexible** |
 
 ## Skill Types
@@ -67,6 +70,12 @@ using-harness (foundation)
 │   └── REQUIRES: finishing-a-development-branch (cleanup)
 ├── resuming-work
 │   └── AWARE OF: backlog-tracking (check for blockers)
+├── handling-context-exhaustion
+│   └── REQUIRES: resuming-work (for handoff format)
+├── resolving-merge-conflicts
+│   └── REQUIRES: verification-before-completion (after resolution)
+├── working-with-legacy-code
+│   └── ADAPTS: test-driven-development (different granularities)
 └── writing-skills
     ├── REQUIRES: test-driven-development (TDD for skills)
     └── REQUIRES: verification-before-completion (before deployment)

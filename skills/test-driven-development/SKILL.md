@@ -363,6 +363,19 @@ Bug found? Write failing test reproducing it. Follow TDD cycle. Test proves fix 
 
 Never fix bugs without a test.
 
+## Adapting TDD
+
+The Iron Law applies at different granularities. RED-GREEN-REFACTOR works with:
+
+- **Integration tests** - When testing boundaries (APIs, databases) provides more value than isolated units
+- **E2E tests** - When full system behavior is the right level of verification
+- **Exploratory testing** - When discovering what to test; treat output as throwaway, then apply TDD
+- **Spike/prototype code** - Intentionally disposable learning; delete and rewrite with TDD
+
+The cycle remains: failing test first, minimal code to pass, refactor. Only the scope changes.
+
+For legacy code without tests, see @working-with-legacy-code for strategies to add tests incrementally.
+
 ## Testing Anti-Patterns
 
 When adding mocks or test utilities, read @testing-anti-patterns.md to avoid common pitfalls:
