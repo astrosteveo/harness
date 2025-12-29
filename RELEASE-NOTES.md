@@ -1,5 +1,81 @@
 # Harness Release Notes
 
+## v4.1.0 (2025-12-28)
+
+### Major Expansion: 10 New Skills
+
+This release significantly expands Harness's coverage of common development scenarios. The skill count grows from 18 to 26.
+
+**Development Practice Skills:**
+
+- **`resolving-merge-conflicts`** - A rigid 5-phase process for git conflicts: understand → classify → plan → execute → verify. Covers all conflict types (merge, rebase, cherry-pick) with pattern recognition and Git command reference.
+
+- **`working-with-legacy-code`** - Adapts TDD for situations where strict test-first isn't feasible. Covers characterization tests, the strangler fig pattern, finding seams for testing, and approval testing.
+
+- **`debugging-ci-cd-failures`** - CI-specific troubleshooting when builds fail in CI but pass locally. Decision tree for common patterns, local reproduction techniques, and debugging without interactive access.
+
+- **`debugging-flaky-tests`** - Extends systematic-debugging with flaky test investigation. Covers root cause categories, quarantine strategies, and when to delete vs fix flaky tests.
+
+- **`updating-dependencies`** - Safe dependency update workflows with risk assessment checklist. Covers security patches, major version upgrades, breaking change handling, and rollback strategies.
+
+- **`database-migrations`** - Rigid pre-flight checklist for schema and data changes. Covers zero-downtime patterns (expand/contract), dangerous operations, and rollback procedures.
+
+- **`security-review`** - OWASP-based security code review checklist. Covers input validation, auth review points, secret handling, injection vulnerabilities, and language-specific patterns.
+
+- **`performance-optimization`** - Profile-first optimization workflow. Emphasizes "measure before optimizing" with bottleneck identification, benchmarking, and trade-off analysis.
+
+- **`working-with-monorepos`** - Multi-package coordination for npm/yarn/pnpm workspaces, Nx, Turborepo, and Lerna. Covers change impact analysis and cross-package refactoring.
+
+- **`handling-context-exhaustion`** - Proactive checkpointing when approaching context limits mid-task. Different from session restart—focuses on preserving work in progress.
+
+### Documentation Improvements
+
+**4 New Documentation Files:**
+
+- **`docs/INTEGRATION-MATRIX.md`** - Clear comparison of what works on Claude Code vs Codex vs OpenCode, with setup instructions and troubleshooting for each platform.
+
+- **`docs/BACKLOG-TEMPLATE.md`** - Template and guidance for setting up `.harness/BACKLOG.md` in your projects.
+
+- **`docs/UPSTREAM-CHANGELOG.md`** - Documents what changed from the obra/superpowers fork and how to sync with upstream.
+
+- **`docs/WINDOWS-GUIDE.md`** - Command translations and guidance for Windows users, covering path separators, shell differences, and skill-specific adaptations.
+
+### Skill Enhancements
+
+Several existing skills received targeted improvements:
+
+- **`test-driven-development`** - New "Adapting TDD" section acknowledges that the RED-GREEN-REFACTOR cycle works at different granularities (unit, integration, E2E, exploratory).
+
+- **`executing-plans`** - Added execution mode comparison (vs subagent-driven-development) and plan invalidation handling.
+
+- **`verification-before-completion`** - Added rollback procedures and evidence preservation guidance.
+
+- **`researching`** - New "Reusing Research" section to avoid redundant web searches.
+
+- **`backlog-tracking`** - Clarified the YAGNI vs "Track Everything" tension (YAGNI applies to building, not tracking).
+
+- **`subagent-driven-development`** - Added handling for plans with mixed independent/dependent tasks.
+
+### Infrastructure
+
+- **`.harness/BACKLOG.md`** - The project now has its own backlog file, demonstrating the pattern.
+
+- **`skills/INDEX.md`** - Complete dependency graph including implicit dependencies and cross-cutting concerns section.
+
+- **Test runner fix** - Now works on macOS (gtimeout detection) and includes required --verbose flag for stream-json output.
+
+- **18 new test prompts** - All new skills have triggering tests, plus 5 previously untested skills.
+
+### Complete Backlog Resolution
+
+All 26 identified gaps have been addressed:
+- 10 feature requests (new skills)
+- 5 technical debt items (test coverage, documentation)
+- 9 improvements (skill enhancements)
+- 2 bugs (infrastructure)
+
+---
+
 ## v4.0.3 (2025-12-26)
 
 ### Improvements

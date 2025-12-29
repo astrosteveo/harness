@@ -7,8 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 2025-12-28
+
+### Added
+
+**8 New Skills:**
+- `resolving-merge-conflicts` - Systematic 5-phase git conflict resolution (Rigid)
+- `working-with-legacy-code` - Characterization tests, strangler fig pattern, finding seams (Flexible)
+- `handling-context-exhaustion` - Proactive checkpointing before hitting context limits (Flexible)
+- `debugging-ci-cd-failures` - CI-specific troubleshooting with decision tree (Flexible)
+- `debugging-flaky-tests` - Flaky test investigation with quarantine strategy (Rigid)
+- `updating-dependencies` - Risk assessment and safe update workflows (Flexible)
+- `database-migrations` - Pre-flight checklist and zero-downtime patterns (Rigid)
+- `security-review` - OWASP-based security code review checklist (Rigid)
+- `performance-optimization` - Profile-first optimization with benchmarking (Flexible)
+- `working-with-monorepos` - Multi-package coordination and impact analysis (Flexible)
+
+**4 New Documentation Files:**
+- `docs/INTEGRATION-MATRIX.md` - Platform comparison for Claude Code/Codex/OpenCode
+- `docs/BACKLOG-TEMPLATE.md` - Template for project backlog files
+- `docs/UPSTREAM-CHANGELOG.md` - Fork differences from obra/superpowers
+- `docs/WINDOWS-GUIDE.md` - Windows command translations and guidance
+
+**18 New Test Prompts:**
+- Triggering tests for all new skills plus 5 previously untested skills
+
+**Skill Enhancements:**
+- `test-driven-development` - Added "Adapting TDD" section for integration/E2E/exploratory tests
+- `executing-plans` - Added execution mode comparison and plan invalidation handling
+- `verification-before-completion` - Added rollback procedures and evidence preservation
+- `researching` - Added "Reusing Research" section
+- `backlog-tracking` - Added YAGNI clarification
+- `subagent-driven-development` - Added mixed dependencies handling
+
+**Infrastructure:**
+- `.harness/BACKLOG.md` - Project backlog file (was missing)
+- `skills/INDEX.md` - Complete dependency graph with cross-cutting concerns
+- Test runner macOS compatibility fix (gtimeout detection, --verbose flag)
+
 ### Fixed
-- Phantom skill references in using-harness replaced with actual skill names (frontend-design, mcp-builder → writing-skills, subagent-driven-development)
+- Phantom skill references in using-harness replaced with actual skill names
+- Test runner now works on macOS (timeout command detection)
 
 ## [4.0.3] - 2025-12-26
 
@@ -181,7 +220,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed using-skills (formerly getting-started)
 - find-skills outputs full paths with /SKILL.md suffix
 
-[Unreleased]: https://github.com/astrosteveo/harness/compare/v4.0.3...HEAD
+[Unreleased]: https://github.com/astrosteveo/harness/compare/v4.1.0...HEAD
+[4.1.0]: https://github.com/astrosteveo/harness/compare/v4.0.3...v4.1.0
 [4.0.3]: https://github.com/astrosteveo/harness/compare/v4.0.2...v4.0.3
 [4.0.2]: https://github.com/astrosteveo/harness/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/astrosteveo/harness/compare/v4.0.0...v4.0.1
