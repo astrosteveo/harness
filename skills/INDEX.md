@@ -20,6 +20,8 @@
 | test-driven-development | RED-GREEN-REFACTOR cycle | **Rigid** |
 | working-with-legacy-code | Adapting TDD for legacy systems | **Flexible** |
 | systematic-debugging | 4-phase root cause analysis | **Rigid** |
+| debugging-ci-cd-failures | CI/CD pipeline troubleshooting | **Flexible** |
+| debugging-flaky-tests | Flaky test investigation | **Rigid** |
 | verification-before-completion | Evidence before claims | **Rigid** |
 | writing-documentation | Concise, value-adding docs only | **Rigid** |
 
@@ -66,6 +68,10 @@ using-harness (foundation)
 │   └── REQUIRES: finishing-a-development-branch
 ├── systematic-debugging
 │   └── REQUIRES: test-driven-development (Phase 4)
+├── debugging-ci-cd-failures
+│   └── EXTENDS: systematic-debugging (CI-specific patterns)
+├── debugging-flaky-tests
+│   └── EXTENDS: systematic-debugging (flakiness patterns)
 ├── using-git-worktrees
 │   └── REQUIRES: finishing-a-development-branch (cleanup)
 ├── resuming-work

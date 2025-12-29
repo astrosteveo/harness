@@ -49,6 +49,22 @@ After all tasks complete and verified:
 - **REQUIRED SUB-SKILL:** Use harness:finishing-a-development-branch
 - Follow that skill to verify tests, present options, execute choice
 
+## Choosing Between Execution Modes
+
+See `harness:subagent-driven-development` for the decision flowchart.
+
+**Quick decision:**
+- **Same session + autonomous?** -> subagent-driven-development
+- **Parallel session + human checkpoints?** -> executing-plans (this skill)
+
+| Factor | executing-plans | subagent-driven |
+|--------|-----------------|-----------------|
+| Human involvement | High (review each batch) | Low (autonomous) |
+| Context usage | Single session accumulates | Fresh per task |
+| Speed | Slower (wait for feedback) | Faster (continuous) |
+| Review granularity | Batch-level | Per-task (2-stage) |
+| Best for | Complex/risky changes | Independent tasks |
+
 ## When to Stop and Ask for Help
 
 **STOP executing immediately when:**

@@ -1,0 +1,1 @@
+The GitHub Actions build is failing but all tests pass on my local machine. The error says something about a missing environment variable. How do I debug this?

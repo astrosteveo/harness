@@ -13,8 +13,8 @@
 | ID | Description | Priority | Notes |
 |----|-------------|----------|-------|
 | ~~FEAT-001~~ | ~~Merge conflict resolution skill~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
-| FEAT-002 | CI/CD failure debugging skill | Medium | Pipeline failures need different approach than local debugging |
-| FEAT-003 | Flaky test handling skill | Medium | Extend systematic-debugging with flaky-specific patterns |
+| ~~FEAT-002~~ | ~~CI/CD failure debugging skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
+| ~~FEAT-003~~ | ~~Flaky test handling skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | FEAT-004 | Dependency update skill | Medium | Version bumps, security patches, breaking change handling |
 | FEAT-005 | Database migration skill | Medium | Schema changes, rollback strategies, data migration |
 | ~~FEAT-006~~ | ~~Legacy code adaptation skill~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
@@ -31,7 +31,7 @@
 | ~~DEBT-002~~ | ~~Implicit skill dependencies not documented~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | DEBT-003 | No upstream changelog | Low | Document what changed from obra/superpowers fork |
 | DEBT-004 | Windows skill adaptations missing | Low | Only polyglot-hooks.md exists; skills assume Unix |
-| DEBT-005 | Integration matrix incomplete | Medium | No clear "what works where" for Claude Code vs Codex vs OpenCode |
+| ~~DEBT-005~~ | ~~Integration matrix incomplete~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 
 ## Improvements
 
@@ -40,7 +40,7 @@
 | IMP-001 | Add BACKLOG.md template to docs | Medium | Help users understand expected format |
 | ~~IMP-002~~ | ~~Document TDD exceptions~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 | IMP-003 | Add research caching strategy | Low | Avoid repeated web searches for same info |
-| IMP-004 | Clarify executing-plans vs subagent-driven-development selection | Medium | Decision matrix for which to choose |
+| ~~IMP-004~~ | ~~Clarify executing-plans vs subagent-driven-development selection~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | IMP-005 | Add plan invalidation handling | Medium | External changes during execution |
 | IMP-006 | Add rollback procedures | Medium | Recovery after failed verification |
 | IMP-007 | Resolve YAGNI vs "Track Everything" tension | Low | Philosophy clarification |
@@ -58,3 +58,7 @@
 | FEAT-006 | Legacy code adaptation skill | 2024-12-28 | Created skills/working-with-legacy-code/SKILL.md |
 | FEAT-010 | Context exhaustion handling | 2024-12-28 | Created skills/handling-context-exhaustion/SKILL.md |
 | IMP-002 | Document TDD exceptions | 2024-12-28 | Added "Adapting TDD" section to test-driven-development skill |
+| FEAT-002 | CI/CD failure debugging skill | 2024-12-28 | Created skills/debugging-ci-cd-failures/SKILL.md |
+| FEAT-003 | Flaky test handling skill | 2024-12-28 | Created skills/debugging-flaky-tests/SKILL.md |
+| DEBT-005 | Integration matrix | 2024-12-28 | Created docs/INTEGRATION-MATRIX.md |
+| IMP-004 | Execution mode comparison | 2024-12-28 | Added decision matrix to executing-plans skill |
