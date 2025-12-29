@@ -1,0 +1,1 @@
+I need to add a new column to the users table and migrate existing data. This is a production database so I need to be careful. What's the safest approach?

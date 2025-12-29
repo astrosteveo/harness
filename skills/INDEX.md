@@ -22,6 +22,9 @@
 | systematic-debugging | 4-phase root cause analysis | **Rigid** |
 | debugging-ci-cd-failures | CI/CD pipeline troubleshooting | **Flexible** |
 | debugging-flaky-tests | Flaky test investigation | **Rigid** |
+| updating-dependencies | Dependency version management | **Flexible** |
+| database-migrations | Safe schema and data changes | **Rigid** |
+| security-review | Security-focused code review | **Rigid** |
 | verification-before-completion | Evidence before claims | **Rigid** |
 | writing-documentation | Concise, value-adding docs only | **Rigid** |
 
@@ -72,6 +75,12 @@ using-harness (foundation)
 │   └── EXTENDS: systematic-debugging (CI-specific patterns)
 ├── debugging-flaky-tests
 │   └── EXTENDS: systematic-debugging (flakiness patterns)
+├── updating-dependencies
+│   └── REQUIRES: researching (check changelogs/CVEs)
+├── database-migrations
+│   └── REQUIRES: verification-before-completion (pre-flight checks)
+├── security-review
+│   └── EXTENDS: requesting-code-review (security focus)
 ├── using-git-worktrees
 │   └── REQUIRES: finishing-a-development-branch (cleanup)
 ├── resuming-work

@@ -130,6 +130,27 @@ From 24 failure memories:
 - Implications of success
 - ANY communication suggesting completion/correctness
 
+## When Verification Fails
+
+**Immediate actions:**
+1. STOP - don't push, don't commit
+2. Preserve evidence (copy error output, save state)
+3. Don't claim partial success
+
+**Rollback options:**
+- `git reset --soft HEAD~1` - undo commit, keep changes staged
+- `git revert <sha>` - create reverting commit (safe for pushed code)
+- Feature flags - disable broken feature without code rollback
+
+**Rollback vs fix forward:**
+- Rollback: broken in production, unclear cause, complex fix needed
+- Fix forward: simple fix, cause is obvious, not yet deployed
+
+**Post-failure checklist:**
+- [ ] Document what failed and why
+- [ ] Add systemic issues to backlog
+- [ ] Update tests to catch this failure mode
+
 ## The Bottom Line
 
 **No shortcuts for verification.**

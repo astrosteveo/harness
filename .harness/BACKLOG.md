@@ -15,11 +15,11 @@
 | ~~FEAT-001~~ | ~~Merge conflict resolution skill~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 | ~~FEAT-002~~ | ~~CI/CD failure debugging skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | ~~FEAT-003~~ | ~~Flaky test handling skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
-| FEAT-004 | Dependency update skill | Medium | Version bumps, security patches, breaking change handling |
-| FEAT-005 | Database migration skill | Medium | Schema changes, rollback strategies, data migration |
+| ~~FEAT-004~~ | ~~Dependency update skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
+| ~~FEAT-005~~ | ~~Database migration skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | ~~FEAT-006~~ | ~~Legacy code adaptation skill~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 | FEAT-007 | Performance optimization skill | Low | Profiling, bottleneck identification, optimization strategies |
-| FEAT-008 | Security review skill | Medium | Security-focused code review patterns |
+| ~~FEAT-008~~ | ~~Security review skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | FEAT-009 | Monorepo/multi-project skill | Low | Cross-project coordination and dependencies |
 | ~~FEAT-010~~ | ~~Context exhaustion handling~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 
@@ -37,12 +37,12 @@
 
 | ID | Description | Priority | Notes |
 |----|-------------|----------|-------|
-| IMP-001 | Add BACKLOG.md template to docs | Medium | Help users understand expected format |
+| ~~IMP-001~~ | ~~Add BACKLOG.md template to docs~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | ~~IMP-002~~ | ~~Document TDD exceptions~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 | IMP-003 | Add research caching strategy | Low | Avoid repeated web searches for same info |
 | ~~IMP-004~~ | ~~Clarify executing-plans vs subagent-driven-development selection~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
-| IMP-005 | Add plan invalidation handling | Medium | External changes during execution |
-| IMP-006 | Add rollback procedures | Medium | Recovery after failed verification |
+| ~~IMP-005~~ | ~~Add plan invalidation handling~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
+| ~~IMP-006~~ | ~~Add rollback procedures~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | IMP-007 | Resolve YAGNI vs "Track Everything" tension | Low | Philosophy clarification |
 | IMP-008 | Add log retention/artifact strategy | Low | Support "Evidence Over Claims" principle |
 | IMP-009 | Hybrid approach for mixed task dependencies | Low | Some independent, some dependent tasks in same plan |
@@ -62,3 +62,9 @@
 | FEAT-003 | Flaky test handling skill | 2024-12-28 | Created skills/debugging-flaky-tests/SKILL.md |
 | DEBT-005 | Integration matrix | 2024-12-28 | Created docs/INTEGRATION-MATRIX.md |
 | IMP-004 | Execution mode comparison | 2024-12-28 | Added decision matrix to executing-plans skill |
+| IMP-001 | Add BACKLOG.md template to docs | 2024-12-28 | Created docs/BACKLOG-TEMPLATE.md |
+| FEAT-004 | Dependency update skill | 2024-12-28 | Created skills/updating-dependencies/SKILL.md |
+| FEAT-005 | Database migration skill | 2024-12-28 | Created skills/database-migrations/SKILL.md |
+| FEAT-008 | Security review skill | 2024-12-28 | Created skills/security-review/SKILL.md |
+| IMP-005 | Plan invalidation handling | 2024-12-28 | Added section to executing-plans skill |
+| IMP-006 | Rollback procedures | 2024-12-28 | Added section to verification-before-completion skill |

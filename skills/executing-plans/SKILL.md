@@ -83,6 +83,23 @@ See `harness:subagent-driven-development` for the decision flowchart.
 
 **Don't force through blockers** - stop and ask.
 
+## When Plans Become Invalid
+
+**Signs a plan is invalid:**
+- External changes: new requirements, dependency updates, discovered blockers
+- Completed tasks reveal gaps or incorrect assumptions
+
+**What to do:**
+1. Stop execution immediately
+2. Assess scope: minor issue vs fundamental change
+3. Decide: adapt in place or return to planning phase
+
+**Adapt vs Re-plan:**
+- **Adapt in place:** Small adjustments that don't change overall architecture
+- **Re-plan:** Multiple tasks affected, new dependencies, or approach fundamentally flawed
+
+**Communicate changes:** Report what invalidated the plan, propose path forward, wait for stakeholder decision before proceeding.
+
 ## Remember
 - Review plan critically first
 - Follow plan steps exactly
