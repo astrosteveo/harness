@@ -51,7 +51,8 @@
 ```
 using-harness (foundation)
 ├── brainstorming
-│   └── REQUIRES: researching
+│   ├── REQUIRES: researching
+│   └── REQUIRES: using-git-worktrees (Phase 4, when implementation follows)
 ├── writing-plans
 │   └── REQUIRES: researching
 ├── executing-plans
@@ -60,6 +61,23 @@ using-harness (foundation)
 │   ├── REQUIRES: test-driven-development (for subagents)
 │   ├── REQUIRES: requesting-code-review
 │   └── REQUIRES: finishing-a-development-branch
-└── systematic-debugging
-    └── REQUIRES: test-driven-development (Phase 4)
+├── systematic-debugging
+│   └── REQUIRES: test-driven-development (Phase 4)
+├── using-git-worktrees
+│   └── REQUIRES: finishing-a-development-branch (cleanup)
+├── resuming-work
+│   └── AWARE OF: backlog-tracking (check for blockers)
+└── writing-skills
+    ├── REQUIRES: test-driven-development (TDD for skills)
+    └── REQUIRES: verification-before-completion (before deployment)
 ```
+
+## Cross-Cutting Concerns
+
+Skills that should be considered during ANY development work:
+
+| Skill | When to Consider |
+|-------|------------------|
+| backlog-tracking | When deferring bugs, features, or tech debt |
+| verification-before-completion | Before claiming any work is done |
+| researching | Before using external libraries or APIs |

@@ -43,14 +43,38 @@ cp "$PROMPT_FILE" "$OUTPUT_DIR/prompt.txt"
 LOG_FILE="$OUTPUT_DIR/claude-output.json"
 cd "$OUTPUT_DIR"
 
+# Find timeout command (gtimeout on macOS via coreutils, timeout on Linux)
+if command -v gtimeout &> /dev/null; then
+    TIMEOUT_CMD="gtimeout"
+elif command -v timeout &> /dev/null; then
+    TIMEOUT_CMD="timeout"
+else
+    TIMEOUT_CMD=""
+fi
+
 echo "Plugin dir: $PLUGIN_DIR"
 echo "Running claude -p with naive prompt..."
-timeout 300 claude -p "$PROMPT" \
-    --plugin-dir "$PLUGIN_DIR" \
-    --dangerously-skip-permissions \
-    --max-turns "$MAX_TURNS" \
-    --output-format stream-json \
-    > "$LOG_FILE" 2>&1 || true
+
+# Run with or without timeout wrapper
+# Note: --verbose is required for stream-json output to work with -p
+if [ -n "$TIMEOUT_CMD" ]; then
+    $TIMEOUT_CMD 300 claude -p "$PROMPT" \
+        --plugin-dir "$PLUGIN_DIR" \
+        --dangerously-skip-permissions \
+        --max-turns "$MAX_TURNS" \
+        --verbose \
+        --output-format stream-json \
+        > "$LOG_FILE" 2>&1 || true
+else
+    echo "(timeout command not found, running without timeout)"
+    claude -p "$PROMPT" \
+        --plugin-dir "$PLUGIN_DIR" \
+        --dangerously-skip-permissions \
+        --max-turns "$MAX_TURNS" \
+        --verbose \
+        --output-format stream-json \
+        > "$LOG_FILE" 2>&1 || true
+fi
 
 echo ""
 echo "=== Results ==="

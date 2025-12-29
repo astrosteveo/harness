@@ -1,0 +1,1 @@
+I've developed a good workflow for handling database migrations that I want to document as a reusable skill. Can you help me create a new skill that captures this process?

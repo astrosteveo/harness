@@ -1,0 +1,8 @@
+I just got this code review feedback on my PR:
+
+1. The error handling in parseConfig is incomplete - add try/catch
+2. Remove the console.log statements
+3. Consider adding input validation for the userId parameter
+4. The function name should be more descriptive
+
+Can you help me address these items?
