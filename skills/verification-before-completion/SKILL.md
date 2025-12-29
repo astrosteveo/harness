@@ -130,6 +130,19 @@ From 24 failure memories:
 - Implications of success
 - ANY communication suggesting completion/correctness
 
+## Preserving Evidence
+
+**What to preserve:** Test output, build logs, command output, screenshots of UI states.
+
+**Where to save:**
+- Commit messages - include key metrics (e.g., "34/34 tests pass")
+- PR descriptions - summarize verification results
+- `.harness/` docs - detailed logs for complex verifications
+
+**Retention:** Keep until PR merged, minimum. Complex changes: keep longer.
+
+**Why:** Supports "evidence over claims" - reviewers can verify your verification.
+
 ## When Verification Fails
 
 **Immediate actions:**

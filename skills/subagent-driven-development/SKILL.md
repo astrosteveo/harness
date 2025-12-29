@@ -164,6 +164,17 @@ Final reviewer: All requirements met, ready to merge
 Done!
 ```
 
+## Handling Mixed Dependencies
+
+When plans contain both independent and dependent tasks:
+
+1. **Identify groups**: Find dependency chains (e.g., Task 5 depends on Task 3) vs. independent tasks
+2. **Execute dependent chains sequentially**: Tasks 4 and 5 must wait for Task 3 to complete
+3. **Independent tasks get fresh subagents**: Tasks 1, 2 can proceed without waiting
+4. **Strategy**: Complete independent tasks first when possible, then tackle dependency chains in order
+
+**Example**: Tasks 1, 2, 3 are independent; Tasks 4, 5 depend on 3. Execute 1, 2, 3 (fresh subagent each), then 4, then 5.
+
 ## Advantages
 
 **vs. Manual execution:**

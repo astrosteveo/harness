@@ -18,9 +18,9 @@
 | ~~FEAT-004~~ | ~~Dependency update skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | ~~FEAT-005~~ | ~~Database migration skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | ~~FEAT-006~~ | ~~Legacy code adaptation skill~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
-| FEAT-007 | Performance optimization skill | Low | Profiling, bottleneck identification, optimization strategies |
+| ~~FEAT-007~~ | ~~Performance optimization skill~~ | ~~Low~~ | ~~Fixed 2024-12-28~~ |
 | ~~FEAT-008~~ | ~~Security review skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
-| FEAT-009 | Monorepo/multi-project skill | Low | Cross-project coordination and dependencies |
+| ~~FEAT-009~~ | ~~Monorepo/multi-project skill~~ | ~~Low~~ | ~~Fixed 2024-12-28~~ |
 | ~~FEAT-010~~ | ~~Context exhaustion handling~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 
 ## Technical Debt
@@ -29,8 +29,8 @@
 |----|-------------|----------|-------|
 | ~~DEBT-001~~ | ~~Missing test prompts for 5 skills~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 | ~~DEBT-002~~ | ~~Implicit skill dependencies not documented~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
-| DEBT-003 | No upstream changelog | Low | Document what changed from obra/superpowers fork |
-| DEBT-004 | Windows skill adaptations missing | Low | Only polyglot-hooks.md exists; skills assume Unix |
+| ~~DEBT-003~~ | ~~No upstream changelog~~ | ~~Low~~ | ~~Fixed 2024-12-28~~ |
+| ~~DEBT-004~~ | ~~Windows skill adaptations missing~~ | ~~Low~~ | ~~Fixed 2024-12-28~~ |
 | ~~DEBT-005~~ | ~~Integration matrix incomplete~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 
 ## Improvements
@@ -39,13 +39,13 @@
 |----|-------------|----------|-------|
 | ~~IMP-001~~ | ~~Add BACKLOG.md template to docs~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | ~~IMP-002~~ | ~~Document TDD exceptions~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
-| IMP-003 | Add research caching strategy | Low | Avoid repeated web searches for same info |
+| ~~IMP-003~~ | ~~Add research caching strategy~~ | ~~Low~~ | ~~Fixed 2024-12-28~~ |
 | ~~IMP-004~~ | ~~Clarify executing-plans vs subagent-driven-development selection~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | ~~IMP-005~~ | ~~Add plan invalidation handling~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | ~~IMP-006~~ | ~~Add rollback procedures~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
-| IMP-007 | Resolve YAGNI vs "Track Everything" tension | Low | Philosophy clarification |
-| IMP-008 | Add log retention/artifact strategy | Low | Support "Evidence Over Claims" principle |
-| IMP-009 | Hybrid approach for mixed task dependencies | Low | Some independent, some dependent tasks in same plan |
+| ~~IMP-007~~ | ~~Resolve YAGNI vs "Track Everything" tension~~ | ~~Low~~ | ~~Fixed 2024-12-28~~ |
+| ~~IMP-008~~ | ~~Add log retention/artifact strategy~~ | ~~Low~~ | ~~Fixed 2024-12-28~~ |
+| ~~IMP-009~~ | ~~Hybrid approach for mixed task dependencies~~ | ~~Low~~ | ~~Fixed 2024-12-28~~ |
 
 ## Completed
 
@@ -68,3 +68,11 @@
 | FEAT-008 | Security review skill | 2024-12-28 | Created skills/security-review/SKILL.md |
 | IMP-005 | Plan invalidation handling | 2024-12-28 | Added section to executing-plans skill |
 | IMP-006 | Rollback procedures | 2024-12-28 | Added section to verification-before-completion skill |
+| FEAT-007 | Performance optimization skill | 2024-12-28 | Created skills/performance-optimization/SKILL.md |
+| FEAT-009 | Monorepo/multi-project skill | 2024-12-28 | Created skills/working-with-monorepos/SKILL.md |
+| DEBT-003 | Upstream changelog | 2024-12-28 | Created docs/UPSTREAM-CHANGELOG.md |
+| DEBT-004 | Windows guide | 2024-12-28 | Created docs/WINDOWS-GUIDE.md |
+| IMP-003 | Research caching | 2024-12-28 | Added "Reusing Research" section to researching skill |
+| IMP-007 | YAGNI clarification | 2024-12-28 | Added section to backlog-tracking skill |
+| IMP-008 | Evidence preservation | 2024-12-28 | Added section to verification-before-completion skill |
+| IMP-009 | Mixed dependencies | 2024-12-28 | Added section to subagent-driven-development skill |

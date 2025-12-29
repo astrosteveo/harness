@@ -25,6 +25,7 @@
 | updating-dependencies | Dependency version management | **Flexible** |
 | database-migrations | Safe schema and data changes | **Rigid** |
 | security-review | Security-focused code review | **Rigid** |
+| performance-optimization | Profiling and optimization | **Flexible** |
 | verification-before-completion | Evidence before claims | **Rigid** |
 | writing-documentation | Concise, value-adding docs only | **Rigid** |
 
@@ -37,6 +38,7 @@
 | requesting-code-review | Dispatch code reviewer | **Flexible** |
 | receiving-code-review | Technical response to feedback | **Rigid** |
 | dispatching-parallel-agents | Parallelize investigations | **Flexible** |
+| working-with-monorepos | Multi-package coordination | **Flexible** |
 | finishing-a-development-branch | Complete and cleanup work | **Flexible** |
 
 ## Support Skills
@@ -81,6 +83,10 @@ using-harness (foundation)
 │   └── REQUIRES: verification-before-completion (pre-flight checks)
 ├── security-review
 │   └── EXTENDS: requesting-code-review (security focus)
+├── performance-optimization
+│   └── REQUIRES: verification-before-completion (benchmark results)
+├── working-with-monorepos
+│   └── AWARE OF: dispatching-parallel-agents (cross-package work)
 ├── using-git-worktrees
 │   └── REQUIRES: finishing-a-development-branch (cleanup)
 ├── resuming-work

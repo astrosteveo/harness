@@ -138,3 +138,9 @@ When bugs are discovered:
 - **Keep it current** - Update the backlog as items are addressed
 - **Review regularly** - The backlog is only useful if it's maintained
 - **Be specific** - Vague items are hard to act on later
+
+## YAGNI and Tracking
+
+YAGNI ("You Aren't Gonna Need It") applies to **building** features, not **tracking** them. Track ideas you defer, even ones you may never build—this documents the decision, not a commitment.
+
+The backlog is a parking lot, not a promise. Items can sit indefinitely or be pruned entirely. Review periodically: promote what's valuable, delete what's stale.

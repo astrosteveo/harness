@@ -181,6 +181,20 @@ User wants to add form validation to a React app:
    - Avoid Yup (Zod preferred for TypeScript)
 ```
 
+## Reusing Research
+
+**Reuse when:**
+- Same session and topic was recently researched
+- Saved research exists in `.harness/NNN-feature/research.md` for current feature
+- Information is not time-sensitive (patterns, architecture)
+
+**Re-research when:**
+- Versions may have changed (new session, weeks later)
+- Previous research didn't cover current scope
+- User asks about specific recent changes
+
+**How to reference:** Check `.harness/NNN-feature/research.md` before starting new research. Cite findings with "Per earlier research..." and note the date.
+
 ## After Research
 
 - Proceed to brainstorming with research-informed recommendations
