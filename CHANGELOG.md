@@ -6,9 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 > **Note:** Harness is a fork of [obra/superpowers](https://github.com/obra/superpowers).
-> This changelog tracks changes made in this fork. See `docs/UPSTREAM-CHANGELOG.md` for pre-fork history.
+> This changelog tracks changes made in this fork. See `docs/ATTRIBUTION.md` for upstream credits.
 
 ## [Unreleased]
+
+### Changed
+- Simplified `docs/` to single `ATTRIBUTION.md` file
 
 ## [0.1.0] - 2025-12-28
 
