@@ -89,6 +89,21 @@ Resume execution? [Yes / No / Cancel pending]
 - **No**: Proceed with normal session, marker stays for later resume
 - **Cancel**: Delete marker file, proceed with normal session
 
+## Marker Edge Cases
+
+| Case | Handling |
+|------|----------|
+| Marker exists but plan file missing | Warn user, offer to cancel marker |
+| Marker exists but checkpoint missing | Warn user, offer to cancel or start fresh |
+| Marker in wrong worktree | Only check marker in current working directory |
+| Corrupted/unparseable marker | Warn user, offer to cancel |
+| User declines resume multiple times | Marker persists until explicitly cancelled |
+
+**Cleanup:**
+- Marker is deleted automatically when execution completes successfully
+- Marker is deleted when user chooses "Cancel"
+- Marker persists if user chooses "No" (for later resume)
+
 ## Red Flags
 
 These thoughts mean STOP—you're rationalizing:
