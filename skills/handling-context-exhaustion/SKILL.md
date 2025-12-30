@@ -186,10 +186,21 @@ Checkpoint: .harness/NNN-feature/checkpoint.md"
 
 ### Step 7: Inform User
 
-Report to user:
-- **Checkpoint created:** [path to checkpoint.md]
-- **Work committed:** [WIP commit message]
-- **Resume command:** "Start new session and invoke `harness:resuming-work`"
+Report to user with clear next steps:
+
+```
+⚠️ **Context limit approaching. Progress saved.**
+
+- Checkpoint: `.harness/NNN-feature/checkpoint.md`
+- Marker: `.harness/PENDING_EXECUTION.md`
+- Progress: Phase [N] of [M], Task [N.M]
+
+**Start a new session to auto-resume.**
+
+The session start hook will detect the marker and automatically
+invoke the appropriate skill to continue from where you left off.
+No need to remember which skill to use!
+```
 
 ## Context Reduction Strategies
 
@@ -274,13 +285,13 @@ Dispatch subagents when:
 
 ## Handoff to New Session
 
-When context is exhausted and checkpoint is complete:
+When context is exhausted and checkpoint + marker are complete:
 
-1. Tell user: "Context limit approaching. I've checkpointed progress."
-2. Reference: "Checkpoint at `.harness/NNN-feature/checkpoint.md`"
-3. Instruction: "Start a new session and invoke `harness:resuming-work` to continue"
+1. Tell user: "Context limit approaching. Progress saved."
+2. Reference: "Marker at `.harness/PENDING_EXECUTION.md`"
+3. Instruction: "Start a new session - it will auto-resume"
 
-The `harness:resuming-work` skill handles reading the checkpoint and restoring context.
+The `harness:using-harness` skill's session start hook handles reading the marker and invoking the appropriate skill automatically.
 
 ## Key Principles
 
@@ -303,7 +314,8 @@ The `harness:resuming-work` skill handles reading the checkpoint and restoring c
 
 ## Integration with Other Skills
 
+- **harness:using-harness** - Session start hook detects PENDING_EXECUTION.md marker and auto-resumes
 - **harness:resuming-work** - Used by next session to read checkpoint and continue
 - **harness:dispatching-parallel-agents** - Reduce context by parallelizing independent work
-- **harness:subagent-driven-development** - Fresh subagent per task prevents context accumulation
+- **harness:subagent-driven-development** - Fresh subagent per Phase prevents context accumulation
 - **harness:backlog-tracking** - Defer discovered issues to backlog instead of holding in context
