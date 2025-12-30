@@ -45,6 +45,50 @@ digraph skill_flow {
 }
 ```
 
+## Session Start - Pending Execution Check
+
+**Before any other action**, check for pending execution:
+
+```
+On session start:
+    ↓
+Check for .harness/PENDING_EXECUTION.md
+    ↓
+[If exists]
+    ↓
+    Read marker contents
+    ↓
+    Display pending execution info
+    ↓
+    Ask: "Resume execution? [Yes / No / Cancel]"
+    ↓
+    [Yes] → Invoke harness:subagent-driven-development or harness:executing-plans
+    [No] → Continue normal session (marker remains for later)
+    [Cancel] → Delete marker, continue normal session
+    ↓
+[If not exists]
+    ↓
+    Normal using-harness behavior (check for applicable skills)
+```
+
+**Display format when marker found:**
+
+```
+📋 **Pending execution detected**
+
+Feature: [from plan path]
+Progress: Phase [N] of [M] ([completed phases] ✓)
+Mode: [autonomous/checkpoint]
+Reason: [planning-complete/context-exhaustion/user-paused]
+
+Resume execution? [Yes / No / Cancel pending]
+```
+
+**Handling responses:**
+- **Yes**: Invoke appropriate skill with marker context, skill reads checkpoint and continues
+- **No**: Proceed with normal session, marker stays for later resume
+- **Cancel**: Delete marker file, proceed with normal session
+
 ## Red Flags
 
 These thoughts mean STOP—you're rationalizing:
