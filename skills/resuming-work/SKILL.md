@@ -20,7 +20,25 @@ Systematically restore context and continue work that was interrupted, whether b
 
 ## The Process
 
-### Step 1: Locate Project Artifacts
+### Step 1: Check for Pending Execution Marker
+
+First, check if there's a PENDING_EXECUTION.md marker:
+
+```bash
+# Check for pending execution marker
+cat .harness/PENDING_EXECUTION.md 2>/dev/null
+```
+
+**If marker exists:**
+- Read marker for plan path, checkpoint path, progress, and mode
+- Use marker info to determine exactly where to resume
+- Skip to Step 6 (Summarize and Confirm) with marker context
+- The marker tells you: which Phase, which Task, what mode
+
+**If no marker:**
+- Continue to Step 2 (manual checkpoint discovery)
+
+### Step 2: Locate Project Artifacts
 
 Check for existing context:
 
@@ -35,7 +53,7 @@ ls -lt .harness/ | head -5
 find .harness -name "plan.md" -exec grep -l "in_progress\|pending" {} \;
 ```
 
-### Step 2: Read Context Documents
+### Step 3: Read Context Documents
 
 For the relevant feature directory, read in order:
 1. `requirements.md` - What we're building
@@ -43,7 +61,7 @@ For the relevant feature directory, read in order:
 3. `design.md` - Architecture chosen
 4. `plan.md` - Tasks and progress
 
-### Step 3: Check Git State
+### Step 4: Check Git State
 
 ```bash
 # Current branch
@@ -57,14 +75,14 @@ git status
 git diff --stat
 ```
 
-### Step 4: Check Backlog
+### Step 5: Check Backlog
 
 ```bash
 # Any items added during previous work
 cat .harness/BACKLOG.md
 ```
 
-### Step 5: Summarize and Confirm
+### Step 6: Summarize and Confirm
 
 Report to user:
 - **Feature:** [name from requirements]
@@ -91,3 +109,15 @@ Ask: "Ready to continue with [next task]?"
 | Missing uncommitted changes | Check git status before anything |
 | Ignoring backlog items | Review BACKLOG.md for blockers |
 | Assuming context | Read all documents, don't assume |
+
+## Cleanup
+
+When execution completes successfully:
+1. Delete `.harness/PENDING_EXECUTION.md` marker (if exists)
+2. Update checkpoint to show completion
+3. Proceed to `harness:finishing-a-development-branch`
+
+```bash
+# Remove marker on successful completion
+rm .harness/PENDING_EXECUTION.md 2>/dev/null || true
+```
