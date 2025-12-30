@@ -171,39 +171,85 @@ If any tasks are identified but deferred during planning:
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving the plan, create checkpoint and offer execution choice:
 
-**"Plan complete and saved to `.harness/NNN-feature-slug/plan.md`.**
+**Step 1: Auto-create checkpoint**
+
+Save checkpoint to `.harness/NNN-feature-slug/checkpoint.md`:
+
+```markdown
+# Checkpoint
+
+**Created:** [timestamp]
+**Plan:** .harness/NNN-feature-slug/plan.md
+**Branch:** [current branch]
+
+## Progress
+- All Phases: pending
+
+## Next Steps
+1. Execute Phase 1: [Phase name]
+```
+
+**Step 2: Present execution options**
+
+```
+✅ **Plan complete and saved**
+
+- Plan: `.harness/NNN-feature-slug/plan.md`
+- Checkpoint: `.harness/NNN-feature-slug/checkpoint.md`
+
+**[N] Phases identified:**
+1. Phase 1: [Name] (N tasks)
+2. Phase 2: [Name] (N tasks)
+...
 
 ---
-**Execution Options**
 
-**1. Autonomous (this session)** - Runs to completion without stopping. Fresh subagent per task with automated spec/code quality reviews by reviewer subagents. Best for independent tasks where you trust the process.
+**How would you like to proceed?**
 
-**2. Checkpoints (this session)** - Same quality gates as #1, but pauses after each task for your approval before proceeding. Best when you want to review progress and catch issues early.
+| Option | Description |
+|--------|-------------|
+| **Continue** | Execute now in this session |
+| **New Session** | Start fresh session to execute |
 
-**3. Batch Review (separate session)** - Open new session in worktree. Executes 3 tasks at a time, then stops for your feedback. Best for complex/risky changes needing human oversight.
+**Mode** (applies to either option):
+| Mode | Description |
+|------|-------------|
+| **Autonomous** | Runs all Phases without stopping |
+| **Checkpoint** | Pauses after each Phase for approval |
 
-**Which approach?"**
+Examples: "continue autonomous", "new session checkpoint", "continue"
+```
 
----
+**Step 3: Handle choice**
 
-**If Autonomous chosen:**
+**If "Continue" chosen:**
+- Stay in current session
 - **REQUIRED SUB-SKILL:** Use harness:subagent-driven-development
-- Stay in this session
-- Set checkpoint mode: OFF
-- Fresh subagent per task + automated reviewer subagents
-- Runs all tasks without human intervention
+- Set mode: autonomous or checkpoint (default: checkpoint)
+- Execute Phase by Phase with fresh subagent per Phase
 
-**If Checkpoints chosen:**
-- **REQUIRED SUB-SKILL:** Use harness:subagent-driven-development
-- Stay in this session
-- Set checkpoint mode: ON
-- Fresh subagent per task + automated reviewer subagents
-- Pauses after each task for human approval
+**If "New Session" chosen:**
+- Create PENDING_EXECUTION.md marker (see below)
+- Display: "Marker created. Start new session to auto-resume."
+- User starts new session, hook auto-invokes appropriate skill
 
-**If Batch Review chosen:**
-- Guide them to open new session in worktree
-- **REQUIRED SUB-SKILL:** New session uses harness:executing-plans
-- Executes in batches of 3 tasks
-- Human reviews between batches
+**PENDING_EXECUTION.md marker format:**
+
+```markdown
+# Pending Execution
+
+**Created:** [timestamp]
+**Reason:** planning-complete
+**Plan:** .harness/NNN-feature-slug/plan.md
+**Checkpoint:** .harness/NNN-feature-slug/checkpoint.md
+**Mode:** [autonomous|checkpoint]
+**Progress:**
+  - Phase 1: pending
+  - Phase 2: pending
+  ...
+**Worktree:** [path]
+```
+
+Save marker to: `.harness/PENDING_EXECUTION.md`
