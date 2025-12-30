@@ -47,62 +47,78 @@ digraph skill_flow {
 
 ## Session Start - Pending Execution Check
 
-**Before any other action**, check for pending execution:
+**Before any other action**, check for incomplete work using git:
 
 ```
 On session start:
     ↓
-Check for .harness/PENDING_EXECUTION.md
+Glob for .harness/*/plan.md
     ↓
-[If exists]
+For each plan.md found:
     ↓
-    Read marker contents
+    Check git log for "plan: abandoned" commit for this plan
+    [If abandoned] → Skip this plan
     ↓
-    Display pending execution info
+    Parse Phases count from plan header
     ↓
-    Ask: "Resume execution? [Yes / No / Cancel]"
+    Find commit that added plan.md:
+    git log --diff-filter=A --format=%H -- <plan-path>
     ↓
-    [Yes] → Invoke harness:subagent-driven-development or harness:executing-plans
-    [No] → Continue normal session (marker remains for later)
-    [Cancel] → Delete marker, continue normal session
+    Count phase completions since plan creation:
+    git log <sha>..HEAD | grep -E "^phase\([0-9]+\): complete$" | wc -l
     ↓
-[If not exists]
+    Compare: completed phases vs total phases
+    ↓
+[If any plan has completed < total]
+    ↓
+    Display incomplete work info
+    ↓
+    Ask: "Resume? [Yes / No / Abandon]"
+    ↓
+    [Yes] → Read plan, determine next phase, invoke subagent-driven-development
+    [No] → Continue normal session (will prompt again next session)
+    [Abandon] → Create abandon commit, continue normal session
+    ↓
+[If all plans complete or no plans]
     ↓
     Normal using-harness behavior (check for applicable skills)
 ```
 
-**Display format when marker found:**
+**Display format when incomplete work found:**
 
 ```
-📋 **Pending execution detected**
+📋 **Incomplete work detected**
 
-Feature: [from plan path]
-Progress: Phase [N] of [M] ([completed phases] ✓)
-Mode: [autonomous/checkpoint]
-Reason: [planning-complete/context-exhaustion/user-paused]
+Feature: [feature name from plan path]
+Progress: [X] of [Y] phases complete
+Next: Phase [N]: [Phase name from plan]
 
-Resume execution? [Yes / No / Cancel pending]
+Resume? [Yes / No / Abandon this plan]
 ```
 
 **Handling responses:**
-- **Yes**: Invoke appropriate skill with marker context, skill reads checkpoint and continues
-- **No**: Proceed with normal session, marker stays for later resume
-- **Cancel**: Delete marker file, proceed with normal session
+- **Yes**: Read plan, find next incomplete phase, invoke `harness:subagent-driven-development`
+- **No**: Proceed with normal session, will prompt again next session
+- **Abandon**: Create commit with `plan: abandoned` trailer, continue normal session
 
-## Marker Edge Cases
+## Git Detection Edge Cases
 
 | Case | Handling |
 |------|----------|
-| Marker exists but plan file missing | Warn user, offer to cancel marker |
-| Marker exists but checkpoint missing | Warn user, offer to cancel or start fresh |
-| Marker in wrong worktree | Only check marker in current working directory |
-| Corrupted/unparseable marker | Warn user, offer to cancel |
-| User declines resume multiple times | Marker persists until explicitly cancelled |
+| Plan exists but no commits since | All phases pending, prompt to resume |
+| Plan file deleted but commits exist | Ignore (no plan to parse) |
+| Multiple incomplete plans | Prompt for each, user chooses which to resume |
+| Commit messages don't match convention | Count only exact matches, may under-count |
+| Plan modified after phases started | Use current plan phase count |
 
-**Cleanup:**
-- Marker is deleted automatically when execution completes successfully
-- Marker is deleted when user chooses "Cancel"
-- Marker persists if user chooses "No" (for later resume)
+**Abandon commit format:**
+
+```bash
+git commit --allow-empty -m "chore: abandon [feature-name] plan
+
+plan: abandoned
+Reason: [user-provided or 'No longer needed']"
+```
 
 ## Red Flags
 
