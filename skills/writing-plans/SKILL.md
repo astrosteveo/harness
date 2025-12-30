@@ -19,15 +19,30 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 The plan should be saved in the same `.harness/NNN-feature-slug/` directory as the design and research documents. If the directory doesn't exist yet, create it following the naming convention (see brainstorming skill for details).
 
-## Research Before Planning (REQUIRED)
+## Thorough Research Before Planning (REQUIRED)
 
 **REQUIRED SUB-SKILL:** Use harness:researching before writing any implementation details.
 
-Before specifying versions, APIs, or code patterns:
-- **Verify package versions** - Research current stable versions for package.json/requirements.txt
-- **Confirm API signatures** - Never assume method names or parameters from training data
-- **Check for deprecations** - Ensure planned code doesn't use deprecated methods
+**This is NOT the same research as brainstorming.** Brainstorming research was exploratory - understanding what's possible. Planning research is thorough verification now that requirements are concrete.
+
+**This is actually the IDEAL time for research** because:
+- All ambiguities are resolved - you know exactly what questions to ask
+- Requirements are concrete - research targets are specific, not exploratory
+- New topics have emerged - Socratic discovery surfaced things you didn't know to research initially
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "I already researched during brainstorming" | That was exploratory. Now requirements are concrete - verify everything. |
+| "Brainstorming research is sufficient" | Brainstorming explored possibilities. Planning needs exact versions, APIs, patterns. |
+| "I'll research as I go" | Plans with unresearched details become blockers during execution. |
+
+**What to research NOW:**
+- **Verify package versions** - Exact versions for package.json/requirements.txt
+- **Confirm API signatures** - Method names, parameters, return types
+- **Check for deprecations** - Ensure planned code uses current approaches
 - **Validate patterns** - Confirm design patterns match current recommendations
+- **Research new topics** - Anything surfaced during brainstorming that wasn't initially researched
+- **Deep dive on implementation details** - Now that you know WHAT to build, research HOW thoroughly
 
 Include a **Research Summary** section in the plan header documenting key findings.
 
