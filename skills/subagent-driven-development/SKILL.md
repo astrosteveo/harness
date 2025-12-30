@@ -50,55 +50,48 @@ digraph when_to_use {
 
 ## The Process
 
-```dot
-digraph process {
-    rankdir=TB;
-
-    subgraph cluster_per_task {
-        label="Per Task";
-        "Dispatch implementer subagent (./implementer-prompt.md)" [shape=box];
-        "Implementer subagent asks questions?" [shape=diamond];
-        "Answer questions, provide context" [shape=box];
-        "Implementer subagent implements, tests, commits, self-reviews" [shape=box];
-        "Dispatch spec reviewer subagent (./spec-reviewer-prompt.md)" [shape=box];
-        "Spec reviewer subagent confirms code matches spec?" [shape=diamond];
-        "Implementer subagent fixes spec gaps" [shape=box];
-        "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" [shape=box];
-        "Code quality reviewer subagent approves?" [shape=diamond];
-        "Implementer subagent fixes quality issues" [shape=box];
-        "Mark task complete in TodoWrite" [shape=box];
-        "Checkpoint mode ON?" [shape=diamond style=filled fillcolor=lightyellow];
-        "Report to user, wait for approval" [shape=box style=filled fillcolor=lightyellow];
-    }
-
-    "Read plan, extract all tasks with full text, note context, create TodoWrite" [shape=box];
-    "More tasks remain?" [shape=diamond];
-    "Dispatch final code reviewer subagent for entire implementation" [shape=box];
-    "Use harness:finishing-a-development-branch" [shape=box style=filled fillcolor=lightgreen];
-
-    "Read plan, extract all tasks with full text, note context, create TodoWrite" -> "Dispatch implementer subagent (./implementer-prompt.md)";
-    "Dispatch implementer subagent (./implementer-prompt.md)" -> "Implementer subagent asks questions?";
-    "Implementer subagent asks questions?" -> "Answer questions, provide context" [label="yes"];
-    "Answer questions, provide context" -> "Dispatch implementer subagent (./implementer-prompt.md)";
-    "Implementer subagent asks questions?" -> "Implementer subagent implements, tests, commits, self-reviews" [label="no"];
-    "Implementer subagent implements, tests, commits, self-reviews" -> "Dispatch spec reviewer subagent (./spec-reviewer-prompt.md)";
-    "Dispatch spec reviewer subagent (./spec-reviewer-prompt.md)" -> "Spec reviewer subagent confirms code matches spec?";
-    "Spec reviewer subagent confirms code matches spec?" -> "Implementer subagent fixes spec gaps" [label="no"];
-    "Implementer subagent fixes spec gaps" -> "Dispatch spec reviewer subagent (./spec-reviewer-prompt.md)" [label="re-review"];
-    "Spec reviewer subagent confirms code matches spec?" -> "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" [label="yes"];
-    "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" -> "Code quality reviewer subagent approves?";
-    "Code quality reviewer subagent approves?" -> "Implementer subagent fixes quality issues" [label="no"];
-    "Implementer subagent fixes quality issues" -> "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" [label="re-review"];
-    "Code quality reviewer subagent approves?" -> "Mark task complete in TodoWrite" [label="yes"];
-    "Mark task complete in TodoWrite" -> "Checkpoint mode ON?";
-    "Checkpoint mode ON?" -> "Report to user, wait for approval" [label="yes"];
-    "Checkpoint mode ON?" -> "More tasks remain?" [label="no"];
-    "Report to user, wait for approval" -> "More tasks remain?";
-    "More tasks remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
-    "More tasks remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
-    "Dispatch final code reviewer subagent for entire implementation" -> "Use harness:finishing-a-development-branch";
-}
 ```
+Read plan, extract all Phases with full content
+    ↓
+Create TodoWrite with Phases (not individual tasks)
+    ↓
+For each Phase:
+    ↓
+    Mark Phase as in_progress
+        ↓
+    Dispatch implementer subagent with FULL Phase content
+    (all tasks, all steps, all code - subagent executes sequentially)
+        ↓
+    Subagent executes all Tasks in Phase using TDD
+    (commits after each Task within the Phase)
+        ↓
+    Subagent completes, returns summary
+        ↓
+    Dispatch spec reviewer for entire Phase
+        ↓
+    [If issues] Dispatch fix subagent → re-review
+        ↓
+    Dispatch code quality reviewer for entire Phase
+        ↓
+    [If issues] Dispatch fix subagent → re-review
+        ↓
+    Mark Phase complete in TodoWrite
+        ↓
+    [If checkpoint mode] Report to user, wait for approval
+        ↓
+Next Phase
+    ↓
+All Phases complete → harness:finishing-a-development-branch
+```
+
+**Per-Phase flow details:**
+
+1. **Extract Phase content:** Read all tasks, steps, code snippets for this Phase
+2. **Dispatch implementer:** Give subagent the complete Phase specification
+3. **Subagent executes:** Works through tasks sequentially, using TDD, commits per task
+4. **Spec review:** Verify all tasks in Phase meet spec requirements
+5. **Quality review:** Verify code quality across all Phase changes
+6. **Checkpoint (if enabled):** Pause for human approval before next Phase
 
 ## Prompt Templates
 
@@ -111,87 +104,51 @@ digraph process {
 ```
 You: I'm using Subagent-Driven Development to execute this plan.
 
-[Read plan file once: docs/plans/feature-plan.md]
-[Extract all 5 tasks with full text and context]
-[Create TodoWrite with all tasks]
+[Read plan file: .harness/004-world-design/plan.md]
+[Extract all 6 Phases with full content]
+[Create TodoWrite with 6 Phase items]
 
-Task 1: Hook installation script
+Phase 1: Camera System (3 tasks)
 
-[Get Task 1 text and context (already extracted)]
-[Dispatch implementation subagent with full task text + context]
+[Mark Phase 1 as in_progress]
+[Dispatch implementer subagent with full Phase 1 content]
 
-Implementer: "Before I begin - should the hook be installed at user or system level?"
+Implementer: "Before I begin - should camera lerp be configurable?"
 
-You: "User level (~/.config/harness/hooks/)"
+You: "Use 0.08 for now, we can make it configurable later"
 
-Implementer: "Got it. Implementing now..."
+Implementer: "Got it. Implementing Phase 1..."
 [Later] Implementer:
-  - Implemented install-hook command
-  - Added tests, 5/5 passing
-  - Self-review: Found I missed --force flag, added it
-  - Committed
+  - Task 1.1: Camera follow - done, committed
+  - Task 1.2: Zoom levels - done, committed
+  - Task 1.3: Parallax fix - done, committed
+  - All tests passing
+  - Phase 1 complete
 
-[Dispatch spec compliance reviewer]
-Spec reviewer: ✅ Spec compliant - all requirements met, nothing extra
+[Dispatch spec reviewer for Phase 1]
+Spec reviewer: ✅ All 3 tasks meet spec requirements
 
-[Get git SHAs, dispatch code quality reviewer]
-Code reviewer: Strengths: Good test coverage, clean. Issues: None. Approved.
+[Dispatch code quality reviewer for Phase 1]
+Code reviewer: ✅ Clean implementation, approved
 
-[Mark Task 1 complete]
+[Mark Phase 1 complete]
+[If checkpoint mode: "Phase 1 complete. Continue to Phase 2?"]
 
-Task 2: Recovery modes
-
-[Get Task 2 text and context (already extracted)]
-[Dispatch implementation subagent with full task text + context]
-
-Implementer: [No questions, proceeds]
-Implementer:
-  - Added verify/repair modes
-  - 8/8 tests passing
-  - Self-review: All good
-  - Committed
-
-[Dispatch spec compliance reviewer]
-Spec reviewer: ❌ Issues:
-  - Missing: Progress reporting (spec says "report every 100 items")
-  - Extra: Added --json flag (not requested)
-
-[Implementer fixes issues]
-Implementer: Removed --json flag, added progress reporting
-
-[Spec reviewer reviews again]
-Spec reviewer: ✅ Spec compliant now
-
-[Dispatch code quality reviewer]
-Code reviewer: Strengths: Solid. Issues (Important): Magic number (100)
-
-[Implementer fixes]
-Implementer: Extracted PROGRESS_INTERVAL constant
-
-[Code reviewer reviews again]
-Code reviewer: ✅ Approved
-
-[Mark Task 2 complete]
-
-...
-
-[After all tasks]
-[Dispatch final code-reviewer]
-Final reviewer: All requirements met, ready to merge
-
-Done!
+Phase 2: World Expansion (2 tasks)
+...continues same pattern...
 ```
 
 ## Checkpoint Mode
 
-When checkpoint mode is ON, pause after each task completes (after code quality review passes):
+When checkpoint mode is ON, pause after each Phase completes (after code quality review passes):
 
 **Report format:**
 ```
-✅ Task N complete: [Task name]
+✅ Phase N complete: [Phase name]
 
 **What was implemented:**
-- [Summary of changes]
+- Task N.1: [summary]
+- Task N.2: [summary]
 - [Files modified]
 
 **Verification:**
@@ -199,15 +156,15 @@ When checkpoint mode is ON, pause after each task completes (after code quality 
 - Spec review: ✅ Approved
 - Code quality: ✅ Approved
 
-**Commit:** [SHA] - [commit message]
+**Commits:** [list of commit SHAs from this Phase]
 
 ---
-Ready to proceed to Task N+1: [Next task name]?
+Ready to proceed to Phase N+1: [Next phase name]?
 [Continue / Pause / Adjust]
 ```
 
 **User responses:**
-- **Continue** - Proceed to next task
+- **Continue** - Proceed to next Phase
 - **Pause** - Stop execution, user will resume later
 - **Adjust** - User provides feedback, dispatch fix subagent before proceeding
 
@@ -219,7 +176,7 @@ Ready to proceed to Task N+1: [Next task name]?
 
 **When to skip checkpoints (autonomous mode):**
 - Confident in the plan and process
-- Independent, well-defined tasks
+- Independent, well-defined Phases
 - Time-sensitive execution
 - Established trust in automated reviews
 
@@ -270,17 +227,17 @@ When plans contain both independent and dependent tasks:
 ## Red Flags
 
 **Never:**
-- Skip reviews (spec compliance OR code quality)
-- Proceed with unfixed issues
-- Dispatch multiple implementation subagents in parallel (conflicts)
-- Make subagent read plan file (provide full text instead)
-- Skip scene-setting context (subagent needs to understand where task fits)
+- Skip reviews (spec compliance OR code quality) at Phase level
+- Proceed to next Phase with unfixed issues
+- Dispatch multiple Phase subagents in parallel (use sequential)
+- Make subagent read plan file (provide full Phase content instead)
+- Skip scene-setting context (subagent needs to understand where Phase fits)
 - Ignore subagent questions (answer before letting them proceed)
-- Accept "close enough" on spec compliance (spec reviewer found issues = not done)
-- Skip review loops (reviewer found issues = implementer fixes = review again)
-- Let implementer self-review replace actual review (both are needed)
+- Accept "close enough" on spec compliance
+- Skip review loops (reviewer found issues = fix = review again)
+- Let implementer self-review replace actual review (both needed)
 - **Start code quality review before spec compliance is ✅** (wrong order)
-- Move to next task while either review has open issues
+- Move to next Phase while current Phase has open review issues
 
 **If subagent asks questions:**
 - Answer clearly and completely
@@ -288,12 +245,12 @@ When plans contain both independent and dependent tasks:
 - Don't rush them into implementation
 
 **If reviewer finds issues:**
-- Implementer (same subagent) fixes them
+- Dispatch fix subagent with specific instructions
 - Reviewer reviews again
 - Repeat until approved
 - Don't skip the re-review
 
-**If subagent fails task:**
+**If subagent fails Phase:**
 - Dispatch fix subagent with specific instructions
 - Don't try to fix manually (context pollution)
 
