@@ -34,6 +34,12 @@ For the current Phase:
 4. Run verifications as specified
 5. Commit after each Task
 6. Mark Phase as completed when all Tasks done
+7. Create phase completion commit:
+   ```bash
+   git commit --allow-empty -m "feat: complete Phase N - [Phase name]
+
+   phase(N): complete"
+   ```
 
 ### Step 3: Report
 
@@ -118,3 +124,4 @@ See `harness:subagent-driven-development` for the decision flowchart.
 - Reference skills when plan says to
 - Between batches: just report and wait
 - Stop when blocked, don't guess
+- Create `phase(N): complete` commit trailer after each Phase
