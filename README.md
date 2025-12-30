@@ -24,17 +24,10 @@ A structured development workflow for coding agents that emphasizes **research-d
 ### Claude Code (Plugin System)
 
 ```bash
-# Add the marketplace
-/plugin marketplace add astrosteveo/harness-marketplace
-
-# Install the plugin
-/plugin install harness@harness-marketplace
+/plugin install astrosteveo/harness
 ```
 
-Verify with `/help` - you should see:
-- `/harness:brainstorm` - Interactive design refinement
-- `/harness:write-plan` - Create implementation plan
-- `/harness:execute-plan` - Execute plan in batches
+Verify with `/skills` - you should see harness skills listed.
 
 ### Codex
 
