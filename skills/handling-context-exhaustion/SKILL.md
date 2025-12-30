@@ -142,33 +142,7 @@ npm test  # or appropriate test command
 \`\`\`
 ```
 
-### Step 5: Create PENDING_EXECUTION Marker
-
-After creating checkpoint, create the marker for auto-resume:
-
-**Location:** `.harness/PENDING_EXECUTION.md`
-
-```markdown
-# Pending Execution
-
-**Created:** [timestamp]
-**Reason:** context-exhaustion
-**Plan:** .harness/NNN-feature-name/plan.md
-**Checkpoint:** .harness/NNN-feature-name/checkpoint.md
-**Mode:** [current mode - autonomous or checkpoint]
-**Progress:**
-  - Phase 1: complete
-  - Phase 2: complete
-  - Phase 3: in-progress (Task 3.2)
-  - Phase 4: pending
-  ...
-**Worktree:** [current worktree path]
-**Resume At:** Phase [N], continue from Task [N.M]
-```
-
-This marker enables automatic resume when user starts a new session. The session start hook in `harness:using-harness` will detect this marker and auto-invoke the appropriate skill.
-
-### Step 6: Commit In-Progress Work
+### Step 5: Commit In-Progress Work
 
 Before ending the session:
 
@@ -184,7 +158,7 @@ Next: [immediate next step]
 Checkpoint: .harness/NNN-feature/checkpoint.md"
 ```
 
-### Step 7: Inform User
+### Step 6: Inform User
 
 Report to user with clear next steps:
 
@@ -192,14 +166,13 @@ Report to user with clear next steps:
 ⚠️ **Context limit approaching. Progress saved.**
 
 - Checkpoint: `.harness/NNN-feature/checkpoint.md`
-- Marker: `.harness/PENDING_EXECUTION.md`
-- Progress: Phase [N] of [M], Task [N.M]
+- Progress: Phase [N] of [M] complete (tracked via git)
+- Branch: [current branch]
 
-**Start a new session to auto-resume.**
+**Start a new session to continue.**
 
-The session start hook will detect the marker and automatically
-invoke the appropriate skill to continue from where you left off.
-No need to remember which skill to use!
+The session start hook will detect incomplete work from git
+history and prompt you to resume.
 ```
 
 ## Context Reduction Strategies
@@ -285,13 +258,14 @@ Dispatch subagents when:
 
 ## Handoff to New Session
 
-When context is exhausted and checkpoint + marker are complete:
+When context is exhausted and checkpoint is complete:
 
 1. Tell user: "Context limit approaching. Progress saved."
-2. Reference: "Marker at `.harness/PENDING_EXECUTION.md`"
-3. Instruction: "Start a new session - it will auto-resume"
+2. Reference: "Checkpoint at `.harness/NNN-feature/checkpoint.md`"
+3. Instruction: "Start a new session - git history tracks your progress"
 
-The `harness:using-harness` skill's session start hook handles reading the marker and invoking the appropriate skill automatically.
+The `harness:using-harness` skill's session start hook scans git for
+`phase(N): complete` commits and determines where you left off.
 
 ## Key Principles
 
@@ -314,7 +288,7 @@ The `harness:using-harness` skill's session start hook handles reading the marke
 
 ## Integration with Other Skills
 
-- **harness:using-harness** - Session start hook detects PENDING_EXECUTION.md marker and auto-resumes
+- **harness:using-harness** - Session start hook detects incomplete work via git history
 - **harness:resuming-work** - Used by next session to read checkpoint and continue
 - **harness:dispatching-parallel-agents** - Reduce context by parallelizing independent work
 - **harness:subagent-driven-development** - Fresh subagent per Phase prevents context accumulation
