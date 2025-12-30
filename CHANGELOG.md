@@ -10,6 +10,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-12-30
+
+### Changed
+- **Git-based progress tracking** - Replaced `PENDING_EXECUTION.md` marker file with git commit trailers for progress tracking. Session start now scans git history for `phase(N): complete` commits to detect incomplete work.
+- **Phase completion commits** - Each phase completion now creates a commit with `phase(N): complete` trailer, enabling progress tracking entirely through git history.
+- **Plan abandonment** - Users can now abandon plans via `plan: abandoned` commit trailer, which stops session start prompts for that plan.
+
+### Removed
+- **PENDING_EXECUTION.md marker** - No longer created or used. All 6 skills updated to remove marker references:
+  - `using-harness` - Now uses git-based detection instead of marker file
+  - `subagent-driven-development` - Adds phase completion commit trailers
+  - `executing-plans` - Adds phase completion commit trailers
+  - `handling-context-exhaustion` - Removed marker creation step
+  - `resuming-work` - Uses git-based detection instead of marker reading
+  - `writing-plans` - Removed marker from execution handoff
+
+### Added
+- **End-to-end test suite** - New `tests/git-progress-tracking/` with comprehensive test script validating phase detection, abandonment, and multi-plan scenarios (7 assertions)
+
 ## [0.4.1] - 2025-12-30
 
 ### Added
@@ -129,7 +148,8 @@ Key differences from upstream (obra/superpowers):
 - **backlog-tracking** - Track bugs, deferred features, and tech debt
 - **10 additional skills** - CI/CD, flaky tests, dependencies, migrations, security, performance, monorepos, context exhaustion, merge conflicts, legacy code
 
-[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/astrosteveo/harness/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/astrosteveo/harness/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/astrosteveo/harness/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/astrosteveo/harness/compare/v0.2.0...v0.3.0
