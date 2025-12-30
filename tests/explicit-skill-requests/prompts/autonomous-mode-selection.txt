@@ -15,4 +15,4 @@ Which approach do you want?
 
 ---
 
-Let's go with subagent-driven development
+Autonomous - I trust the process, just run through everything

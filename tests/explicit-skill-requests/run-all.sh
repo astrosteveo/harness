@@ -58,6 +58,50 @@ else
 fi
 echo ""
 
+# Test: after-planning-flow (user chooses subagent-driven)
+echo ">>> Test 5: after-planning-flow"
+if "$SCRIPT_DIR/run-test.sh" "subagent-driven-development" "$PROMPTS_DIR/after-planning-flow.txt"; then
+    PASSED=$((PASSED + 1))
+    RESULTS="$RESULTS\nPASS: after-planning-flow"
+else
+    FAILED=$((FAILED + 1))
+    RESULTS="$RESULTS\nFAIL: after-planning-flow"
+fi
+echo ""
+
+# Test: autonomous mode selection (should trigger subagent-driven-development)
+echo ">>> Test 6: autonomous-mode-selection"
+if "$SCRIPT_DIR/run-test.sh" "subagent-driven-development" "$PROMPTS_DIR/autonomous-mode-selection.txt"; then
+    PASSED=$((PASSED + 1))
+    RESULTS="$RESULTS\nPASS: autonomous-mode-selection"
+else
+    FAILED=$((FAILED + 1))
+    RESULTS="$RESULTS\nFAIL: autonomous-mode-selection"
+fi
+echo ""
+
+# Test: checkpoint mode selection (should trigger subagent-driven-development)
+echo ">>> Test 7: checkpoint-mode-selection"
+if "$SCRIPT_DIR/run-test.sh" "subagent-driven-development" "$PROMPTS_DIR/checkpoint-mode-selection.txt"; then
+    PASSED=$((PASSED + 1))
+    RESULTS="$RESULTS\nPASS: checkpoint-mode-selection"
+else
+    FAILED=$((FAILED + 1))
+    RESULTS="$RESULTS\nFAIL: checkpoint-mode-selection"
+fi
+echo ""
+
+# Test: batch review selection (should trigger executing-plans)
+echo ">>> Test 8: batch-review-selection"
+if "$SCRIPT_DIR/run-test.sh" "executing-plans" "$PROMPTS_DIR/batch-review-selection.txt"; then
+    PASSED=$((PASSED + 1))
+    RESULTS="$RESULTS\nPASS: batch-review-selection"
+else
+    FAILED=$((FAILED + 1))
+    RESULTS="$RESULTS\nFAIL: batch-review-selection"
+fi
+echo ""
+
 echo "=== Summary ==="
 echo -e "$RESULTS"
 echo ""

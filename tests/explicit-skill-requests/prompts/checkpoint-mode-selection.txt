@@ -15,4 +15,4 @@ Which approach do you want?
 
 ---
 
-Let's go with subagent-driven development
+I want to use checkpoints so I can review after each task
