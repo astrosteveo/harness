@@ -1,17 +1,19 @@
 ---
 name: subagent-driven-development
-description: Use when executing implementation plans with independent tasks in the current session
+description: Use when executing implementation plans with independent Phases in the current session
 ---
 
 # Subagent-Driven Development
 
-Execute plan by dispatching fresh subagent per task, with two-stage review after each: spec compliance review first, then code quality review.
+Execute plan by dispatching fresh subagent per **Phase**, with spec + code quality review after each Phase completes.
 
-**Core principle:** Fresh subagent per task + two-stage review (spec then quality) = high quality, fast iteration
+**Core principle:** Fresh subagent per Phase + two-stage review (spec then quality) = high quality, context-efficient execution
+
+**Key change from task-level:** Each subagent handles an entire Phase (2-6 tasks), not individual tasks. This reduces dispatch overhead while maintaining fresh context.
 
 **Checkpoint Mode:** This skill supports two modes:
-- **Autonomous (checkpoint OFF)** - Runs all tasks without stopping for human input
-- **Checkpoints (checkpoint ON)** - Pauses after each task for human approval before proceeding
+- **Autonomous (checkpoint OFF)** - Runs all Phases without stopping for human input
+- **Checkpoints (checkpoint ON)** - Pauses after each Phase for human approval before proceeding
 
 ## When to Use
 
