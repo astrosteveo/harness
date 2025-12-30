@@ -7,9 +7,11 @@ description: Use when you have a written implementation plan to execute in a sep
 
 ## Overview
 
-Load plan, review critically, execute tasks in batches, report for review between batches.
+Load plan, review critically, execute **Phases** sequentially, report for review between Phases.
 
-**Core principle:** Batch execution with checkpoints for architect review.
+**Core principle:** Phase-by-phase execution with checkpoints for architect review.
+
+**Note:** This skill is for separate session execution. For same-session execution, use `harness:subagent-driven-development`.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
@@ -21,20 +23,25 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 3. If concerns: Raise them with the user before starting
 4. If no concerns: Create TodoWrite and proceed
 
-### Step 2: Execute Batch
-**Default: First 3 tasks**
+### Step 2: Execute Phase
 
-For each task:
-1. Mark as in_progress
-2. Follow each step exactly (plan has bite-sized steps)
-3. Run verifications as specified
-4. Mark as completed
+**Execute one Phase at a time:**
+
+For the current Phase:
+1. Mark Phase as in_progress in TodoWrite
+2. Execute each Task within the Phase sequentially
+3. Follow each step exactly (plan has bite-sized steps)
+4. Run verifications as specified
+5. Commit after each Task
+6. Mark Phase as completed when all Tasks done
 
 ### Step 3: Report
-When batch complete:
-- Show what was implemented
-- Show verification output
-- Say: "Ready for feedback."
+
+When Phase complete:
+- Show which Phase was implemented
+- Show task completion summary
+- Show verification output (tests passing)
+- Say: "Phase [N] complete. Ready for feedback."
 
 ### Step 4: Continue
 Based on feedback:
@@ -55,18 +62,19 @@ See `harness:subagent-driven-development` for the decision flowchart.
 
 **Quick decision:**
 - **Same session + fully autonomous?** -> subagent-driven (autonomous mode)
-- **Same session + human approval per task?** -> subagent-driven (checkpoint mode)
-- **Separate session + human review per batch?** -> executing-plans (this skill)
+- **Same session + human approval per Phase?** -> subagent-driven (checkpoint mode)
+- **Separate session + human review per Phase?** -> executing-plans (this skill)
 
 | Factor | Autonomous | Checkpoints | Batch Review (this skill) |
 |--------|------------|-------------|---------------------------|
 | Skill | subagent-driven | subagent-driven | executing-plans |
 | Session | Same | Same | Separate (worktree) |
-| Human stops | None | After each task | After each batch (3 tasks) |
+| Dispatch unit | Phase | Phase | Phase |
+| Human stops | None | After each Phase | After each Phase |
 | Reviews | Automated (subagents) | Automated (subagents) | Human |
-| Context | Fresh per task | Fresh per task | Accumulates |
+| Context | Fresh per Phase | Fresh per Phase | Accumulates |
 | Speed | Fastest | Medium | Slowest |
-| Best for | Independent tasks, trust process | Want oversight, catch issues early | Complex/risky changes |
+| Best for | Independent Phases, trust process | Want oversight per Phase | Complex/risky changes |
 
 ## When to Stop and Ask for Help
 
