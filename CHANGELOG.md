@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Simplified `docs/` to single `ATTRIBUTION.md` file
+- **writing-plans** now explicitly distinguishes planning research from brainstorming research, preventing agents from skipping research with "I already researched during brainstorming" rationalization
 
 ## [0.1.0] - 2025-12-28
 

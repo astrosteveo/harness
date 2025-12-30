@@ -68,6 +68,7 @@ Research findings are documented in the plan for reference.
 
 ### 3. Writing Plans
 Creates implementation plans clear enough for "an enthusiastic junior engineer with no project context" to follow:
+- **Thorough research** - Distinct from brainstorming research; now that requirements are concrete, verify exact versions, APIs, and patterns
 - Bite-sized tasks (2-5 minutes each)
 - Exact file paths and complete code
 - Verification commands with expected output
