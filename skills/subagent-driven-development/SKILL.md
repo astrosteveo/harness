@@ -182,33 +182,33 @@ Ready to proceed to Phase N+1: [Next phase name]?
 
 ## Handling Mixed Dependencies
 
-When plans contain both independent and dependent tasks:
+When plans contain both independent and dependent Phases:
 
-1. **Identify groups**: Find dependency chains (e.g., Task 5 depends on Task 3) vs. independent tasks
-2. **Execute dependent chains sequentially**: Tasks 4 and 5 must wait for Task 3 to complete
-3. **Independent tasks get fresh subagents**: Tasks 1, 2 can proceed without waiting
-4. **Strategy**: Complete independent tasks first when possible, then tackle dependency chains in order
+1. **Identify groups**: Find dependency chains (e.g., Phase 3 depends on Phase 2) vs. independent Phases
+2. **Execute dependent chains sequentially**: Phases must execute in order when dependencies exist
+3. **Independent Phases get fresh subagents**: Each Phase gets its own subagent
+4. **Strategy**: Execute Phases in plan order (Phases are typically ordered by dependency)
 
-**Example**: Tasks 1, 2, 3 are independent; Tasks 4, 5 depend on 3. Execute 1, 2, 3 (fresh subagent each), then 4, then 5.
+**Note**: Within a Phase, tasks are executed sequentially by the same subagent. Phase-level is the dispatch boundary.
 
 ## Advantages
 
 **vs. Manual execution:**
 - Subagents follow TDD naturally
-- Fresh context per task (no confusion)
+- Fresh context per Phase (no confusion from accumulated context)
 - Parallel-safe (subagents don't interfere)
 - Subagent can ask questions (before AND during work)
 
 **vs. Batch Review (executing-plans):**
 - Same session (no handoff)
-- Fresh context per task (no accumulation)
+- Fresh context per Phase (no accumulation)
 - Automated spec + code quality reviews (consistent quality gates)
-- Checkpoint mode gives human oversight without batch delays
+- Checkpoint mode gives human oversight without delays
 
 **Efficiency gains:**
-- No file reading overhead (controller provides full text)
+- No file reading overhead (controller provides full Phase content)
 - Controller curates exactly what context is needed
-- Subagent gets complete information upfront
+- Subagent gets complete Phase information upfront
 - Questions surfaced before work begins (not after)
 
 **Quality gates:**
@@ -219,8 +219,8 @@ When plans contain both independent and dependent tasks:
 - Code quality ensures implementation is well-built
 
 **Cost:**
-- More subagent invocations (implementer + 2 reviewers per task)
-- Controller does more prep work (extracting all tasks upfront)
+- Subagent invocations (implementer + 2 reviewers per Phase)
+- Controller does more prep work (extracting all Phases upfront)
 - Review loops add iterations
 - But catches issues early (cheaper than debugging later)
 
