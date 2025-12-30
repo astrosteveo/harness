@@ -20,22 +20,39 @@ Systematically restore context and continue work that was interrupted, whether b
 
 ## The Process
 
-### Step 1: Check for Pending Execution Marker
+### Step 1: Check Git for Incomplete Work
 
-First, check if there's a PENDING_EXECUTION.md marker:
+First, check git for incomplete plans:
 
 ```bash
-# Check for pending execution marker
-cat .harness/PENDING_EXECUTION.md 2>/dev/null
+# Find all plans
+for plan in .harness/*/plan.md; do
+  # Skip if abandoned
+  if git log --grep="^plan: abandoned$" -- "$plan" | grep -q .; then
+    continue
+  fi
+
+  # Count phases in plan
+  total=$(grep -c "^## Phase" "$plan")
+
+  # Find when plan was added
+  plan_sha=$(git log --diff-filter=A --format=%H -- "$plan" | head -1)
+
+  # Count completed phases since plan creation
+  completed=$(git log ${plan_sha}..HEAD --format=%B | grep -c "^phase([0-9]*): complete$")
+
+  if [ "$completed" -lt "$total" ]; then
+    echo "Incomplete: $plan ($completed/$total phases)"
+  fi
+done
 ```
 
-**If marker exists:**
-- Read marker for plan path, checkpoint path, progress, and mode
-- Use marker info to determine exactly where to resume
-- Skip to Step 6 (Summarize and Confirm) with marker context
-- The marker tells you: which Phase, which Task, what mode
+**If incomplete work found:**
+- Report which plan(s) have incomplete work
+- Show progress (X of Y phases complete)
+- Ask user which to resume, or continue to Step 2 for manual exploration
 
-**If no marker:**
+**If no incomplete work:**
 - Continue to Step 2 (manual checkpoint discovery)
 
 ### Step 2: Locate Project Artifacts
@@ -113,11 +130,14 @@ Ask: "Ready to continue with [next task]?"
 ## Cleanup
 
 When execution completes successfully:
-1. Delete `.harness/PENDING_EXECUTION.md` marker (if exists)
-2. Update checkpoint to show completion
+
+1. Create final phase completion commit (if not already done):
+   ```bash
+   git commit --allow-empty -m "feat: complete Phase N - [Final phase name]
+
+   phase(N): complete"
+   ```
+2. Update checkpoint to show completion (optional, for context)
 3. Proceed to `harness:finishing-a-development-branch`
 
-```bash
-# Remove marker on successful completion
-rm .harness/PENDING_EXECUTION.md 2>/dev/null || true
-```
+**Note:** No marker file to delete - progress is tracked entirely in git history.
