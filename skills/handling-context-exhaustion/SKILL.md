@@ -142,7 +142,33 @@ npm test  # or appropriate test command
 \`\`\`
 ```
 
-### Step 5: Commit In-Progress Work
+### Step 5: Create PENDING_EXECUTION Marker
+
+After creating checkpoint, create the marker for auto-resume:
+
+**Location:** `.harness/PENDING_EXECUTION.md`
+
+```markdown
+# Pending Execution
+
+**Created:** [timestamp]
+**Reason:** context-exhaustion
+**Plan:** .harness/NNN-feature-name/plan.md
+**Checkpoint:** .harness/NNN-feature-name/checkpoint.md
+**Mode:** [current mode - autonomous or checkpoint]
+**Progress:**
+  - Phase 1: complete
+  - Phase 2: complete
+  - Phase 3: in-progress (Task 3.2)
+  - Phase 4: pending
+  ...
+**Worktree:** [current worktree path]
+**Resume At:** Phase [N], continue from Task [N.M]
+```
+
+This marker enables automatic resume when user starts a new session. The session start hook in `harness:using-harness` will detect this marker and auto-invoke the appropriate skill.
+
+### Step 6: Commit In-Progress Work
 
 Before ending the session:
 
@@ -158,7 +184,7 @@ Next: [immediate next step]
 Checkpoint: .harness/NNN-feature/checkpoint.md"
 ```
 
-### Step 6: Inform User
+### Step 7: Inform User
 
 Report to user:
 - **Checkpoint created:** [path to checkpoint.md]
