@@ -55,6 +55,31 @@ Include a **Research Summary** section in the plan header documenting key findin
 - "Run the tests and make sure they pass" - step
 - "Commit" - step
 
+## Phase Structure (REQUIRED)
+
+Plans MUST be organized into Phases. Phases are the unit of subagent execution.
+
+**Phase requirements:**
+- Each Phase groups 2-6 related tasks
+- Phase naming: `## Phase N: [Descriptive Name]`
+- Task naming: `### Task N.M: [Name]` or `### Task M: [Name]`
+- Each Phase has a clear completion state (tests pass, commits made)
+
+**Phase sizing guidelines:**
+
+| Phase Size | Tasks | Guidance |
+|------------|-------|----------|
+| Too small | 1 task | Merge with adjacent Phase |
+| Ideal | 2-4 tasks | Good subagent workload |
+| Acceptable | 5-6 tasks | Consider splitting if complex |
+| Too large | 7+ tasks | Must split into multiple Phases |
+
+**Phase completion criteria:**
+- All tasks in Phase complete
+- Tests passing
+- Commit(s) made
+- Clear handoff state for next Phase
+
 ## Plan Document Header
 
 **Every plan MUST start with this header:**
