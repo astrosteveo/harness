@@ -106,7 +106,7 @@ Create multiple sequential plan files in the same feature directory:
 **This Plan:** Phases 4-6 of 9
 ```
 
-**Execution order:** Execute plan parts sequentially. Each part creates its own PENDING_EXECUTION marker when paused.
+**Execution order:** Execute plan parts sequentially. Progress is tracked via git phase completion commits.
 
 ## Phase Structure (REQUIRED)
 
@@ -284,25 +284,6 @@ Examples: "continue autonomous", "new session checkpoint", "continue"
 - Execute Phase by Phase with fresh subagent per Phase
 
 **If "New Session" chosen:**
-- Create PENDING_EXECUTION.md marker (see below)
-- Display: "Marker created. Start new session to auto-resume."
-- User starts new session, hook auto-invokes appropriate skill
-
-**PENDING_EXECUTION.md marker format:**
-
-```markdown
-# Pending Execution
-
-**Created:** [timestamp]
-**Reason:** planning-complete
-**Plan:** .harness/NNN-feature-slug/plan.md
-**Checkpoint:** .harness/NNN-feature-slug/checkpoint.md
-**Mode:** [autonomous|checkpoint]
-**Progress:**
-  - Phase 1: pending
-  - Phase 2: pending
-  ...
-**Worktree:** [path]
-```
-
-Save marker to: `.harness/PENDING_EXECUTION.md`
+- Display: "Plan saved. Start a new session to begin execution."
+- Display: "Git will track your progress via phase completion commits."
+- User starts new session, hook auto-detects incomplete work from git
