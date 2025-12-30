@@ -41,11 +41,12 @@ digraph when_to_use {
 |--------|------------|-------------|--------------|
 | Skill | subagent-driven | subagent-driven | executing-plans |
 | Session | Same | Same | Separate (worktree) |
-| Human stops | None | After each task | After each batch (3 tasks) |
+| Dispatch unit | Phase | Phase | Phase |
+| Human stops | None | After each Phase | After each Phase |
 | Reviews | Automated (subagents) | Automated (subagents) | Human |
-| Context | Fresh per task | Fresh per task | Accumulates |
+| Context | Fresh per Phase | Fresh per Phase | Accumulates |
 | Speed | Fastest | Medium | Slowest |
-| Best for | Independent tasks, trust process | Want oversight, catch issues early | Complex/risky changes |
+| Best for | Independent Phases, trust process | Want oversight per Phase | Complex/risky changes |
 
 ## The Process
 
