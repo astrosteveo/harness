@@ -87,7 +87,7 @@ Plans MUST be organized into Phases. Phases are the unit of subagent execution.
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use harness:executing-plans to implement this plan task-by-task.
+> **For Claude:** Execute using subagent per Phase. Each Phase is a cohesive unit.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -95,12 +95,20 @@ Plans MUST be organized into Phases. Phases are the unit of subagent execution.
 
 **Tech Stack:** [Key technologies/libraries with VERIFIED current versions]
 
-**Research Summary:** [Key findings from harness:researching - versions verified, patterns confirmed, deprecations avoided]
+**Research Summary:** [Key findings from harness:researching]
 
 **Sources:** [URLs to documentation referenced]
 
+**Phases:**
+1. Phase 1: [Name] (N tasks)
+2. Phase 2: [Name] (N tasks)
+3. Phase 3: [Name] (N tasks)
+...
+
 ---
 ```
+
+The Phases summary gives quick overview of the work scope and helps with progress tracking.
 
 ## Task Structure
 
