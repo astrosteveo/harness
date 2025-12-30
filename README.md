@@ -72,9 +72,10 @@ Creates implementation plans clear enough for "an enthusiastic junior engineer w
 - RED-GREEN-REFACTOR TDD cycle
 
 ### 4. Executing Plans
-Two execution modes:
-- **Subagent-Driven** - Fresh agent per task with two-stage review (spec compliance, then code quality)
-- **Parallel Session** - Batch execution with human checkpoints
+Three execution modes:
+- **Autonomous** - Runs to completion with automated spec/code quality reviews by subagents. Best for independent tasks when you trust the process.
+- **Checkpoints** - Same automated quality gates, but pauses after each task for your approval. Best when you want oversight and to catch issues early.
+- **Batch Review** - Separate session that executes 3 tasks at a time with human review between batches. Best for complex/risky changes.
 
 ### 5. Finishing Up
 Verifies all tests pass, presents options (merge/PR/keep/discard), cleans up worktree.

@@ -10,6 +10,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-12-30
+
+### Added
+- **Checkpoint execution mode** - New hybrid option that combines subagent-driven quality gates with human checkpoints after each task. Three execution modes now available:
+  - **Autonomous** - Runs to completion with automated spec/code quality reviews
+  - **Checkpoints** - Pauses after each task for human approval before proceeding
+  - **Batch Review** - Separate session with human review every 3 tasks
+- Test prompts for all three execution mode selections
+
+### Changed
+- **writing-plans** - Execution handoff now presents three clearly differentiated options with explicit descriptions of human involvement
+- **subagent-driven-development** - Added checkpoint mode support with configurable human stops, updated flowchart and comparison tables
+- **executing-plans** - Updated comparison table to show all three execution modes
+
+### Fixed
+- Test script `explicit-skill-requests/run-test.sh` now handles missing `timeout` command on macOS and includes required `--verbose` flag
+
 ## [0.2.0] - 2025-12-29
 
 ### Changed
@@ -83,6 +100,7 @@ Key differences from upstream (obra/superpowers):
 - **backlog-tracking** - Track bugs, deferred features, and tech debt
 - **10 additional skills** - CI/CD, flaky tests, dependencies, migrations, security, performance, monorepos, context exhaustion, merge conflicts, legacy code
 
-[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/astrosteveo/harness/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/astrosteveo/harness/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/astrosteveo/harness/releases/tag/v0.1.0
