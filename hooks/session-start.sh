@@ -7,6 +7,13 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
+# Check for PENDING_EXECUTION marker in current working directory
+MARKER_FILE=".harness/PENDING_EXECUTION.md"
+MARKER_CONTENT=""
+if [ -f "$MARKER_FILE" ]; then
+    MARKER_CONTENT=$(cat "$MARKER_FILE" 2>/dev/null || echo "")
+fi
+
 # Read using-harness content
 using_harness_content=$(cat "${PLUGIN_ROOT}/skills/using-harness/SKILL.md" 2>&1 || echo "Error reading using-harness skill")
 
@@ -35,12 +42,24 @@ else
     using_harness_escaped=$(escape_for_json "$using_harness_content")
 fi
 
+# Build marker notification if marker exists
+MARKER_NOTIFICATION=""
+if [ -n "$MARKER_CONTENT" ]; then
+    # Escape marker content for JSON
+    if command -v jq &> /dev/null; then
+        marker_escaped=$(jq -Rs '.' <<< "$MARKER_CONTENT" | sed 's/^"//;s/"$//')
+    else
+        marker_escaped=$(escape_for_json "$MARKER_CONTENT")
+    fi
+    MARKER_NOTIFICATION="\\n\\n---\\n\\n**PENDING EXECUTION DETECTED**\\n\\nA .harness/PENDING_EXECUTION.md marker file exists in this directory:\\n\\n\`\`\`\\n${marker_escaped}\\n\`\`\`\\n\\n**You MUST ask the user:** \\\"Resume execution? [Yes / No / Cancel]\\\"\\n\\n- **Yes**: Invoke harness:subagent-driven-development or harness:executing-plans with marker context\\n- **No**: Continue normal session (marker remains)\\n- **Cancel**: Delete marker file, continue normal session"
+fi
+
 # Output context injection as JSON
 cat <<EOF
 {
   "hookSpecificOutput": {
     "hookEventName": "SessionStart",
-    "additionalContext": "<EXTREMELY_IMPORTANT>\nYou have harness skills.\n\n**Below is the full content of your 'harness:using-harness' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n${using_harness_escaped}\n</EXTREMELY_IMPORTANT>"
+    "additionalContext": "<EXTREMELY_IMPORTANT>\nYou have harness skills.\n\n**Below is the full content of your 'harness:using-harness' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n${using_harness_escaped}${MARKER_NOTIFICATION}\n</EXTREMELY_IMPORTANT>"
   }
 }
 EOF

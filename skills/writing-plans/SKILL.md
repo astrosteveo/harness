@@ -55,6 +55,59 @@ Include a **Research Summary** section in the plan header documenting key findin
 - "Run the tests and make sure they pass" - step
 - "Commit" - step
 
+## Plan Size Limits (REQUIRED)
+
+Plans must fit within context limits. A single plan file should not exceed **20,000 tokens** (~3,000 lines or ~80KB).
+
+**Why this matters:**
+- Plans are loaded into subagent context for execution
+- Exceeding limits causes truncation or failures
+- Detailed plans are good - but split them when needed
+
+**Estimating plan size:**
+- ~4 characters per token (rough average)
+- 3,000 lines ≈ 20,000 tokens
+- Check file size: 80KB ≈ 20,000 tokens
+
+**When to split:**
+
+| Plan Size | Action |
+|-----------|--------|
+| < 15,000 tokens | Single plan file |
+| 15,000-20,000 tokens | Consider splitting |
+| > 20,000 tokens | MUST split |
+
+**How to split large features:**
+
+Create multiple sequential plan files in the same feature directory:
+
+```
+.harness/004-large-feature/
+├── requirements.md
+├── research.md
+├── design.md
+├── plan-part1.md    # Phases 1-3 (foundation)
+├── plan-part2.md    # Phases 4-6 (core features)
+└── plan-part3.md    # Phases 7-9 (integration)
+```
+
+**Split plan naming:** `plan-part1.md`, `plan-part2.md`, etc.
+
+**Each split plan must:**
+- Be self-contained (can execute independently)
+- Reference prerequisites from earlier parts
+- Include its own header with Phase summary
+- State dependencies: "Requires completion of plan-part1.md"
+
+**Split plan header addition:**
+
+```markdown
+**Prerequisites:** plan-part1.md (Phases 1-3 complete)
+**This Plan:** Phases 4-6 of 9
+```
+
+**Execution order:** Execute plan parts sequentially. Each part creates its own PENDING_EXECUTION marker when paused.
+
 ## Phase Structure (REQUIRED)
 
 Plans MUST be organized into Phases. Phases are the unit of subagent execution.

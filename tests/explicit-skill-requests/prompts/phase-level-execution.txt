@@ -1,0 +1,26 @@
+Great, the plan is complete. I've saved it to docs/plans/game-engine.md.
+
+Here's a summary of what we designed:
+- Phase 1: Camera System (3 tasks - camera follow, zoom levels, parallax)
+- Phase 2: World Expansion (2 tasks - chunk loading, biome transitions)
+- Phase 3: Entity System (4 tasks - base entity, player entity, NPC entity, collision)
+- Phase 4: UI Framework (3 tasks - HUD, inventory, dialogue boxes)
+
+Execution Options:
+1. Autonomous (this session) - Runs all Phases to completion without stopping
+2. Checkpoints (this session) - Pauses after each Phase for your approval
+3. Batch Review (separate session) - Executes in separate worktree with human review
+
+Which approach do you want?
+
+---
+
+Let's use subagent-driven-development with autonomous mode - dispatch a subagent per Phase, not per task.
+
+---
+
+[Your response should:
+1. Use Phase-level language (not task-level)
+2. Dispatch one subagent per Phase (2-6 tasks each)
+3. Review after each Phase completes (spec + code quality)
+4. NOT dispatch individual subagents per task]

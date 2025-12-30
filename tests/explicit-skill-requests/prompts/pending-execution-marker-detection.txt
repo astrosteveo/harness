@@ -1,0 +1,25 @@
+[Simulated session start - agent discovers marker file]
+
+System: New session started. Working directory contains .harness/PENDING_EXECUTION.md
+
+Contents of .harness/PENDING_EXECUTION.md:
+```
+# Pending Execution
+
+**Created:** 2025-12-30T10:00:00Z
+**Reason:** context-exhaustion
+**Plan:** .harness/004-auth-system/plan.md
+**Checkpoint:** .harness/004-auth-system/checkpoint.md
+**Mode:** autonomous
+**Progress:**
+  - Phase 1: complete
+  - Phase 2: complete
+  - Phase 3: in-progress (Task 3.2)
+  - Phase 4: pending
+**Worktree:** /Users/dev/project
+**Resume At:** Phase 3, continue from Task 3.2
+```
+
+---
+
+[Your response should detect this marker and offer to resume execution]

@@ -10,6 +10,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2025-12-30
+
+### Added
+- **Plan size limits** - `writing-plans` skill now enforces 20,000 token limit per plan file. Large features must be split into multiple sequential plan files (`plan-part1.md`, `plan-part2.md`, etc.)
+
+### Fixed
+- **Session-start hook marker detection** - Hook now actually reads `.harness/PENDING_EXECUTION.md` and injects contents into context. Previously only the skill described this behavior but the hook didn't implement it.
+
+## [0.4.0] - 2025-12-30
+
+### Added
+- **PENDING_EXECUTION marker system** - Automatic resume capability for interrupted executions. When context exhaustion occurs or user pauses, a marker file is created at `.harness/PENDING_EXECUTION.md` that enables auto-resume in new sessions.
+- **Session start marker detection** - `using-harness` skill now checks for pending execution markers at session start and offers to resume automatically.
+- **Test prompts for phase-based execution:**
+  - `pending-execution-marker-detection.txt` - Tests marker detection at session start
+  - `context-exhaustion-marker-creation.txt` - Tests checkpoint and marker creation flow
+  - `phase-level-execution.txt` - Tests Phase-level dispatch language
+
+### Changed
+- **Phase-based execution** - Subagent dispatch now operates at Phase level (2-6 tasks) instead of individual task level, reducing dispatch overhead while maintaining fresh context per Phase.
+- **subagent-driven-development** - Updated to dispatch one subagent per Phase with spec + code quality review after each Phase completes.
+- **executing-plans** - Aligned with Phase-level execution model.
+- **handling-context-exhaustion** - Now creates PENDING_EXECUTION.md marker for automatic resume in new sessions.
+- **resuming-work** - Integrated with marker system for seamless continuation.
+- **writing-plans** - Plans now use Phase structure with explicit task grouping.
+
+### Fixed
+- Marker edge case handling in `using-harness` (missing plan file, corrupted marker, wrong worktree)
+
 ## [0.3.0] - 2025-12-30
 
 ### Added
@@ -100,7 +129,9 @@ Key differences from upstream (obra/superpowers):
 - **backlog-tracking** - Track bugs, deferred features, and tech debt
 - **10 additional skills** - CI/CD, flaky tests, dependencies, migrations, security, performance, monorepos, context exhaustion, merge conflicts, legacy code
 
-[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/astrosteveo/harness/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/astrosteveo/harness/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/astrosteveo/harness/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/astrosteveo/harness/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/astrosteveo/harness/releases/tag/v0.1.0
