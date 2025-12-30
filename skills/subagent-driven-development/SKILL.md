@@ -9,6 +9,10 @@ Execute plan by dispatching fresh subagent per task, with two-stage review after
 
 **Core principle:** Fresh subagent per task + two-stage review (spec then quality) = high quality, fast iteration
 
+**Checkpoint Mode:** This skill supports two modes:
+- **Autonomous (checkpoint OFF)** - Runs all tasks without stopping for human input
+- **Checkpoints (checkpoint ON)** - Pauses after each task for human approval before proceeding
+
 ## When to Use
 
 ```dot
@@ -29,11 +33,17 @@ digraph when_to_use {
 }
 ```
 
-**vs. Executing Plans (parallel session):**
-- Same session (no context switch)
-- Fresh subagent per task (no context pollution)
-- Two-stage review after each task: spec compliance first, then code quality
-- Faster iteration (no human-in-loop between tasks)
+**Comparison of execution modes:**
+
+| Factor | Autonomous | Checkpoints | Batch Review |
+|--------|------------|-------------|--------------|
+| Skill | subagent-driven | subagent-driven | executing-plans |
+| Session | Same | Same | Separate (worktree) |
+| Human stops | None | After each task | After each batch (3 tasks) |
+| Reviews | Automated (subagents) | Automated (subagents) | Human |
+| Context | Fresh per task | Fresh per task | Accumulates |
+| Speed | Fastest | Medium | Slowest |
+| Best for | Independent tasks, trust process | Want oversight, catch issues early | Complex/risky changes |
 
 ## The Process
 
@@ -54,6 +64,8 @@ digraph process {
         "Code quality reviewer subagent approves?" [shape=diamond];
         "Implementer subagent fixes quality issues" [shape=box];
         "Mark task complete in TodoWrite" [shape=box];
+        "Checkpoint mode ON?" [shape=diamond style=filled fillcolor=lightyellow];
+        "Report to user, wait for approval" [shape=box style=filled fillcolor=lightyellow];
     }
 
     "Read plan, extract all tasks with full text, note context, create TodoWrite" [shape=box];
@@ -75,7 +87,10 @@ digraph process {
     "Code quality reviewer subagent approves?" -> "Implementer subagent fixes quality issues" [label="no"];
     "Implementer subagent fixes quality issues" -> "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" [label="re-review"];
     "Code quality reviewer subagent approves?" -> "Mark task complete in TodoWrite" [label="yes"];
-    "Mark task complete in TodoWrite" -> "More tasks remain?";
+    "Mark task complete in TodoWrite" -> "Checkpoint mode ON?";
+    "Checkpoint mode ON?" -> "Report to user, wait for approval" [label="yes"];
+    "Checkpoint mode ON?" -> "More tasks remain?" [label="no"];
+    "Report to user, wait for approval" -> "More tasks remain?";
     "More tasks remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
     "More tasks remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
     "Dispatch final code reviewer subagent for entire implementation" -> "Use harness:finishing-a-development-branch";
@@ -164,6 +179,47 @@ Final reviewer: All requirements met, ready to merge
 Done!
 ```
 
+## Checkpoint Mode
+
+When checkpoint mode is ON, pause after each task completes (after code quality review passes):
+
+**Report format:**
+```
+✅ Task N complete: [Task name]
+
+**What was implemented:**
+- [Summary of changes]
+- [Files modified]
+
+**Verification:**
+- Tests: [passing/failing]
+- Spec review: ✅ Approved
+- Code quality: ✅ Approved
+
+**Commit:** [SHA] - [commit message]
+
+---
+Ready to proceed to Task N+1: [Next task name]?
+[Continue / Pause / Adjust]
+```
+
+**User responses:**
+- **Continue** - Proceed to next task
+- **Pause** - Stop execution, user will resume later
+- **Adjust** - User provides feedback, dispatch fix subagent before proceeding
+
+**When to use checkpoint mode:**
+- First time using subagent-driven on a codebase
+- Complex or risky changes
+- Learning how the automated reviews work
+- Want to verify quality gates are catching issues
+
+**When to skip checkpoints (autonomous mode):**
+- Confident in the plan and process
+- Independent, well-defined tasks
+- Time-sensitive execution
+- Established trust in automated reviews
+
 ## Handling Mixed Dependencies
 
 When plans contain both independent and dependent tasks:
@@ -183,10 +239,11 @@ When plans contain both independent and dependent tasks:
 - Parallel-safe (subagents don't interfere)
 - Subagent can ask questions (before AND during work)
 
-**vs. Executing Plans:**
+**vs. Batch Review (executing-plans):**
 - Same session (no handoff)
-- Continuous progress (no waiting)
-- Review checkpoints automatic
+- Fresh context per task (no accumulation)
+- Automated spec + code quality reviews (consistent quality gates)
+- Checkpoint mode gives human oversight without batch delays
 
 **Efficiency gains:**
 - No file reading overhead (controller provides full text)
@@ -248,4 +305,4 @@ When plans contain both independent and dependent tasks:
 - **harness:test-driven-development** - Subagents follow TDD for each task
 
 **Alternative workflow:**
-- **harness:executing-plans** - Use for parallel session instead of same-session execution
+- **harness:executing-plans** - Use for separate session with batch-level human review (3 tasks at a time)

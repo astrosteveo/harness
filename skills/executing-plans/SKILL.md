@@ -54,16 +54,19 @@ After all tasks complete and verified:
 See `harness:subagent-driven-development` for the decision flowchart.
 
 **Quick decision:**
-- **Same session + autonomous?** -> subagent-driven-development
-- **Parallel session + human checkpoints?** -> executing-plans (this skill)
+- **Same session + fully autonomous?** -> subagent-driven (autonomous mode)
+- **Same session + human approval per task?** -> subagent-driven (checkpoint mode)
+- **Separate session + human review per batch?** -> executing-plans (this skill)
 
-| Factor | executing-plans | subagent-driven |
-|--------|-----------------|-----------------|
-| Human involvement | High (review each batch) | Low (autonomous) |
-| Context usage | Single session accumulates | Fresh per task |
-| Speed | Slower (wait for feedback) | Faster (continuous) |
-| Review granularity | Batch-level | Per-task (2-stage) |
-| Best for | Complex/risky changes | Independent tasks |
+| Factor | Autonomous | Checkpoints | Batch Review (this skill) |
+|--------|------------|-------------|---------------------------|
+| Skill | subagent-driven | subagent-driven | executing-plans |
+| Session | Same | Same | Separate (worktree) |
+| Human stops | None | After each task | After each batch (3 tasks) |
+| Reviews | Automated (subagents) | Automated (subagents) | Human |
+| Context | Fresh per task | Fresh per task | Accumulates |
+| Speed | Fastest | Medium | Slowest |
+| Best for | Independent tasks, trust process | Want oversight, catch issues early | Complex/risky changes |
 
 ## When to Stop and Ask for Help
 

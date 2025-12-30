@@ -140,19 +140,37 @@ If any tasks are identified but deferred during planning:
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `.harness/NNN-feature-slug/plan.md`. Two execution options:**
+**"Plan complete and saved to `.harness/NNN-feature-slug/plan.md`.**
 
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
+---
+**Execution Options**
 
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
+**1. Autonomous (this session)** - Runs to completion without stopping. Fresh subagent per task with automated spec/code quality reviews by reviewer subagents. Best for independent tasks where you trust the process.
+
+**2. Checkpoints (this session)** - Same quality gates as #1, but pauses after each task for your approval before proceeding. Best when you want to review progress and catch issues early.
+
+**3. Batch Review (separate session)** - Open new session in worktree. Executes 3 tasks at a time, then stops for your feedback. Best for complex/risky changes needing human oversight.
 
 **Which approach?"**
 
-**If Subagent-Driven chosen:**
+---
+
+**If Autonomous chosen:**
 - **REQUIRED SUB-SKILL:** Use harness:subagent-driven-development
 - Stay in this session
-- Fresh subagent per task + code review
+- Set checkpoint mode: OFF
+- Fresh subagent per task + automated reviewer subagents
+- Runs all tasks without human intervention
 
-**If Parallel Session chosen:**
+**If Checkpoints chosen:**
+- **REQUIRED SUB-SKILL:** Use harness:subagent-driven-development
+- Stay in this session
+- Set checkpoint mode: ON
+- Fresh subagent per task + automated reviewer subagents
+- Pauses after each task for human approval
+
+**If Batch Review chosen:**
 - Guide them to open new session in worktree
 - **REQUIRED SUB-SKILL:** New session uses harness:executing-plans
+- Executes in batches of 3 tasks
+- Human reviews between batches
