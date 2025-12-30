@@ -77,6 +77,11 @@ For each Phase:
         ↓
     Mark Phase complete in TodoWrite
         ↓
+    Create phase completion commit with trailer:
+    git commit --allow-empty -m "feat: complete Phase N - [Phase name]
+
+    phase(N): complete"
+        ↓
     [If checkpoint mode] Report to user, wait for approval
         ↓
 Next Phase
@@ -91,7 +96,8 @@ All Phases complete → harness:finishing-a-development-branch
 3. **Subagent executes:** Works through tasks sequentially, using TDD, commits per task
 4. **Spec review:** Verify all tasks in Phase meet spec requirements
 5. **Quality review:** Verify code quality across all Phase changes
-6. **Checkpoint (if enabled):** Pause for human approval before next Phase
+6. **Phase commit:** Create commit with `phase(N): complete` trailer
+7. **Checkpoint (if enabled):** Pause for human approval before next Phase
 
 ## Prompt Templates
 
@@ -223,6 +229,37 @@ When plans contain both independent and dependent Phases:
 - Controller does more prep work (extracting all Phases upfront)
 - Review loops add iterations
 - But catches issues early (cheaper than debugging later)
+
+## Commit Conventions
+
+### Phase Completion Trailer
+
+After each Phase completes (reviews passed), create a commit with the phase completion trailer:
+
+```bash
+git commit --allow-empty -m "feat: complete Phase N - [Phase name]
+
+phase(N): complete"
+```
+
+**Format requirements:**
+- Trailer must be on its own line
+- Format: `phase(N): complete` where N is the phase number
+- Can be on an existing commit or an empty commit
+- Used by session start detection to track progress
+
+### Plan Abandonment
+
+If user chooses to abandon a plan:
+
+```bash
+git commit --allow-empty -m "chore: abandon [feature-name] plan
+
+plan: abandoned
+Reason: [explanation]"
+```
+
+This stops the session start hook from prompting about this plan.
 
 ## Red Flags
 
