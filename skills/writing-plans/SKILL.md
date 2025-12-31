@@ -19,30 +19,46 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 The plan should be saved in the same `.harness/NNN-feature-slug/` directory as the design and research documents. If the directory doesn't exist yet, create it following the naming convention (see brainstorming skill for details).
 
-## Thorough Research Before Planning (REQUIRED)
+## The Iron Rule
 
-**REQUIRED SUB-SKILL:** Use harness:researching before writing any implementation details.
+```
+NO PLANNING UNTIL RESEARCH IS COMPLETE
+```
 
-**This is NOT the same research as brainstorming.** Brainstorming research was exploratory - understanding what's possible. Planning research is thorough verification now that requirements are concrete.
+You cannot write implementation details, code examples, or file paths until you have:
+- Explored the codebase thoroughly
+- Verified all external technologies
+- Researched implementation patterns
 
-**This is actually the IDEAL time for research** because:
-- All ambiguities are resolved - you know exactly what questions to ask
-- Requirements are concrete - research targets are specific, not exploratory
-- New topics have emerged - Socratic discovery surfaced things you didn't know to research initially
+## Research Before Planning (REQUIRED)
 
-| Rationalization | Reality |
-|-----------------|---------|
-| "I already researched during brainstorming" | That was exploratory. Now requirements are concrete - verify everything. |
-| "Brainstorming research is sufficient" | Brainstorming explored possibilities. Planning needs exact versions, APIs, patterns. |
-| "I'll research as I go" | Plans with unresearched details become blockers during execution. |
+**REQUIRED SUB-SKILL:** Use harness:researching before writing ANY plan content.
 
-**What to research NOW:**
+Research for planning includes **BOTH**:
+
+### 1. Codebase Exploration (REQUIRED)
+
+**You cannot skip this.** Even if you "know" the codebase from brainstorming.
+
+- **Affected areas** - What files will this change touch?
+- **Existing patterns** - How is similar code structured? What patterns are used?
+- **Testing patterns** - How are similar features tested?
+- **Dependencies** - What might break if we change things?
+
+### 2. External Research (REQUIRED)
+
 - **Verify package versions** - Exact versions for package.json/requirements.txt
 - **Confirm API signatures** - Method names, parameters, return types
 - **Check for deprecations** - Ensure planned code uses current approaches
-- **Validate patterns** - Confirm design patterns match current recommendations
-- **Research new topics** - Anything surfaced during brainstorming that wasn't initially researched
-- **Deep dive on implementation details** - Now that you know WHAT to build, research HOW thoroughly
+- **Research implementation patterns** - Current best practices for HOW to build
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "I already researched during brainstorming" | That was exploratory. Planning needs verification. |
+| "I know the codebase" | Knowing isn't current. Explore the actual files. |
+| "Let me write the plan first" | NO. Research THEN plan. |
+| "I'll research as I write" | Plans with unresearched details = blockers during execution. |
+| "Quick plan, then verify" | NO. There is no "quick plan" before research. |
 
 Include a **Research Summary** section in the plan header documenting key findings.
 
@@ -207,13 +223,14 @@ git commit -m "feat: add specific feature"
 ```
 
 ## Remember
-- **Research first** - Verify versions and APIs before writing code examples
-- Exact file paths always
+
+- **Research FIRST** - Codebase exploration + external research BEFORE writing anything
+- **No planning without research** - This is non-negotiable
+- Exact file paths always (from codebase exploration)
 - Complete code in plan (not "add validation")
 - Exact commands with expected output
-- Reference relevant skills with @ syntax
 - DRY, YAGNI, TDD, frequent commits
-- **Never assume from training data** - Always verify external library details
+- **Never assume from training** - Verify everything external
 
 ## Deferred Items
 

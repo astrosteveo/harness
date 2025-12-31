@@ -7,39 +7,87 @@ description: "You MUST use this before any creative work - creating features, bu
 
 ## Overview
 
-Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
+Turn ideas into fully formed designs through collaborative dialogue.
 
-Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
+**The flow:**
+1. Understand the idea (quick questions)
+2. **RESEARCH** (codebase + external) - BEFORE designing
+3. Propose approaches (informed by research)
+4. Present design (in sections for validation)
+
+## The Iron Rule
+
+```
+NO DESIGNING UNTIL RESEARCH IS COMPLETE
+```
+
+You cannot propose approaches, architectures, or solutions until you have:
+- Explored the codebase
+- Researched external technologies
+- Looked for creative solutions
 
 ## The Process
 
-**Understanding the idea:**
-- Check out the current project state first (files, docs, recent commits)
+### Step 1: Understand the Idea
+
+**Quick context gathering (5-10 min max):**
 - Ask questions one at a time to refine the idea
-- Prefer multiple choice questions when possible, but open-ended is fine too
-- Only one question per message - if a topic needs more exploration, break it into multiple questions
-- Focus on understanding: purpose, constraints, success criteria
+- Prefer multiple choice questions when possible
+- Focus on: purpose, constraints, success criteria
+- Don't go deep - just enough to know what to research
 
-**Researching current technologies (REQUIRED):**
-- **REQUIRED SUB-SKILL:** Use harness:researching before proposing approaches
-- Identify any external libraries, frameworks, or APIs involved
-- Research current versions, best practices, and recommended patterns
-- Never rely on training data for version numbers or API signatures
-- Flag any deprecated approaches or better alternatives discovered
+**This is NOT design.** You're gathering enough info to know what to research.
 
-**Exploring approaches:**
+### Step 2: Research (REQUIRED)
+
+**REQUIRED SUB-SKILL:** Use harness:researching
+
+**This happens BEFORE proposing ANY approaches.**
+
+Research includes:
+1. **Codebase exploration** - How does similar functionality work? What patterns exist?
+2. **External research** - What are current versions, APIs, best practices?
+3. **Creative solutions** - What OTHER ways could we solve this?
+
+**You cannot skip this.** See the researching skill for the full process.
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "I know this codebase" | Knowing isn't current. Explore to verify. |
+| "Simple feature, no research needed" | Simple features still follow patterns. Find them. |
+| "Let me propose something first" | NO. Research THEN propose. |
+| "I'll research after I have a design" | Research after design = rework. Research first. |
+| "Quick proposal, then research" | NO. There is no "quick proposal" before research. |
+
+### Step 3: Propose Approaches (Research-Informed)
+
+**Only AFTER research is complete:**
 - Propose 2-3 different approaches with trade-offs
-- **Inform recommendations with research findings** - cite current versions and practices
-- Present options conversationally with your recommendation and reasoning
+- **Cite research findings** - "Based on exploring X, I found..."
 - Lead with your recommended option and explain why
 - Explicitly note if research contradicts common assumptions
+- Reference current versions and documentation URLs
 
-**Presenting the design:**
-- Once you believe you understand what you're building, present the design
-- Break it into sections of 200-300 words
-- Ask after each section whether it looks right so far
+### Step 4: Present the Design
+
+**Once approach is chosen:**
+- Present design in sections of 200-300 words
+- Ask after each section whether it looks right
 - Cover: architecture, components, data flow, error handling, testing
-- Be ready to go back and clarify if something doesn't make sense
+- Be ready to go back and clarify
+
+## Task Sizing
+
+Before starting, assess task size:
+
+| Size | Criteria | Workflow |
+|------|----------|----------|
+| **Micro** | < 5 min, single file, obvious fix | Skip to TDD, no brainstorming needed |
+| **Small** | < 30 min, 1-3 files, clear requirements | Quick questions → research → plan |
+| **Medium** | 30 min - 2 hrs, multiple components | Standard workflow |
+| **Large** | > 2 hrs, architectural changes | Full workflow with thorough research |
+
+**For Micro tasks:** Say "This looks like a micro task. Skipping full brainstorming - proceeding with TDD."
 
 ## After the Design
 
@@ -49,21 +97,16 @@ All project documents are saved to `.harness/NNN-feature-slug/` where:
 - `NNN` is a zero-padded sequence number (001, 002, etc.)
 - `feature-slug` is a kebab-case name for the feature
 
-**To determine the next sequence number:**
-1. Check existing `.harness/` directories
-2. Find the highest NNN prefix
-3. Increment by 1 for the new feature
-
 **Save documents:**
-- Requirements: `.harness/NNN-feature-slug/requirements.md`
 - Research: `.harness/NNN-feature-slug/research.md` (from harness:researching)
+- Requirements: `.harness/NNN-feature-slug/requirements.md`
 - Design: `.harness/NNN-feature-slug/design.md`
 - Plan: `.harness/NNN-feature-slug/plan.md` (from harness:writing-plans)
 
 **Commit the design document to git after saving.**
 
 **Deferred Items:**
-If any features, bugs, or tasks are identified but deferred during brainstorming:
+If any features, bugs, or tasks are identified but deferred:
 - Add them to `.harness/BACKLOG.md`
 - Use the backlog format (see harness:backlog-tracking)
 
@@ -72,26 +115,13 @@ If any features, bugs, or tasks are identified but deferred during brainstorming
 - Use harness:using-git-worktrees to create isolated workspace
 - Use harness:writing-plans to create detailed implementation plan
 
-## Task Sizing
-
-Before starting the full brainstorming workflow, assess task size:
-
-| Size | Criteria | Workflow |
-|------|----------|----------|
-| **Micro** | < 5 min, single file, obvious fix | Skip to TDD, no brainstorming needed |
-| **Small** | < 30 min, 1-3 files, clear requirements | Abbreviated: quick questions → plan |
-| **Medium** | 30 min - 2 hrs, multiple components | Standard brainstorming workflow |
-| **Large** | > 2 hrs, architectural changes | Full workflow with research |
-
-**For Micro/Small tasks:** Say "This looks like a micro/small task. Skipping full brainstorming - proceeding with [TDD/abbreviated workflow]."
-
 ## Key Principles
 
-- **Research before recommending** - Never assume versions or APIs from training data
-- **One question at a time** - Don't overwhelm with multiple questions
-- **Multiple choice preferred** - Easier to answer than open-ended when possible
-- **YAGNI ruthlessly** - Remove unnecessary features from all designs
-- **Explore alternatives** - Always propose 2-3 approaches before settling
-- **Incremental validation** - Present design in sections, validate each
-- **Be flexible** - Go back and clarify when something doesn't make sense
-- **Cite current sources** - Reference documentation URLs when making recommendations
+- **Research before designing** - Always, no exceptions
+- **Codebase exploration is research** - Don't skip it
+- **External research is research** - Don't skip it either
+- **One question at a time** - Don't overwhelm
+- **Multiple choice preferred** - Easier to answer
+- **YAGNI ruthlessly** - Remove unnecessary features
+- **Explore alternatives** - Always propose 2-3 approaches
+- **Cite sources** - Reference documentation URLs

@@ -1,75 +1,159 @@
 ---
 name: researching
-description: "MUST use before planning or implementing features involving external libraries, frameworks, or APIs. Fetches current versions, best practices, and documentation to prevent outdated training data from informing decisions."
+description: "MUST use before ANY design decisions or implementation planning. Includes BOTH codebase exploration AND external research (APIs, libraries, creative approaches)."
 ---
 
-# Researching Current Technologies
+# Researching
 
 ## Overview
 
-Research current library versions, best practices, design patterns, and documentation BEFORE making architectural decisions or writing implementation plans. Never rely on training data for version numbers, API signatures, or current recommendations.
+Research happens BEFORE design. Period.
 
-**Announce at start:** "I'm using the researching skill to gather current information about the technologies involved."
+Research = **Codebase Exploration** + **External Research**. Both are required. You cannot skip either.
 
-## When To Use This Skill
+**Announce at start:** "I'm using the researching skill to explore the codebase and gather current information before designing anything."
 
-**ALWAYS use when:**
-- Planning features that use external libraries or frameworks
-- Making technology choice recommendations
-- Writing implementation code that uses third-party dependencies
-- Discussing best practices or design patterns for specific technologies
-- Any time you would otherwise rely on training data for versions/APIs
+## The Iron Rule
 
-**Skip only when:**
-- Working with purely internal code with no external dependencies
-- User explicitly says they don't need current research
+```
+NO DESIGNING UNTIL RESEARCH IS COMPLETE
+```
+
+This means:
+- No proposing approaches
+- No recommending architectures
+- No writing implementation details
+- No making technology choices
+
+Until you have:
+1. Explored the codebase thoroughly
+2. Researched external technologies/APIs
+3. Looked for creative solutions
+
+## Red Flags - You're Skipping Research
+
+| Thought | Reality |
+|---------|---------|
+| "I already know how this works" | Training data is stale. Verify. |
+| "The codebase is simple" | Simple codebases have patterns you'll miss. Explore. |
+| "I'll research as I go" | Research after design = rework. Research first. |
+| "Just a quick design first" | NO. Research first, then design. |
+| "I can see the pattern" | Seeing isn't knowing. Read the actual code. |
+| "This is similar to X" | Similar isn't same. Verify current state. |
+| "I'll check if needed" | You always need to check. That's the point. |
+| "Let me propose something first" | NO. Research THEN propose. |
 
 ## The Research Process
 
-### Step 1: Identify Research Targets
+### Phase 1: Codebase Exploration (REQUIRED)
 
-From the current task, identify:
-- **Libraries/Frameworks:** Any external dependencies mentioned or implied
-- **APIs:** External services or platform APIs being used
-- **Patterns:** Design patterns or architectural approaches being considered
-- **Tools:** Build tools, testing frameworks, deployment platforms
+**You cannot skip this.** Even if you "know" the codebase.
 
-### Step 2: Research Each Target
+**What to explore:**
 
-For each technology identified, use web search to find:
+1. **Existing Patterns**
+   - How is similar functionality implemented?
+   - What abstractions exist?
+   - What patterns are used (naming, structure, error handling)?
 
-**Version Information:**
-- Current stable version
-- Latest major version release date
-- Breaking changes from previous versions
-- LTS (Long Term Support) status if applicable
+2. **Related Code**
+   - What files touch the area you're working on?
+   - What are the dependencies?
+   - What might break if you change things?
 
-**API & Usage:**
-- Current API signatures for features being used
-- Deprecated methods to avoid
-- New recommended approaches
-- Common gotchas and pitfalls
+3. **Tests**
+   - How are similar features tested?
+   - What testing patterns are used?
+   - What edge cases are covered?
 
-**Best Practices:**
-- Official documentation recommendations
-- Community consensus on patterns
-- Anti-patterns to avoid
-- Performance considerations
+4. **Recent Changes**
+   - What's been changed recently in this area?
+   - Are there open PRs or recent commits to consider?
+   - Is there ongoing refactoring?
 
-**Migration & Compatibility:**
-- Peer dependency requirements
-- Compatibility with other libraries in the stack
-- Migration guides if upgrading
+**How to explore:**
 
-### Step 3: Document Findings
+```bash
+# Find related files
+glob "**/*relevant-keyword*"
 
-Create a research summary with this structure:
+# Search for patterns
+grep "similar function or pattern"
+
+# Check recent commits
+git log --oneline -20 -- path/to/area
+
+# Read related code
+read actual files, don't assume
+```
+
+**Document what you find:**
 
 ```markdown
-## Research Findings: [Technology Stack]
+## Codebase Exploration
 
-**Researched on:** YYYY-MM-DD
-**Context:** [What feature/task this research supports]
+**Area:** [What part of codebase]
+**Date:** YYYY-MM-DD
+
+### Existing Patterns
+- [Pattern 1]: Found in [files], used for [purpose]
+- [Pattern 2]: ...
+
+### Related Code
+- [File/module]: [What it does, how it relates]
+
+### Testing Approach
+- Tests are in [location]
+- Pattern used: [describe]
+
+### Recent Activity
+- [Relevant recent changes]
+
+### Key Observations
+- [Things that will affect the design]
+```
+
+### Phase 2: External Research (REQUIRED)
+
+**For any external dependencies, APIs, or technologies:**
+
+1. **Current Versions**
+   - What's the latest stable version?
+   - What breaking changes exist?
+   - What's deprecated?
+
+2. **API Signatures**
+   - What are the actual method signatures?
+   - What are the parameters and return types?
+   - What errors can be thrown?
+
+3. **Best Practices**
+   - What does official documentation recommend?
+   - What are common pitfalls?
+   - What patterns are current?
+
+4. **Creative Solutions**
+   - What are OTHER ways to solve this?
+   - What libraries exist for this problem?
+   - What approaches haven't we considered?
+
+**Use web search for:**
+
+```
+"[library name] latest version 2025"
+"[library name] [feature] best practices"
+"[problem domain] approaches comparison"
+"how to [specific task] [technology]"
+"[library name] vs [alternative] 2025"
+```
+
+**Document what you find:**
+
+```markdown
+## External Research
+
+**Technologies:** [List]
+**Date:** YYYY-MM-DD
 
 ### [Library/Framework Name]
 
@@ -77,126 +161,99 @@ Create a research summary with this structure:
 **Documentation:** [URL]
 
 **Key Findings:**
-- [Important discovery 1]
-- [Important discovery 2]
+- [Important discovery]
+
+**API Details:**
+- [Relevant method signatures]
 
 **Recommendations:**
-- [Specific recommendation for this project]
+- [What to use]
 
 **Avoid:**
-- [Deprecated approach or anti-pattern]
+- [What's deprecated or problematic]
 
----
+### Alternative Approaches Considered
+- [Approach 1]: [Pros/cons]
+- [Approach 2]: [Pros/cons]
 ```
 
-### Step 4: Share Findings
+### Phase 3: Save Research
 
-- Present key findings to the user before proceeding
-- Highlight any discoveries that contradict common assumptions
-- Flag any version mismatches with existing project dependencies
-- Save comprehensive findings to `.harness/NNN-feature-slug/research.md`
+Save to: `.harness/NNN-feature-slug/research.md`
 
-**Note:** Save research in the same `.harness/NNN-feature-slug/` directory as the related design and plan documents. If a feature directory already exists, use it. Otherwise, create a new one following the naming convention (see brainstorming skill).
+**Complete research document structure:**
 
-## Research Queries
+```markdown
+# Research: [Feature Name]
 
-Use targeted, specific searches. Examples:
+**Date:** YYYY-MM-DD
+**Context:** [What task this supports]
 
-**For versions:**
-- "[library name] latest version 2025"
-- "[library name] changelog latest release"
-- "[library name] npm/pypi current version"
+## Codebase Exploration
 
-**For best practices:**
-- "[library name] best practices 2025"
-- "[library name] recommended patterns"
-- "[library name] official documentation getting started"
+[From Phase 1]
 
-**For specific features:**
-- "[library name] [feature] example"
-- "[library name] how to [specific task]"
-- "[library name] [feature] breaking changes"
+## External Research
 
-**For compatibility:**
-- "[library A] [library B] compatibility"
-- "[library name] peer dependencies"
-- "[framework name] [library name] integration"
+[From Phase 2]
 
-## Integration With Other Skills
+## Key Insights
 
-### When Called From Brainstorming
+- [Insight 1 that affects design]
+- [Insight 2 that affects design]
 
-Research BEFORE proposing approaches:
-1. Identify technologies the user is considering
-2. Research current state of each
-3. Include research findings when presenting trade-offs
-4. Flag any technologies that are deprecated or have better alternatives
+## Questions Resolved
 
-### When Called From Writing-Plans
+- [Question]: [Answer from research]
 
-Research BEFORE specifying implementations:
-1. Verify versions for package.json/requirements.txt
-2. Confirm API signatures before writing code examples
-3. Check for deprecated methods in planned code
-4. Validate that planned patterns match current recommendations
+## Open Questions
+
+- [Things that still need clarification]
+```
+
+## When Called From Other Skills
+
+### From Brainstorming
+
+Research happens BEFORE proposing any approaches:
+
+```dot
+digraph research_in_brainstorm {
+    "Understand the idea" -> "Explore codebase";
+    "Explore codebase" -> "Research external tech";
+    "Research external tech" -> "Look for creative solutions";
+    "Look for creative solutions" -> "Save research";
+    "Save research" -> "NOW propose designs";
+}
+```
+
+### From Writing-Plans
+
+Research happens BEFORE writing any implementation details:
+
+```dot
+digraph research_in_planning {
+    "Have requirements" -> "Explore affected codebase areas";
+    "Explore affected codebase areas" -> "Verify all tech versions/APIs";
+    "Verify all tech versions/APIs" -> "Research implementation patterns";
+    "Research implementation patterns" -> "Save research";
+    "Save research" -> "NOW write plan";
+}
+```
 
 ## Key Principles
 
-- **Never assume versions** - Always verify current stable version
-- **Never assume APIs** - Confirm method signatures and parameters
-- **Flag contradictions** - If research contradicts training knowledge, explicitly note this
-- **Cite sources** - Include URLs to documentation when providing recommendations
-- **Recency matters** - Prefer sources from the current year
-- **Official first** - Prioritize official documentation over blog posts
-
-## Example Research Session
-
-User wants to add form validation to a React app:
-
-```
-"I'm using the researching skill to gather current information about form validation options in React."
-
-**Research targets identified:**
-- React Hook Form vs Formik vs Zod (current recommendations)
-- React 18/19 compatibility
-- TypeScript integration patterns
-
-**Searching for current information...**
-
-**Key findings:**
-
-1. **React Hook Form v7.54.0** (current stable)
-   - Now the community-recommended approach over Formik
-   - Native TypeScript support improved significantly
-   - Zod integration via @hookform/resolvers
-
-2. **Zod v3.24.0** (current stable)
-   - Standard for TypeScript-first validation
-   - Excellent React Hook Form integration
-   - Can share validation between client/server
-
-3. **Recommendation for this project:**
-   - Use React Hook Form + Zod (modern standard)
-   - Avoid Formik (less maintained, more verbose)
-   - Avoid Yup (Zod preferred for TypeScript)
-```
-
-## Reusing Research
-
-**Reuse when:**
-- Same session and topic was recently researched
-- Saved research exists in `.harness/NNN-feature/research.md` for current feature
-- Information is not time-sensitive (patterns, architecture)
-
-**Re-research when:**
-- Versions may have changed (new session, weeks later)
-- Previous research didn't cover current scope
-- User asks about specific recent changes
-
-**How to reference:** Check `.harness/NNN-feature/research.md` before starting new research. Cite findings with "Per earlier research..." and note the date.
+- **Codebase exploration is research** - Don't skip it
+- **Web search is research** - Don't skip it either
+- **Both are required** - Every time
+- **Research before design** - Always
+- **Never assume from training** - Verify everything
+- **Look for creative solutions** - Not just obvious ones
+- **Document findings** - So you can reference them
 
 ## After Research
 
-- Proceed to brainstorming with research-informed recommendations
-- Or proceed to writing-plans with verified versions and APIs
-- Reference research document in plan header if saved to file
+Only after completing BOTH phases:
+- Proceed to design proposals (in brainstorming)
+- Proceed to writing implementation details (in planning)
+- Reference research document in all downstream artifacts
