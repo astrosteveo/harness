@@ -82,12 +82,18 @@ Before starting, assess task size:
 
 | Size | Criteria | Workflow |
 |------|----------|----------|
-| **Micro** | < 5 min, single file, obvious fix | Skip to TDD, no brainstorming needed |
+| **Micro** | < 5 min, single file, obvious fix | Verify location in codebase → TDD |
 | **Small** | < 30 min, 1-3 files, clear requirements | Quick questions → research → plan |
 | **Medium** | 30 min - 2 hrs, multiple components | Standard workflow |
 | **Large** | > 2 hrs, architectural changes | Full workflow with thorough research |
 
-**For Micro tasks:** Say "This looks like a micro task. Skipping full brainstorming - proceeding with TDD."
+**For Micro tasks:** You still verify WHERE in the codebase the change goes. "Micro" means abbreviated workflow, NOT skipping research entirely.
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "It's just a button" | Where does it go? What patterns exist? Verify first. |
+| "Too simple to research" | Simple changes in wrong places cause bugs. Check first. |
+| "Process theater" | 30 seconds to verify location prevents 30 minutes debugging. |
 
 ## After the Design
 
