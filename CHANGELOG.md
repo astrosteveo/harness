@@ -10,6 +10,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2025-12-31
+
+### Changed
+- **Research-first discipline** - All three planning skills now enforce research before design with explicit Iron Rules:
+  - `researching` - Rewritten to require BOTH codebase exploration AND external research
+  - `brainstorming` - Added "NO DESIGNING UNTIL RESEARCH IS COMPLETE" Iron Rule
+  - `writing-plans` - Added "NO PLANNING UNTIL RESEARCH IS COMPLETE" Iron Rule
+
+### Added
+- **Rationalization tables** - Each skill now includes tables countering common excuses for skipping research:
+  - "I know this codebase" → "Knowing isn't current. Explore to verify."
+  - "Let me propose something first" → "NO. Research THEN propose."
+  - "It's just a button" → "Where does it go? What patterns exist? Verify first."
+- **Codebase exploration as research** - `researching` skill now explicitly requires exploring existing patterns, related code, tests, and recent changes before any design work
+- **Creative solutions requirement** - Research must include looking for alternative approaches, not just verifying known patterns
+
+### Fixed
+- **Micro task loophole** - Task sizing table now clarifies that micro tasks still require verifying location in codebase. "Micro" means abbreviated workflow, NOT skipping research entirely.
+
 ## [0.5.0] - 2025-12-30
 
 ### Changed
@@ -148,7 +167,8 @@ Key differences from upstream (obra/superpowers):
 - **backlog-tracking** - Track bugs, deferred features, and tech debt
 - **10 additional skills** - CI/CD, flaky tests, dependencies, migrations, security, performance, monorepos, context exhaustion, merge conflicts, legacy code
 
-[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/astrosteveo/harness/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/astrosteveo/harness/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/astrosteveo/harness/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/astrosteveo/harness/compare/v0.3.0...v0.4.0
