@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2025-12-31
+
+### Added
+- **Release process documentation** - CLAUDE.md now documents required version bump, changelog, tag, and release steps for every push to main
+- **Fork-aware gh commands** - Documents that `--repo astrosteveo/harness` must be used with `gh release` and `gh pr` commands to avoid targeting upstream
+
 ## [0.6.0] - 2025-12-31
 
 ### Changed
@@ -167,7 +173,8 @@ Key differences from upstream (obra/superpowers):
 - **backlog-tracking** - Track bugs, deferred features, and tech debt
 - **10 additional skills** - CI/CD, flaky tests, dependencies, migrations, security, performance, monorepos, context exhaustion, merge conflicts, legacy code
 
-[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.6.1...HEAD
+[0.6.1]: https://github.com/astrosteveo/harness/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/astrosteveo/harness/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/astrosteveo/harness/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/astrosteveo/harness/compare/v0.4.0...v0.4.1

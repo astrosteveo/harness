@@ -101,6 +101,32 @@ When modifying this plugin:
 3. **Test changes** - Run tests in `tests/` directory
 4. **Follow TDD** - Use the test-driven-development skill
 
+## Release Process (REQUIRED)
+
+**Every push to main requires:**
+
+1. **Version bump** - Update `.claude-plugin/plugin.json` using [semver](https://semver.org/):
+   - MAJOR: Breaking changes to skill behavior
+   - MINOR: New skills or significant enhancements
+   - PATCH: Bug fixes, documentation, minor tweaks
+
+2. **Changelog** - Update `CHANGELOG.md`:
+   - Add entry under new version heading
+   - Update comparison links at bottom of file
+
+3. **Tag** - Create annotated tag:
+   ```bash
+   git tag -a v0.X.Y -m "v0.X.Y - Brief description"
+   git push origin main --tags
+   ```
+
+4. **GitHub Release** - Create release with changelog notes:
+   ```bash
+   gh release create v0.X.Y --repo astrosteveo/harness --title "v0.X.Y - Title" --notes "..."
+   ```
+
+**CRITICAL: Always use `--repo astrosteveo/harness`** when running `gh release` or `gh pr` commands. Without this flag, gh will target the upstream repo (obra/superpowers) since this is a fork.
+
 ## Skill File Format
 
 ```markdown
