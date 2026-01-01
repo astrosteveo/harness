@@ -12,7 +12,7 @@
         "name": "Steven Mosley",
         "email": "stevengmjr@gmail.com"
       },
-      "source": ".",
+      "source": "./",
       "category": "development",
       "homepage": "https://github.com/astrosteveo/harness"
     }
