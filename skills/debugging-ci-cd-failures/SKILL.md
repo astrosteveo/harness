@@ -1,6 +1,6 @@
 ---
 name: debugging-ci-cd-failures
-description: Use when CI/CD pipeline fails, builds break in CI but pass locally, or investigating environment-specific test failures
+description: "MUST invoke when CI/CD pipeline fails or builds break in CI but pass locally."
 ---
 
 # Debugging CI/CD Pipeline Failures

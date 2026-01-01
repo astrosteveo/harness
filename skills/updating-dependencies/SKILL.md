@@ -1,6 +1,6 @@
 ---
 name: updating-dependencies
-description: Use when updating library versions, applying security patches, or handling breaking changes from dependency updates
+description: "SHOULD invoke when updating library versions, applying security patches, or handling breaking changes."
 ---
 
 # Managing Dependency Updates

@@ -1,6 +1,6 @@
 ---
 name: writing-skills
-description: Use when creating new skills, editing existing skills, or verifying skills work before deployment
+description: "MUST invoke when creating new skills, editing existing skills, or verifying skills before deployment."
 ---
 
 # Writing Skills

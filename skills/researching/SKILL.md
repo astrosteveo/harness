@@ -1,6 +1,6 @@
 ---
 name: researching
-description: "MUST use before ANY design decisions or implementation planning. Includes BOTH codebase exploration AND external research (APIs, libraries, creative approaches)."
+description: "MUST invoke before any design decisions or implementation planning."
 ---
 
 # Researching

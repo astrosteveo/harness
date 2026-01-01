@@ -1,6 +1,6 @@
 ---
 name: security-review
-description: Use when reviewing code for security vulnerabilities, before deploying auth-related changes, or auditing existing code for security issues
+description: "MUST invoke when reviewing auth changes, user input handling, or security-sensitive code."
 ---
 
 # Security-Focused Code Review

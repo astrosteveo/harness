@@ -1,6 +1,6 @@
 ---
 name: executing-plans
-description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
+description: "MUST invoke when a .harness/*/plan.md exists and needs execution."
 ---
 
 # Executing Plans

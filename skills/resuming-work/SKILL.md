@@ -1,6 +1,6 @@
 ---
 name: resuming-work
-description: Use when starting work on a task that was previously in progress, after context loss, or at the beginning of a new session on existing work
+description: "MUST invoke when starting work on a task that was previously in progress or after context loss."
 ---
 
 # Resuming Work

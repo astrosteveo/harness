@@ -1,6 +1,6 @@
 ---
 name: working-with-monorepos
-description: Use when working in a monorepo with multiple packages, coordinating cross-package changes, or understanding package dependencies
+description: "SHOULD invoke when working in a monorepo with multiple packages or coordinating cross-package changes."
 ---
 
 # Working with Monorepos

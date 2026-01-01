@@ -37,6 +37,7 @@
 | resolving-merge-conflicts | Systematic conflict resolution | **Rigid** |
 | requesting-code-review | Dispatch code reviewer | **Flexible** |
 | receiving-code-review | Technical response to feedback | **Rigid** |
+| receiving-corrections | Handle corrections without sycophancy | **Rigid** |
 | dispatching-parallel-agents | Parallelize investigations | **Flexible** |
 | working-with-monorepos | Multi-package coordination | **Flexible** |
 | finishing-a-development-branch | Complete and cleanup work | **Flexible** |

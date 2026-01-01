@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: Use when executing implementation plans with independent Phases in the current session
+description: "MUST invoke when executing implementation plans with independent Phases in the current session."
 ---
 
 # Subagent-Driven Development

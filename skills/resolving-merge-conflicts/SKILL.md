@@ -1,6 +1,6 @@
 ---
 name: resolving-merge-conflicts
-description: Use when encountering git merge conflicts, rebase conflicts, or cherry-pick conflicts - provides systematic resolution approach
+description: "MUST invoke when encountering git merge, rebase, or cherry-pick conflicts."
 ---
 
 # Resolving Merge Conflicts

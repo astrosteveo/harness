@@ -1,6 +1,6 @@
 ---
 name: working-with-legacy-code
-description: Use when modifying code without existing tests, working with external dependencies that are hard to mock, or when strict TDD isn't immediately feasible
+description: "SHOULD invoke when modifying code without existing tests or when strict TDD isn't feasible."
 ---
 
 # Working With Legacy Code

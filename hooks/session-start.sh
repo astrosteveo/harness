@@ -23,14 +23,16 @@ if [ -d ".harness" ]; then
         fi
 
         # Count total phases from plan header (look for "Phase N:" patterns)
-        total_phases=$(grep -cE "^## Phase [0-9]+:" "$plan_file" 2>/dev/null || echo "0")
+        total_phases=$(grep -cE "^## Phase [0-9]+:" "$plan_file" 2>/dev/null | tr -d '\n' || echo "0")
+        total_phases=${total_phases:-0}
 
-        if [ "$total_phases" = "0" ]; then
+        if [ "$total_phases" -eq 0 ]; then
             continue
         fi
 
         # Count completed phases from git log
-        completed_phases=$(git log --format=%B 2>/dev/null | grep -cE "^phase\([0-9]+\): complete$" || echo "0")
+        completed_phases=$(git log --format=%B 2>/dev/null | grep -cE "^phase\([0-9]+\): complete$" | tr -d '\n' || echo "0")
+        completed_phases=${completed_phases:-0}
 
         # If not all phases complete, add to list
         if [ "$completed_phases" -lt "$total_phases" ]; then

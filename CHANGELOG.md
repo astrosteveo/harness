@@ -10,6 +10,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-12-31
+
+### Changed
+- **Imperative skill descriptions** - All skill descriptions changed from passive "Use when..." to imperative "MUST invoke..." to force proactive skill invocation
+  - `systematic-debugging` - "MUST invoke BEFORE any debugging action"
+  - `test-driven-development` - "MUST invoke BEFORE writing ANY implementation code"
+  - `verification-before-completion` - "MUST invoke BEFORE claiming ANYTHING is done"
+  - All other skills updated with similar imperative language
+
+### Added
+- **receiving-corrections skill** - New skill for handling user corrections without sycophantic responses ("You're right!", apologies, performative agreement). Emphasizes brief acknowledgment and immediate action.
+
+### Fixed
+- **session-start.sh integer parsing** - Fixed bash arithmetic error when grep -c output contained newlines, causing `integer expected` errors
+
 ## [0.6.1] - 2025-12-31
 
 ### Added

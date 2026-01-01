@@ -1,6 +1,6 @@
 ---
 name: database-migrations
-description: Use when modifying database schema, migrating data, or planning changes that affect database structure
+description: "MUST invoke when modifying database schema, migrating data, or planning structural changes."
 ---
 
 # Database Migrations

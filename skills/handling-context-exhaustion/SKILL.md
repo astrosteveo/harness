@@ -1,6 +1,6 @@
 ---
 name: handling-context-exhaustion
-description: Use when approaching context limits mid-task, when responses degrade in quality, or proactively for long-running tasks to checkpoint progress
+description: "SHOULD invoke when approaching context limits or when responses degrade in quality."
 ---
 
 # Handling Context Exhaustion

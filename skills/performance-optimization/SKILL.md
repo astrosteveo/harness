@@ -1,6 +1,6 @@
 ---
 name: performance-optimization
-description: Use when code is too slow, memory usage is too high, or investigating performance bottlenecks - requires profiling before optimizing
+description: "MUST invoke when code is too slow, memory usage is high, or investigating performance bottlenecks."
 ---
 
 # Performance Optimization

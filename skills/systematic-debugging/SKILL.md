@@ -1,6 +1,6 @@
 ---
 name: systematic-debugging
-description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
+description: "MUST invoke when encountering errors, bugs, test failures, or unexpected behavior - before any debugging action."
 ---
 
 # Systematic Debugging

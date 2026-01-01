@@ -1,6 +1,6 @@
 ---
 name: writing-documentation
-description: Use when writing or updating any documentation - code comments, docstrings, README files, API docs, guides, or changelogs
+description: "SHOULD invoke when writing or updating documentation, comments, docstrings, or guides."
 ---
 
 # Writing Documentation

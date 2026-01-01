@@ -1,6 +1,6 @@
 ---
 name: debugging-flaky-tests
-description: Use when tests pass/fail inconsistently, timing-dependent failures, or tests that fail only in CI or under load
+description: "MUST invoke when tests pass/fail inconsistently, have timing-dependent failures, or fail only in CI."
 ---
 
 # Debugging Flaky Tests

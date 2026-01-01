@@ -1,6 +1,6 @@
 ---
 name: using-harness
-description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
+description: "INJECTED AT SESSION START. Foundation skill establishing how to find and use other skills."
 ---
 
 <MANDATORY-SESSION-START-CHECK>
