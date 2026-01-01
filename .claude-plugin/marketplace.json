@@ -9,11 +9,11 @@
       "name": "harness",
       "description": "Structured development workflow with research-driven planning, TDD implementation, and verified delivery",
       "version": "0.6.1",
+      "source": "./",
       "author": {
         "name": "Steven Mosley",
         "email": "stevengmjr@gmail.com"
       },
-      "source": "./",
       "category": "development",
       "homepage": "https://github.com/astrosteveo/harness"
     }
