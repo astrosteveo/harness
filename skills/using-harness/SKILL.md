@@ -3,6 +3,28 @@ name: using-harness
 description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
 ---
 
+<MANDATORY-SESSION-START-CHECK>
+# ⛔ INCOMPLETE WORK CHECK
+
+**If you see "INCOMPLETE WORK DETECTED" above this skill content, you MUST:**
+
+1. **STOP** - Do not respond to the user's message yet
+2. **ASK** - Present the incomplete work info and ask: "Resume? [Yes / No / Abandon]"
+3. **WAIT** - Do not proceed until the user responds
+
+**Handling user response:**
+- **Yes**: Read the plan file, invoke `harness:subagent-driven-development`
+- **No**: Continue with the user's original request
+- **Abandon**: Create abandon commit: `git commit --allow-empty -m "chore: abandon [feature] plan\n\nplan: abandoned"`
+
+| Rationalization for skipping | Reality |
+|------------------------------|---------|
+| "Let me respond to the user first" | NO. Ask about incomplete work FIRST. |
+| "The user's question is more important" | Incomplete work is context. Address it first. |
+| "I'll mention it later" | Later = forgotten. Ask NOW. |
+
+</MANDATORY-SESSION-START-CHECK>
+
 <EXTREMELY-IMPORTANT>
 If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
 
@@ -43,81 +65,6 @@ digraph skill_flow {
     "Has checklist?" -> "Follow skill exactly" [label="no"];
     "Create TodoWrite todo per item" -> "Follow skill exactly";
 }
-```
-
-## Session Start - Pending Execution Check
-
-**Before any other action**, check for incomplete work using git:
-
-```
-On session start:
-    ↓
-Glob for .harness/*/plan.md
-    ↓
-For each plan.md found:
-    ↓
-    Check git log for "plan: abandoned" commit for this plan
-    [If abandoned] → Skip this plan
-    ↓
-    Parse Phases count from plan header
-    ↓
-    Find commit that added plan.md:
-    git log --diff-filter=A --format=%H -- <plan-path>
-    ↓
-    Count phase completions since plan creation:
-    git log <sha>..HEAD | grep -E "^phase\([0-9]+\): complete$" | wc -l
-    ↓
-    Compare: completed phases vs total phases
-    ↓
-[If any plan has completed < total]
-    ↓
-    Display incomplete work info
-    ↓
-    Ask: "Resume? [Yes / No / Abandon]"
-    ↓
-    [Yes] → Read plan, determine next phase, invoke subagent-driven-development
-    [No] → Continue normal session (will prompt again next session)
-    [Abandon] → Create abandon commit, continue normal session
-    ↓
-[If all plans complete or no plans]
-    ↓
-    Normal using-harness behavior (check for applicable skills)
-```
-
-**Display format when incomplete work found:**
-
-```
-📋 **Incomplete work detected**
-
-Feature: [feature name from plan path]
-Progress: [X] of [Y] phases complete
-Next: Phase [N]: [Phase name from plan]
-
-Resume? [Yes / No / Abandon this plan]
-```
-
-**Handling responses:**
-- **Yes**: Read plan, find next incomplete phase, invoke `harness:subagent-driven-development`
-- **No**: Proceed with normal session, will prompt again next session
-- **Abandon**: Create commit with `plan: abandoned` trailer, continue normal session
-
-## Git Detection Edge Cases
-
-| Case | Handling |
-|------|----------|
-| Plan exists but no commits since | All phases pending, prompt to resume |
-| Plan file deleted but commits exist | Ignore (no plan to parse) |
-| Multiple incomplete plans | Prompt for each, user chooses which to resume |
-| Commit messages don't match convention | Count only exact matches, may under-count |
-| Plan modified after phases started | Use current plan phase count |
-
-**Abandon commit format:**
-
-```bash
-git commit --allow-empty -m "chore: abandon [feature-name] plan
-
-plan: abandoned
-Reason: [user-provided or 'No longer needed']"
 ```
 
 ## Red Flags

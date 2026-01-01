@@ -3,6 +3,38 @@ name: writing-plans
 description: Use when you have a spec or requirements for a multi-step task, before touching code
 ---
 
+<HARD-GATE>
+# ⛔ STOP - RESEARCH CHECK REQUIRED
+
+**Before you do ANYTHING else, answer this question:**
+
+> Did you invoke `harness:researching` in THIS conversation BEFORE invoking this skill?
+
+**If NO → STOP IMMEDIATELY:**
+1. Do NOT continue reading this skill
+2. Do NOT announce you're using writing-plans
+3. Do NOT write any plan content
+4. Invoke `harness:researching` RIGHT NOW
+5. Only return to this skill AFTER research is complete
+
+**If YES → You may proceed.**
+
+This is not optional. This is not negotiable. There are no exceptions.
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "I did research earlier in the project" | Wrong. Research must happen in THIS conversation before THIS plan. |
+| "The user just wants a quick plan" | NO. Research THEN plan. Always. |
+| "I'll research as I write" | NO. Research is a prerequisite, not a concurrent activity. |
+| "I already know the codebase" | Knowing ≠ researched. Invoke the skill. |
+| "Research will slow things down" | Unresearched plans cause MORE delays during execution. |
+| "The user asked me to write a plan" | Users ask WHAT. Skills define HOW. Research first. |
+
+**FAILURE MODE:** If you proceed without research, you WILL write a plan with wrong file paths, outdated APIs, and missing context. The plan will fail during execution. You will waste the user's time.
+
+---
+</HARD-GATE>
+
 # Writing Plans
 
 ## Overview
