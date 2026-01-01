@@ -12,6 +12,7 @@
 
 | ID | Description | Priority | Notes |
 |----|-------------|----------|-------|
+| FEAT-011 | CLAUDE.md + rules integration | High | See details below |
 | ~~FEAT-001~~ | ~~Merge conflict resolution skill~~ | ~~High~~ | ~~Fixed 2024-12-28~~ |
 | ~~FEAT-002~~ | ~~CI/CD failure debugging skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
 | ~~FEAT-003~~ | ~~Flaky test handling skill~~ | ~~Medium~~ | ~~Fixed 2024-12-28~~ |
@@ -76,3 +77,54 @@
 | IMP-007 | YAGNI clarification | 2024-12-28 | Added section to backlog-tracking skill |
 | IMP-008 | Evidence preservation | 2024-12-28 | Added section to verification-before-completion skill |
 | IMP-009 | Mixed dependencies | 2024-12-28 | Added section to subagent-driven-development skill |
+
+---
+
+## Feature Details
+
+### FEAT-011: CLAUDE.md + Rules Integration
+
+**Problem:** Research findings are siloed in `.harness/NNN-*/research.md` files. Patterns discovered during feature development don't persist at the project level. Each session starts without accumulated project knowledge.
+
+**Solution:** Integrate harness with Claude's CLAUDE.md and `.claude/rules/` system to make research findings persistent and automatically scoped.
+
+**Architecture:**
+```
+project/
+├── CLAUDE.md                      # ~100-200 lines, project overview only
+│   └── @imports to rules
+├── .claude/
+│   └── rules/
+│       ├── conventions.md         # General code style (~100-500 lines)
+│       ├── testing.md             # Test patterns
+│       ├── api/
+│       │   └── validation.md      # paths: src/api/**
+│       └── frontend/
+│           └── components.md      # paths: src/components/**
+└── .harness/
+    └── [existing structure]
+```
+
+**Harness touchpoints:**
+
+| Phase | Action |
+|-------|--------|
+| First `.harness/` init | Seed `CLAUDE.md` + `.claude/rules/conventions.md` if missing |
+| Research phase | Determine scope of discoveries, create/update appropriate rule file |
+| Feature completion | Prompt to consolidate learnings into rules |
+| Code review | Reviewer validates against `.claude/rules/` |
+
+**Key behaviors:**
+- Rules files: ~100-500 lines each (as long as needed, focused on purpose)
+- Path-scoped rules via frontmatter for domain-specific conventions
+- `@` imports for composition (like skills reference sub-skills)
+- Research findings promoted to rules, not buried in feature directories
+- Prevents monolithic 1000+ line CLAUDE.md anti-pattern
+
+**Skills affected:**
+- `brainstorming` - Init CLAUDE.md + rules on first invocation
+- `researching` - Prompt to add patterns to appropriate rule file
+- `finishing-a-development-branch` - Consolidate learnings
+- `code-reviewer` agent - Check against `.claude/rules/`
+
+**Dependencies:** None (standalone feature)
