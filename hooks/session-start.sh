@@ -44,6 +44,26 @@ if [ -d ".harness" ]; then
     done
 fi
 
+# Check for dashboard.md and extract top items
+DASHBOARD_ITEMS=""
+DASHBOARD_FILE=".harness/dashboard.md"
+if [ -f "$DASHBOARD_FILE" ]; then
+    # Extract first item from each section (if exists)
+    NEXT_STEP=$(grep -A1 "## Recommended Next Steps" "$DASHBOARD_FILE" 2>/dev/null | grep -E "^\| (High|Critical)" | head -1 | sed 's/|//g' | xargs || echo "")
+    PRIORITY_BUG=$(grep -A2 "## Priority Bugs" "$DASHBOARD_FILE" 2>/dev/null | grep -E "^\- \[ \]" | head -1 | sed 's/- \[ \] //' || echo "")
+    QUICK_WIN=$(grep -A2 "## Quick Wins" "$DASHBOARD_FILE" 2>/dev/null | grep -E "^\- \[ \]" | head -1 | sed 's/- \[ \] //' || echo "")
+    TECH_DEBT=$(grep -A2 "## Tech Debt Queue" "$DASHBOARD_FILE" 2>/dev/null | grep -E "^\- \[ \]" | head -1 | sed 's/- \[ \] //' || echo "")
+
+    if [ -n "$NEXT_STEP" ] || [ -n "$PRIORITY_BUG" ] || [ -n "$QUICK_WIN" ] || [ -n "$TECH_DEBT" ]; then
+        DASHBOARD_ITEMS="\\n\\n---\\n\\n**📋 DASHBOARD - What's Next**\\n\\n"
+        [ -n "$NEXT_STEP" ] && DASHBOARD_ITEMS="${DASHBOARD_ITEMS}**Recommended:** ${NEXT_STEP}\\n"
+        [ -n "$PRIORITY_BUG" ] && DASHBOARD_ITEMS="${DASHBOARD_ITEMS}**Priority Bug:** ${PRIORITY_BUG}\\n"
+        [ -n "$TECH_DEBT" ] && DASHBOARD_ITEMS="${DASHBOARD_ITEMS}**Tech Debt:** ${TECH_DEBT}\\n"
+        [ -n "$QUICK_WIN" ] && DASHBOARD_ITEMS="${DASHBOARD_ITEMS}**Quick Win:** ${QUICK_WIN}\\n"
+        DASHBOARD_ITEMS="${DASHBOARD_ITEMS}\\nSee \`.harness/dashboard.md\` for full list."
+    fi
+fi
+
 # Also check for legacy PENDING_EXECUTION marker
 MARKER_FILE=".harness/PENDING_EXECUTION.md"
 MARKER_CONTENT=""
@@ -103,7 +123,7 @@ cat <<EOF
 {
   "hookSpecificOutput": {
     "hookEventName": "SessionStart",
-    "additionalContext": "<EXTREMELY_IMPORTANT>\nYou have harness skills.\n\n**Below is the full content of your 'harness:using-harness' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n---\n\n${using_harness_escaped}${WORK_NOTIFICATION}\n</EXTREMELY_IMPORTANT>"
+    "additionalContext": "<EXTREMELY_IMPORTANT>\nYou have harness skills.\n\n**Below is the full content of your 'harness:using-harness' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n---\n\n${using_harness_escaped}${WORK_NOTIFICATION}${DASHBOARD_ITEMS}\n</EXTREMELY_IMPORTANT>"
   }
 }
 EOF

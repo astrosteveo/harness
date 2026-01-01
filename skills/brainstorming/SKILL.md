@@ -10,10 +10,20 @@ description: "MUST invoke before any creative work - creating features, building
 Turn ideas into fully formed designs through collaborative dialogue.
 
 **The flow:**
-1. Understand the idea (quick questions)
+1. Understand the idea (quick questions) - **SKIP if requirements are clear**
 2. **RESEARCH** (codebase + external) - BEFORE designing
 3. Propose approaches (informed by research)
 4. Present design (in sections for validation)
+
+## First Action (MANDATORY)
+
+When this skill is invoked, immediately assess:
+
+**Does the user's request already explain what they want?**
+- YES → Skip to Step 2, invoke `harness:researching` immediately
+- NO → Ask ONE clarifying question about user intent (not code state)
+
+Most feature requests ARE clear enough. When in doubt, research first - you can always ask later if research reveals genuine ambiguity.
 
 ## The Iron Rule
 
@@ -30,11 +40,31 @@ You cannot propose approaches, architectures, or solutions until you have:
 
 ### Step 1: Understand the Idea
 
-**Quick context gathering (5-10 min max):**
-- Ask questions one at a time to refine the idea
-- Prefer multiple choice questions when possible
+**SKIP THIS STEP if the user has already explained what they want clearly.** Go directly to Step 2 (Research).
+
+Signs you can skip Step 1:
+- User described the feature/behavior they want
+- User gave examples or analogies (e.g., "like EVE Online")
+- User explained what's wrong with current behavior
+- You have enough info to know WHAT to research
+
+**If you need more clarity:**
+- Ask questions one at a time
+- Prefer multiple choice questions
 - Focus on: purpose, constraints, success criteria
 - Don't go deep - just enough to know what to research
+
+**CRITICAL: Step 1 questions are about USER INTENT only.**
+- What the user wants (behavior, outcomes, preferences)
+- NOT about current code state (research answers that)
+- NOT about implementation details (design phase answers that)
+- If the codebase can answer it, don't ask - research it
+
+| Bad Question (asks about code) | Good Question (asks about intent) |
+|--------------------------------|-----------------------------------|
+| "What's the current state of movement?" | "Should this replace or augment existing controls?" |
+| "Do you have an input handler?" | "What input devices should this support?" |
+| "How is the ship controlled now?" | "Any accessibility requirements?" |
 
 **This is NOT design.** You're gathering enough info to know what to research.
 
@@ -59,14 +89,67 @@ Research includes:
 | "I'll research after I have a design" | Research after design = rework. Research first. |
 | "Quick proposal, then research" | NO. There is no "quick proposal" before research. |
 
-### Step 3: Propose Approaches (Research-Informed)
+### Step 3: Propose Architecture Options (REQUIRED)
 
-**Only AFTER research is complete:**
-- Propose 2-3 different approaches with trade-offs
+**Only AFTER research is complete.**
+
+You MUST present **exactly 3 architecture options** with explicit trade-offs. This prevents Claude's anti-pattern of committing to the first reasonable idea without considering alternatives.
+
+**The Three Options:**
+
+| Option | Focus | When to Recommend |
+|--------|-------|-------------------|
+| **Minimal** | Smallest diff, maximum reuse | Tight deadline, low risk tolerance |
+| **Clean** | Best architecture, maintainability | Long-term project, refactoring opportunity |
+| **Pragmatic** | Balanced speed + quality | Most cases |
+
+**Option Format:**
+
+```markdown
+## Architecture Options
+
+### Option A: Minimal (Smallest Change)
+**Approach:** [How it works]
+**Files changed:** [List]
+**Pros:** Fast, low risk, minimal testing
+**Cons:** May accumulate tech debt, less elegant
+**Effort:** Low
+
+### Option B: Clean (Best Architecture)
+**Approach:** [How it works]
+**Files changed:** [List]
+**Pros:** Maintainable, extensible, follows patterns
+**Cons:** More effort, larger diff, more testing
+**Effort:** High
+
+### Option C: Pragmatic (Balanced)
+**Approach:** [How it works]
+**Files changed:** [List]
+**Pros:** Good architecture without over-engineering
+**Cons:** Some compromises
+**Effort:** Medium
+
+---
+
+**Recommendation:** Option [X] because [specific reasons based on research]
+
+Which approach would you like to proceed with?
+```
+
+**Requirements:**
 - **Cite research findings** - "Based on exploring X, I found..."
-- Lead with your recommended option and explain why
+- Lead with your recommendation but let user choose
 - Explicitly note if research contradicts common assumptions
 - Reference current versions and documentation URLs
+
+**Anti-pattern: Single-path design**
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "The approach is obvious" | Present options anyway. User may see trade-offs differently. |
+| "Only one way to do this" | There's always a minimal vs clean spectrum. |
+| "Options will confuse them" | Options give agency. Single path removes choice. |
+| "I'll mention alternatives briefly" | NO. Full analysis for each option. |
 
 ### Step 4: Present the Design
 

@@ -131,6 +131,55 @@ When bugs are discovered:
 "I've logged this bug as BUG-XXX in the backlog for later investigation."
 ```
 
+## Dashboard Aggregation
+
+The backlog feeds into `.harness/dashboard.md` - a "what's next" view for session start.
+
+**Dashboard location:** `.harness/dashboard.md`
+
+**Dashboard format:**
+
+```markdown
+# Project Dashboard
+
+> Auto-generated summary of priority work. Updated after each feature completion.
+
+## Recommended Next Steps
+
+| Priority | Item | Source | Notes |
+|----------|------|--------|-------|
+| High | [Short description] | FEAT-001 | [Context] |
+| Medium | [Short description] | BUG-002 | [Context] |
+
+## Quick Wins (< 30 min)
+
+- [ ] [DEBT-003] Fix typo in error message (src/errors.ts:24)
+- [ ] [IMPROVE-001] Add missing null check (src/utils.ts:88)
+
+## Priority Bugs
+
+- [ ] [BUG-001] Race condition in session handling - **Critical**
+- [ ] [BUG-002] Validation bypassed on edge case - **High**
+
+## Tech Debt Queue
+
+- [ ] [DEBT-001] Refactor duplicated validation logic - High impact
+- [ ] [DEBT-002] Update deprecated API calls - Medium impact
+```
+
+**When to update dashboard:**
+1. After completing a feature (harness:finishing-a-development-branch)
+2. After adding high-priority items to backlog
+3. When promoting backlog items to active work
+
+**Dashboard generation:**
+1. Read BACKLOG.md
+2. Extract top items by priority/severity
+3. Group into dashboard sections
+4. Save to dashboard.md
+
+**Session start integration:** The session-start hook reads dashboard.md and surfaces top items.
+
 ## Key Principles
 
 - **Capture everything** - Don't let ideas slip through the cracks
@@ -138,6 +187,7 @@ When bugs are discovered:
 - **Keep it current** - Update the backlog as items are addressed
 - **Review regularly** - The backlog is only useful if it's maintained
 - **Be specific** - Vague items are hard to act on later
+- **Surface priority items** - Dashboard makes backlog actionable
 
 ## YAGNI and Tracking
 

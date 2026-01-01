@@ -50,28 +50,48 @@ digraph when_to_use {
 
 ## The Process
 
+### Step 1: Parse Plan ONCE (Efficient Loading)
+
+**Read the plan file exactly once.** Extract and cache:
+
 ```
-Read plan, extract all Phases with full content
-    ↓
+1. Header (Goal, Architecture, Tech Stack) → ~10-20 lines
+2. Phase boundaries → list of (start_line, end_line) for each phase
+3. Phase content → extracted text for each phase (~100-250 lines each)
+```
+
+**DO NOT re-read the plan file for each phase.** Parse once, dispatch many.
+
+### Step 2: Create Progress Tracking
+
+```
 Create TodoWrite with Phases (not individual tasks)
-    ↓
+```
+
+### Step 3: Execute Phases
+
+```
 For each Phase:
     ↓
     Mark Phase as in_progress
         ↓
-    Dispatch implementer subagent with FULL Phase content
-    (all tasks, all steps, all code - subagent executes sequentially)
+    Dispatch implementer with:
+      - Plan header summary (Goal + Architecture only, ~20 lines)
+      - THIS Phase content only (~100-250 lines)
+      - NOT the entire plan
         ↓
     Subagent executes all Tasks in Phase using TDD
     (commits after each Task within the Phase)
         ↓
     Subagent completes, returns summary
         ↓
-    Dispatch spec reviewer for entire Phase
+    Dispatch spec reviewer with:
+      - Phase requirements (from cached phase content)
+      - Implementer's report
         ↓
     [If issues] Dispatch fix subagent → re-review
         ↓
-    Dispatch code quality reviewer for entire Phase
+    Dispatch code quality reviewer
         ↓
     [If issues] Dispatch fix subagent → re-review
         ↓
@@ -84,15 +104,34 @@ For each Phase:
         ↓
     [If checkpoint mode] Report to user, wait for approval
         ↓
-Next Phase
+Next Phase (use cached content, no re-reading)
     ↓
 All Phases complete → harness:finishing-a-development-branch
 ```
 
-**Per-Phase flow details:**
+### Efficiency Requirements
 
-1. **Extract Phase content:** Read all tasks, steps, code snippets for this Phase
-2. **Dispatch implementer:** Give subagent the complete Phase specification
+| Action | Context Cost | Approach |
+|--------|--------------|----------|
+| Parse plan | ~1000 lines once | Read file once at start |
+| Each phase dispatch | ~300 lines | Header summary + phase content only |
+| Spec review | ~200 lines | Requirements + report only |
+| Quality review | ~100 lines | Minimal context |
+
+**Total context per phase:** ~300-400 lines (not 1000+)
+
+**Anti-pattern: Re-reading entire plan**
+
+| Bad Practice | Cost | Fix |
+|--------------|------|-----|
+| Read plan for each phase | O(n²) context | Parse once, cache phases |
+| Pass full plan to subagent | Wastes ~700 lines | Pass header + phase only |
+| Subagent reads plan file | Duplicate parsing | Controller provides content |
+
+### Per-Phase Dispatch Details
+
+1. **Extract Phase content:** Use cached content from Step 1
+2. **Dispatch implementer:** Header summary (~20 lines) + Phase content (~200 lines)
 3. **Subagent executes:** Works through tasks sequentially, using TDD, commits per task
 4. **Spec review:** Verify all tasks in Phase meet spec requirements
 5. **Quality review:** Verify code quality across all Phase changes

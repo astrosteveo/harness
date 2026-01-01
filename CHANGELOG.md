@@ -10,6 +10,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-01-01
+
+### Changed
+- **Plan size limit reduced to 1,000 lines** - Hard gate in `writing-plans` now enforces 1,000 line maximum (down from 3,000). Plans exceeding this limit MUST defer scope to backlog. Multi-part plan splitting is no longer allowed as a workaround.
+- **Confidence-based code review** - `code-reviewer` agent now uses 0-100 confidence scoring and only reports issues with confidence ≥80. Reduces review noise and focuses on issues that truly matter.
+- **Efficient plan reading** - `subagent-driven-development` now parses plan once at start, extracts phases, and passes only relevant phase content (~300 lines) to each subagent instead of the entire plan. Reduces context cost from O(n²) to O(n).
+- **Streamlined prompt templates** - Implementer and spec-reviewer prompts simplified with explicit context budgets (~300 and ~200 lines respectively).
+
+### Added
+- **Parallel exploration pattern** - `researching` skill now recommends dispatching 2-3 exploration agents in parallel with different focuses (patterns, dependencies, tests) for medium/large features. Prevents shallow exploration anti-pattern.
+- **Multiple architecture options** - `brainstorming` skill now requires presenting exactly 3 architecture options (Minimal, Clean, Pragmatic) with explicit trade-offs before user chooses. Prevents single-path design anti-pattern.
+- **Dashboard aggregation** - New `.harness/dashboard.md` system in `backlog-tracking` skill aggregates priority items from backlog (recommended next steps, priority bugs, quick wins, tech debt queue).
+- **Session-start dashboard surfacing** - Hook now reads `dashboard.md` and displays top items at session start, making backlog actionable instead of a black hole.
+
+### Fixed
+- **Scope explosion anti-pattern** - 1,000 line limit with mandatory backlog deferral prevents plans that exceed context and fail mid-execution.
+- **Review noise anti-pattern** - Confidence filtering prevents overwhelming developers with false positives and nitpicks.
+- **Backlog black hole anti-pattern** - Dashboard surfacing ensures discovered issues don't disappear into the void.
+
+## [0.7.1] - 2026-01-01
+
+### Fixed
+- **brainstorming skill going rogue** - Claude was asking questions about code state instead of researching. Fixed with:
+  - Added "First Action (MANDATORY)" section: if requirements are clear, skip to research immediately
+  - Added "SKIP THIS STEP" guidance when user has already explained the feature
+  - Added table distinguishing bad questions (about code) vs good questions (about user intent)
+- **researching skill not exploring immediately** - Claude was asking the user instead of searching the codebase. Fixed with:
+  - Added "First Action (MANDATORY)" section: immediately start Glob/Grep/Read, don't ask user anything
+  - Added red flags: "Let me ask the user about the code" → "NO. The codebase answers code questions."
+- **using-harness skill allowing file reads before skill invocation** - Claude was reading code files before invoking brainstorming. Fixed with:
+  - Added explicit red flags: "Let me just read InputHandler.ts" → "NO. Feature request = brainstorming skill FIRST"
+  - Added "CRITICAL: Feature Request = Brainstorming First" section with non-negotiable rule
+
 ## [0.7.0] - 2025-12-31
 
 ### Changed
@@ -188,7 +221,9 @@ Key differences from upstream (obra/superpowers):
 - **backlog-tracking** - Track bugs, deferred features, and tech debt
 - **10 additional skills** - CI/CD, flaky tests, dependencies, migrations, security, performance, monorepos, context exhaustion, merge conflicts, legacy code
 
-[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/astrosteveo/harness/compare/v0.7.1...v0.8.0
+[0.7.1]: https://github.com/astrosteveo/harness/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/astrosteveo/harness/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/astrosteveo/harness/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/astrosteveo/harness/compare/v0.5.0...v0.6.0

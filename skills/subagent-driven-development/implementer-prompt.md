@@ -1,20 +1,23 @@
 # Implementer Subagent Prompt Template
 
-Use this template when dispatching an implementer subagent.
+Use this template when dispatching an implementer subagent. **Pass minimal context.**
 
 ```
 Task tool (general-purpose):
-  description: "Implement Task N: [task name]"
+  description: "Implement Phase N: [phase name]"
   prompt: |
-    You are implementing Task N: [task name]
+    You are implementing Phase N: [phase name]
 
-    ## Task Description
+    ## Project Context (minimal)
 
-    [FULL TEXT of task from plan - paste it here, don't make subagent read file]
+    **Goal:** [One sentence from plan header]
+    **Architecture:** [2-3 sentences from plan header]
 
-    ## Context
+    ## Phase N Tasks
 
-    [Scene-setting: where this fits, dependencies, architectural context]
+    [PASTE ONLY THIS PHASE'S CONTENT - ~100-250 lines max]
+    [Do NOT paste the entire plan]
+    [Do NOT make subagent read the plan file]
 
     ## Before You Begin
 
@@ -22,57 +25,40 @@ Task tool (general-purpose):
     - The requirements or acceptance criteria
     - The approach or implementation strategy
     - Dependencies or assumptions
-    - Anything unclear in the task description
 
-    **Ask them now.** Raise any concerns before starting work.
+    **Ask them now.** Raise concerns before starting work.
 
     ## Your Job
 
-    Once you're clear on requirements:
-    1. Implement exactly what the task specifies
-    2. Write tests (following TDD if task says to)
-    3. Verify implementation works
-    4. Commit your work
-    5. Self-review (see below)
-    6. Report back
+    For each task in this phase:
+    1. Write failing test (TDD)
+    2. Implement minimal code to pass
+    3. Refactor if needed
+    4. Commit with descriptive message
+    5. Move to next task
+
+    After all tasks:
+    6. Self-review (see below)
+    7. Report back
 
     Work from: [directory]
 
-    **While you work:** If you encounter something unexpected or unclear, **ask questions**.
-    It's always OK to pause and clarify. Don't guess or make assumptions.
+    ## Self-Review Checklist
 
-    ## Before Reporting Back: Self-Review
+    **Completeness:** All tasks done? Requirements met? Edge cases handled?
+    **Quality:** Clean code? Clear names? Maintainable?
+    **Discipline:** YAGNI? Only what was requested? Follows patterns?
+    **Testing:** Tests verify behavior? TDD followed? Comprehensive?
 
-    Review your work with fresh eyes. Ask yourself:
-
-    **Completeness:**
-    - Did I fully implement everything in the spec?
-    - Did I miss any requirements?
-    - Are there edge cases I didn't handle?
-
-    **Quality:**
-    - Is this my best work?
-    - Are names clear and accurate (match what things do, not how they work)?
-    - Is the code clean and maintainable?
-
-    **Discipline:**
-    - Did I avoid overbuilding (YAGNI)?
-    - Did I only build what was requested?
-    - Did I follow existing patterns in the codebase?
-
-    **Testing:**
-    - Do tests actually verify behavior (not just mock behavior)?
-    - Did I follow TDD if required?
-    - Are tests comprehensive?
-
-    If you find issues during self-review, fix them now before reporting.
+    Fix issues before reporting.
 
     ## Report Format
 
-    When done, report:
-    - What you implemented
-    - What you tested and test results
-    - Files changed
-    - Self-review findings (if any)
-    - Any issues or concerns
+    - Tasks completed: [list]
+    - Tests: [pass/fail count]
+    - Files changed: [list]
+    - Commits: [list of SHAs]
+    - Issues/concerns: [if any]
 ```
+
+**Context budget:** ~300 lines total (20 header + 250 phase + 30 template)

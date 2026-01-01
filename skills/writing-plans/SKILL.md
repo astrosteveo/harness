@@ -103,58 +103,60 @@ Include a **Research Summary** section in the plan header documenting key findin
 - "Run the tests and make sure they pass" - step
 - "Commit" - step
 
-## Plan Size Limits (REQUIRED)
+## Plan Size Limits (HARD GATE)
 
-Plans must fit within context limits. A single plan file should not exceed **20,000 tokens** (~3,000 lines or ~80KB).
+<HARD-GATE>
+# ⛔ STOP - PLAN SIZE CHECK REQUIRED
 
-**Why this matters:**
-- Plans are loaded into subagent context for execution
-- Exceeding limits causes truncation or failures
-- Detailed plans are good - but split them when needed
+**A single plan file MUST NOT exceed 1,000 lines (~250 tasks, ~6,500 tokens).**
 
-**Estimating plan size:**
-- ~4 characters per token (rough average)
-- 3,000 lines ≈ 20,000 tokens
-- Check file size: 80KB ≈ 20,000 tokens
-
-**When to split:**
+This is a hard limit. Plans exceeding 1,000 lines WILL fail during subagent execution due to context overflow.
 
 | Plan Size | Action |
 |-----------|--------|
-| < 15,000 tokens | Single plan file |
-| 15,000-20,000 tokens | Consider splitting |
-| > 20,000 tokens | MUST split |
+| ≤ 800 lines | ✅ Proceed |
+| 800-1,000 lines | ⚠️ At limit - consider deferring scope |
+| > 1,000 lines | ❌ MUST reduce scope - defer to backlog |
 
-**How to split large features:**
+**If your plan exceeds 1,000 lines:**
+1. STOP writing immediately
+2. Identify features that can be deferred
+3. Add deferred features to `.harness/BACKLOG.md` using `harness:backlog-tracking`
+4. Reduce plan to ≤ 1,000 lines
+5. Reference backlog items in plan: "Deferred: See FEAT-XXX in BACKLOG.md"
 
-Create multiple sequential plan files in the same feature directory:
+**You cannot split into multiple plan files as a workaround.** Each plan must be independently executable within the 1,000-line limit. If a feature genuinely requires more, it's too large - break it into separate features with separate backlogs.
+</HARD-GATE>
 
-```
-.harness/004-large-feature/
-├── requirements.md
-├── research.md
-├── design.md
-├── plan-part1.md    # Phases 1-3 (foundation)
-├── plan-part2.md    # Phases 4-6 (core features)
-└── plan-part3.md    # Phases 7-9 (integration)
-```
+**Why 1,000 lines?**
+- Subagent context is limited (~8K tokens for phase content + context)
+- Plans are parsed once, phases extracted to ~200-400 lines each
+- 1,000-line plan ≈ 4-5 phases of 200-250 lines = safe margin
+- Larger plans cause mid-execution context failures
 
-**Split plan naming:** `plan-part1.md`, `plan-part2.md`, etc.
+**Estimating plan size:**
+- Count lines as you write (aim for ≤ 800)
+- ~6.5 tokens per line average (with code blocks)
+- 1,000 lines ≈ 6,500 tokens
 
-**Each split plan must:**
-- Be self-contained (can execute independently)
-- Reference prerequisites from earlier parts
-- Include its own header with Phase summary
-- State dependencies: "Requires completion of plan-part1.md"
+**Scope reduction strategies:**
 
-**Split plan header addition:**
+| Too Large Because | Defer To Backlog |
+|-------------------|------------------|
+| Multiple independent features | Each feature becomes FEAT-XXX |
+| Extensive error handling | Core paths now, edge cases as IMPROVE-XXX |
+| Comprehensive testing | Critical tests now, coverage as DEBT-XXX |
+| Multiple integrations | Primary integration now, others as FEAT-XXX |
+| Polish/UX improvements | MVP now, polish as IMPROVE-XXX |
 
-```markdown
-**Prerequisites:** plan-part1.md (Phases 1-3 complete)
-**This Plan:** Phases 4-6 of 9
-```
+**Anti-pattern: "I'll just split it"**
 
-**Execution order:** Execute plan parts sequentially. Progress is tracked via git phase completion commits.
+| Rationalization | Reality |
+|-----------------|---------|
+| "I'll make plan-part1.md and plan-part2.md" | NO. Each plan must be complete. Split = unclear scope. |
+| "The feature needs all this" | Reduce scope. Defer non-essential parts. |
+| "I can't cut anything" | You can. Prioritize ruthlessly. |
+| "Parts will be small" | Parts create dependency hell. One plan, one feature. |
 
 ## Phase Structure (REQUIRED)
 

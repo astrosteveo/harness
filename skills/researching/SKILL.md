@@ -11,7 +11,19 @@ Research happens BEFORE design. Period.
 
 Research = **Codebase Exploration** + **External Research**. Both are required. You cannot skip either.
 
-**Announce at start:** "I'm using the researching skill to explore the codebase and gather current information before designing anything."
+## First Action (MANDATORY)
+
+```
+IMMEDIATELY START EXPLORING. DO NOT ASK THE USER ANYTHING.
+```
+
+When this skill is invoked:
+1. Say: "I'm using the researching skill to explore the codebase and gather current information before designing anything."
+2. **In the same response**, start running Glob/Grep/Read commands to explore the codebase
+3. Do NOT ask the user any questions - the codebase has the answers
+4. Do NOT wait for permission to explore - that's what this skill is for
+
+**If you find yourself wanting to ask a question, STOP.** Search the codebase instead.
 
 ## The Iron Rule
 
@@ -42,6 +54,8 @@ Until you have:
 | "This is similar to X" | Similar isn't same. Verify current state. |
 | "I'll check if needed" | You always need to check. That's the point. |
 | "Let me propose something first" | NO. Research THEN propose. |
+| "Let me ask the user about the code" | NO. The codebase answers code questions. Explore. |
+| "What's the current state?" | DON'T ASK. Search for it. |
 
 ## The Research Process
 
@@ -49,29 +63,51 @@ Until you have:
 
 **You cannot skip this.** Even if you "know" the codebase.
 
-**What to explore:**
+**Exploration Strategy: Parallel Agents**
 
-1. **Existing Patterns**
-   - How is similar functionality implemented?
-   - What abstractions exist?
-   - What patterns are used (naming, structure, error handling)?
+For non-trivial features, dispatch 2-3 exploration agents in parallel with different focuses:
 
-2. **Related Code**
-   - What files touch the area you're working on?
-   - What are the dependencies?
-   - What might break if you change things?
+```
+Task tool (Explore):
+  Agent 1: "Explore existing patterns for [feature area]"
+  Agent 2: "Explore dependencies and integration points for [feature area]"
+  Agent 3: "Explore test patterns and edge cases for [feature area]"
+```
 
-3. **Tests**
-   - How are similar features tested?
-   - What testing patterns are used?
-   - What edge cases are covered?
+**Why parallel exploration:**
+- Single-threaded exploration misses cross-cutting concerns
+- Different focuses catch different things
+- Faster than sequential deep dives
+- Prevents Claude's anti-pattern of reading 2-3 files and assuming understanding
 
-4. **Recent Changes**
-   - What's been changed recently in this area?
-   - Are there open PRs or recent commits to consider?
-   - Is there ongoing refactoring?
+**When to use parallel exploration:**
+| Feature Size | Exploration Approach |
+|--------------|---------------------|
+| Micro (< 5 min) | Single quick search |
+| Small (< 30 min) | 1-2 focused searches |
+| Medium (30 min - 2 hrs) | 2 parallel agents |
+| Large (> 2 hrs) | 3 parallel agents |
 
-**How to explore:**
+**What each agent explores:**
+
+**Agent 1: Patterns & Architecture**
+- How is similar functionality implemented?
+- What abstractions exist?
+- What patterns are used (naming, structure, error handling)?
+
+**Agent 2: Dependencies & Integration**
+- What files touch the area you're working on?
+- What are the dependencies?
+- What might break if you change things?
+- What external services/APIs are involved?
+
+**Agent 3: Tests & Edge Cases**
+- How are similar features tested?
+- What testing patterns are used?
+- What edge cases are covered?
+- What's been changed recently in this area?
+
+**How to explore (for each agent):**
 
 ```bash
 # Find related files
@@ -86,6 +122,8 @@ git log --oneline -20 -- path/to/area
 # Read related code
 read actual files, don't assume
 ```
+
+**Consolidate findings:** After agents complete, synthesize into unified research document.
 
 **Document what you find:**
 

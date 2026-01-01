@@ -87,6 +87,23 @@ These thoughts mean STOP—you're rationalizing:
 | "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
 | "I know the current version" | Training data is outdated. Use researching skill. |
 | "The API is probably..." | Never assume APIs. Research current docs. |
+| "Let me just read InputHandler.ts" | NO. Feature request = brainstorming skill FIRST. |
+| "I'll peek at one file first" | NO. ANY file read for a feature = invoke skill first. |
+
+## CRITICAL: Feature Request = Brainstorming First
+
+**If the user asks for ANY feature, enhancement, or new functionality:**
+
+```
+INVOKE harness:brainstorming BEFORE reading ANY code files.
+```
+
+**This is non-negotiable.** Not "let me just understand the current state" first. Not "let me see what exists" first. The brainstorming skill contains the researching sub-skill which tells you HOW to explore the codebase.
+
+| Wrong | Right |
+|-------|-------|
+| User asks for feature → Read code → Propose solution | User asks for feature → Invoke brainstorming → Research → Propose |
+| "Let me see InputHandler.ts first" → Read file | "This is a feature request" → Invoke brainstorming |
 
 ## Skill Priority
 
