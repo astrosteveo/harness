@@ -91,9 +91,9 @@
 **Architecture:**
 ```
 project/
-├── CLAUDE.md                      # ~100-200 lines, project overview only
-│   └── @imports to rules
 ├── .claude/
+│   ├── CLAUDE.md                  # ~100-200 lines, project overview
+│   │   └── @imports to rules
 │   └── rules/
 │       ├── conventions.md         # General code style (~100-500 lines)
 │       ├── testing.md             # Test patterns
@@ -105,11 +105,16 @@ project/
     └── [existing structure]
 ```
 
+**Why `.claude/CLAUDE.md`:**
+- Keeps project root clean
+- All Claude config in one place (CLAUDE.md + rules/ as siblings)
+- Clear separation: `.claude/` = Claude config, `.harness/` = dev workflow
+
 **Harness touchpoints:**
 
 | Phase | Action |
 |-------|--------|
-| First `.harness/` init | Seed `CLAUDE.md` + `.claude/rules/conventions.md` if missing |
+| First `.harness/` init | Seed `.claude/CLAUDE.md` + `.claude/rules/conventions.md` if missing |
 | Research phase | Determine scope of discoveries, create/update appropriate rule file |
 | Feature completion | Prompt to consolidate learnings into rules |
 | Code review | Reviewer validates against `.claude/rules/` |
