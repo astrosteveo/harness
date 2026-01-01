@@ -1,5 +1,5 @@
 {
-  "name": "harness",
+  "name": "harness-dev",
   "description": "Structured development workflow with research-driven planning, TDD implementation, and verified delivery. Guides projects from idea to PR with full Git audit trail.",
   "owner": {
     "name": "astrosteveo"
@@ -8,6 +8,7 @@
     {
       "name": "harness",
       "description": "Structured development workflow with research-driven planning, TDD implementation, and verified delivery",
+      "version": "0.6.1",
       "author": {
         "name": "Steven Mosley",
         "email": "stevengmjr@gmail.com"
