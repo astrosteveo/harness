@@ -1,1 +1,0 @@
-We've been working on this feature for a while and I'm worried we might lose context. Can you checkpoint our progress so we can continue later if needed?

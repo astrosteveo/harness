@@ -1,1 +1,0 @@
-I need to update React from version 17 to 18. There are breaking changes and I want to do it safely. How should I approach this?

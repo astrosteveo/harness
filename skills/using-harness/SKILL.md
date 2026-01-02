@@ -128,3 +128,24 @@ The skill itself tells you which.
 ## User Instructions
 
 Instructions say WHAT, not HOW. "Add X" or "Fix Y" doesn't mean skip workflows.
+
+## Context Management
+
+**Signs of context exhaustion:**
+- Forgetting earlier context, repeating questions
+- Incomplete responses, cutting off mid-thought
+- Slower responses, degraded reasoning
+
+**Prevention strategies:**
+- Use `grep` instead of reading entire files
+- Summarize findings instead of keeping raw output
+- Use subagents for independent tasks (fresh context per agent)
+- Read only relevant file sections (use offset/limit)
+
+**When approaching limits:**
+1. Commit work in progress: `git add -A && git commit -m "WIP: [description]"`
+2. Tell user: "Context limit approaching. Progress saved."
+3. Start new session - the session hook will detect incomplete work
+
+**Resuming work:**
+When the session start hook detects incomplete plans (via git history), it prompts you to resume. If user says Yes, read the plan and use `harness:subagent-driven-development` to continue execution.

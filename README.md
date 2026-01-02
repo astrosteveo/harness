@@ -21,8 +21,6 @@ A structured development workflow for coding agents that emphasizes **research-d
 
 ## Installation
 
-### Claude Code (Plugin System)
-
 ```bash
 # Add the marketplace
 /plugin marketplace add astrosteveo/claude-code-plugins
@@ -32,22 +30,6 @@ A structured development workflow for coding agents that emphasizes **research-d
 ```
 
 Verify with `/skills` - you should see harness skills listed.
-
-### Codex
-
-```
-Fetch and follow instructions from https://raw.githubusercontent.com/astrosteveo/harness/refs/heads/main/.codex/INSTALL.md
-```
-
-See [docs/README.codex.md](docs/README.codex.md) for details.
-
-### OpenCode
-
-```
-Fetch and follow instructions from https://raw.githubusercontent.com/astrosteveo/harness/refs/heads/main/.opencode/INSTALL.md
-```
-
-See [docs/README.opencode.md](docs/README.opencode.md) for details.
 
 ## The Workflow
 
@@ -99,31 +81,20 @@ All documentation is organized in `.harness/`:
 - **NNN** - Zero-padded sequence number (001, 002, 003...)
 - **feature-slug** - Kebab-case description of the feature
 
-## Skills Library
+## Skills (10 Core)
 
-### Core Workflow
-- **brainstorming** - Socratic design refinement with research integration
-- **researching** - Fetch current versions, APIs, and best practices
-- **writing-plans** - Detailed implementation plans
-- **executing-plans** - Batch execution with checkpoints
-- **subagent-driven-development** - Fast iteration with two-stage review
-- **backlog-tracking** - Track bugs and deferred items
-
-### Development Practices
-- **test-driven-development** - RED-GREEN-REFACTOR cycle
-- **systematic-debugging** - 4-phase root cause analysis
-- **verification-before-completion** - Evidence-first verification
-
-### Collaboration
-- **using-git-worktrees** - Parallel development branches
-- **requesting-code-review** - Pre-review checklist
-- **receiving-code-review** - Responding to feedback
-- **dispatching-parallel-agents** - Concurrent subagent workflows
-- **finishing-a-development-branch** - Merge/PR decision workflow
-
-### Meta
-- **using-harness** - Introduction to the skills system
-- **writing-skills** - Create new skills
+| Skill | Purpose |
+|-------|---------|
+| **using-harness** | Foundation - skill invocation, context management |
+| **brainstorming** | Design + planning (includes plan writing) |
+| **researching** | Verify current versions, APIs, best practices |
+| **test-driven-development** | RED-GREEN-REFACTOR cycle |
+| **systematic-debugging** | 4-phase root cause analysis |
+| **verification-before-completion** | Evidence before claims + finishing work |
+| **backlog-tracking** | Track bugs and deferred items |
+| **subagent-driven-development** | Execute plans with fresh context per phase |
+| **gamedev-brainstorming** | Game development with GDD workflow |
+| **writing-skills** | Meta - create new skills |
 
 ## Documentation
 

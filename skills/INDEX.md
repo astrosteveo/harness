@@ -1,120 +1,56 @@
 # Harness Skills Index
 
-> Auto-generated index of all available skills. Use `harness:skill-name` to invoke.
+10 core skills addressing Claude Code's main antipatterns.
 
-## Core Workflow Skills
+## Skills Overview
 
-| Skill | Description | Type |
-|-------|-------------|------|
-| using-harness | Entry point - establishes skill discovery | **Meta** |
-| brainstorming | Socratic design refinement | **Flexible** |
-| gamedev-brainstorming | Game development with GDD workflow | **Flexible** |
-| researching | Fetch current versions/APIs | **Flexible** |
-| writing-plans | Create implementation plans | **Flexible** |
-| executing-plans | Batch execution with checkpoints | **Flexible** |
-| subagent-driven-development | Per-task subagent execution | **Flexible** |
+| Skill | Purpose | Type |
+|-------|---------|------|
+| using-harness | Foundation - skill invocation, context management | **Rigid** |
+| researching | Prevent stale training data | **Rigid** |
+| brainstorming | Prevent jumping to code, includes planning | **Flexible** |
+| test-driven-development | Prevent skipping tests | **Rigid** |
+| systematic-debugging | Prevent random debugging | **Rigid** |
+| verification-before-completion | Prevent premature "done", includes finishing | **Rigid** |
+| backlog-tracking | Prevent forgotten work | **Flexible** |
+| subagent-driven-development | Execute plans with fresh context per phase | **Rigid** |
+| gamedev-brainstorming | Game development variant with GDD workflow | **Flexible** |
+| writing-skills | Meta - for creating new skills | **Flexible** |
 
-## Development Practice Skills
+## Antipattern Coverage
 
-| Skill | Description | Type |
-|-------|-------------|------|
-| test-driven-development | RED-GREEN-REFACTOR cycle | **Rigid** |
-| working-with-legacy-code | Adapting TDD for legacy systems | **Flexible** |
-| systematic-debugging | 4-phase root cause analysis | **Rigid** |
-| debugging-ci-cd-failures | CI/CD pipeline troubleshooting | **Flexible** |
-| debugging-flaky-tests | Flaky test investigation | **Rigid** |
-| updating-dependencies | Dependency version management | **Flexible** |
-| database-migrations | Safe schema and data changes | **Rigid** |
-| security-review | Security-focused code review | **Rigid** |
-| performance-optimization | Profiling and optimization | **Flexible** |
-| verification-before-completion | Evidence before claims | **Rigid** |
-| writing-documentation | Concise, value-adding docs only | **Rigid** |
+| Antipattern | Skill |
+|-------------|-------|
+| Uses outdated APIs/versions | researching |
+| Jumps straight to code | brainstorming |
+| Skips writing tests | test-driven-development |
+| Random debugging attempts | systematic-debugging |
+| Claims "done" without evidence | verification-before-completion |
+| Forgets deferred work | backlog-tracking |
+| Context exhaustion | using-harness (context management section) |
 
-## Collaboration Skills
+## Skill Flow
 
-| Skill | Description | Type |
-|-------|-------------|------|
-| using-git-worktrees | Isolated workspace creation | **Flexible** |
-| resolving-merge-conflicts | Systematic conflict resolution | **Rigid** |
-| requesting-code-review | Dispatch code reviewer | **Flexible** |
-| receiving-code-review | Technical response to feedback | **Rigid** |
-| receiving-corrections | Handle corrections without sycophancy | **Rigid** |
-| dispatching-parallel-agents | Parallelize investigations | **Flexible** |
-| working-with-monorepos | Multi-package coordination | **Flexible** |
-| finishing-a-development-branch | Complete and cleanup work | **Flexible** |
-
-## Support Skills
-
-| Skill | Description | Type |
-|-------|-------------|------|
-| backlog-tracking | Deferred items management | **Flexible** |
-| resuming-work | Restore context after interruption | **Flexible** |
-| handling-context-exhaustion | Checkpoint before context limits | **Flexible** |
-| writing-skills | Create new skills | **Flexible** |
+```
+Feature Request
+    ↓
+brainstorming (includes researching → design → plan)
+    ↓
+subagent-driven-development (executes plan)
+    ↓
+verification-before-completion (verify → finish options)
+```
 
 ## Skill Types
 
-- **Rigid**: Follow exactly. No adaptation. Iron laws apply.
-- **Flexible**: Adapt principles to context. Core concepts remain.
-- **Meta**: Foundation skills that govern skill usage itself.
+**Rigid** - Follow exactly. These address behaviors that need discipline.
 
-## Skill Dependencies
+**Flexible** - Adapt principles to context. These provide frameworks.
 
-```
-using-harness (foundation)
-├── brainstorming
-│   ├── REQUIRES: researching
-│   └── REQUIRES: using-git-worktrees (Phase 4, when implementation follows)
-├── gamedev-brainstorming
-│   ├── REQUIRES: researching
-│   ├── REQUIRES: writing-plans (after GDD)
-│   └── ADAPTS: brainstorming (for game development)
-├── writing-plans
-│   └── REQUIRES: researching
-├── executing-plans
-│   └── REQUIRES: finishing-a-development-branch
-├── subagent-driven-development
-│   ├── REQUIRES: test-driven-development (for subagents)
-│   ├── REQUIRES: requesting-code-review
-│   └── REQUIRES: finishing-a-development-branch
-├── systematic-debugging
-│   └── REQUIRES: test-driven-development (Phase 4)
-├── debugging-ci-cd-failures
-│   └── EXTENDS: systematic-debugging (CI-specific patterns)
-├── debugging-flaky-tests
-│   └── EXTENDS: systematic-debugging (flakiness patterns)
-├── updating-dependencies
-│   └── REQUIRES: researching (check changelogs/CVEs)
-├── database-migrations
-│   └── REQUIRES: verification-before-completion (pre-flight checks)
-├── security-review
-│   └── EXTENDS: requesting-code-review (security focus)
-├── performance-optimization
-│   └── REQUIRES: verification-before-completion (benchmark results)
-├── working-with-monorepos
-│   └── AWARE OF: dispatching-parallel-agents (cross-package work)
-├── using-git-worktrees
-│   └── REQUIRES: finishing-a-development-branch (cleanup)
-├── resuming-work
-│   └── AWARE OF: backlog-tracking (check for blockers)
-├── handling-context-exhaustion
-│   └── REQUIRES: resuming-work (for handoff format)
-├── resolving-merge-conflicts
-│   └── REQUIRES: verification-before-completion (after resolution)
-├── working-with-legacy-code
-│   └── ADAPTS: test-driven-development (different granularities)
-└── writing-skills
-    ├── REQUIRES: test-driven-development (TDD for skills)
-    └── REQUIRES: verification-before-completion (before deployment)
-```
+## Integration
 
-## Cross-Cutting Concerns
-
-Skills that should be considered during ANY development work:
-
-| Skill | When to Consider |
-|-------|------------------|
-| backlog-tracking | When deferring bugs, features, or tech debt |
-| verification-before-completion | Before claiming any work is done |
-| researching | Before using external libraries or APIs |
-| gamedev-brainstorming | For any game development project (replaces brainstorming) |
+Skills reference each other:
+- `brainstorming` → calls `researching`, outputs to `subagent-driven-development`
+- `subagent-driven-development` → uses `test-driven-development` per task
+- All skills → can defer items via `backlog-tracking`
+- All work → ends with `verification-before-completion`

@@ -178,31 +178,143 @@ Before starting, assess task size:
 | "Too simple to research" | Simple changes in wrong places cause bugs. Check first. |
 | "Process theater" | 30 seconds to verify location prevents 30 minutes debugging. |
 
-## After the Design
+### Step 5: Write the Implementation Plan
 
-**Documentation Structure:**
+**Once design is approved, write the implementation plan.**
+
+**Save to:** `.harness/NNN-feature-slug/plan.md`
+
+#### Plan Size Limits (HARD GATE)
+
+**A single plan file MUST NOT exceed 1,000 lines (~250 tasks).**
+
+| Plan Size | Action |
+|-----------|--------|
+| ≤ 800 lines | ✅ Proceed |
+| 800-1,000 lines | ⚠️ At limit - consider deferring scope |
+| > 1,000 lines | ❌ MUST reduce scope - defer to backlog |
+
+If too large: add deferred features to `.harness/BACKLOG.md` using `harness:backlog-tracking`.
+
+#### Phase Structure
+
+Plans MUST be organized into Phases (2-6 tasks each):
+
+```markdown
+# [Feature Name] Implementation Plan
+
+> **For Claude:** Execute using subagent per Phase.
+
+**Goal:** [One sentence]
+**Tech Stack:** [Key technologies with VERIFIED versions]
+**Research Summary:** [Key findings]
+
+**Phases:**
+1. Phase 1: [Name] (N tasks)
+2. Phase 2: [Name] (N tasks)
+...
+
+---
+
+## Phase 1: [Name]
+
+### Task 1.1: [Component Name]
+
+**Files:**
+- Create: `exact/path/to/file.py`
+- Modify: `exact/path/to/existing.py`
+- Test: `tests/path/to/test.py`
+
+**Step 1: Write the failing test**
+\`\`\`python
+def test_specific_behavior():
+    result = function(input)
+    assert result == expected
+\`\`\`
+
+**Step 2: Run test to verify it fails**
+Run: `pytest tests/path/test.py::test_name -v`
+Expected: FAIL
+
+**Step 3: Write minimal implementation**
+\`\`\`python
+def function(input):
+    return expected
+\`\`\`
+
+**Step 4: Run test to verify it passes**
+Run: `pytest tests/path/test.py::test_name -v`
+Expected: PASS
+
+**Step 5: Commit**
+\`\`\`bash
+git commit -m "feat: add specific feature"
+\`\`\`
+```
+
+#### Bite-Sized Tasks
+
+Each step is one action (2-5 minutes):
+- Write the failing test - step
+- Run it to verify failure - step
+- Implement minimal code - step
+- Run tests - step
+- Commit - step
+
+**Requirements:**
+- Exact file paths (from research)
+- Complete code in plan (not "add validation")
+- Exact commands with expected output
+- DRY, YAGNI, TDD, frequent commits
+
+#### Execution Handoff
+
+After saving the plan:
+
+```
+✅ **Plan complete and saved**
+
+- Plan: `.harness/NNN-feature-slug/plan.md`
+
+**[N] Phases identified:**
+1. Phase 1: [Name] (N tasks)
+2. Phase 2: [Name] (N tasks)
+...
+
+**How would you like to proceed?**
+
+| Option | Description |
+|--------|-------------|
+| **Continue** | Execute now (uses subagent per Phase) |
+| **New Session** | Start fresh session to execute |
+
+| Mode | Description |
+|------|-------------|
+| **Autonomous** | Runs all Phases without stopping |
+| **Checkpoint** | Pauses after each Phase for approval |
+```
+
+**If "Continue":** Use `harness:subagent-driven-development`
+**If "New Session":** Git tracks progress via phase completion commits
+
+## Documentation Structure
 
 All project documents are saved to `.harness/NNN-feature-slug/` where:
 - `NNN` is a zero-padded sequence number (001, 002, etc.)
 - `feature-slug` is a kebab-case name for the feature
 
 **Save documents:**
-- Research: `.harness/NNN-feature-slug/research.md` (from harness:researching)
+- Research: `.harness/NNN-feature-slug/research.md`
 - Requirements: `.harness/NNN-feature-slug/requirements.md`
 - Design: `.harness/NNN-feature-slug/design.md`
-- Plan: `.harness/NNN-feature-slug/plan.md` (from harness:writing-plans)
+- Plan: `.harness/NNN-feature-slug/plan.md`
 
-**Commit the design document to git after saving.**
+**Commit documents to git after saving.**
 
 **Deferred Items:**
 If any features, bugs, or tasks are identified but deferred:
 - Add them to `.harness/BACKLOG.md`
-- Use the backlog format (see harness:backlog-tracking)
-
-**Implementation (if continuing):**
-- Ask: "Ready to set up for implementation?"
-- Use harness:using-git-worktrees to create isolated workspace
-- Use harness:writing-plans to create detailed implementation plan
+- Use `harness:backlog-tracking`
 
 ## Key Principles
 

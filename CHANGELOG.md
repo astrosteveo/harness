@@ -10,6 +10,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-01-01
+
+### Changed
+- **Consolidated 30 skills down to 10** - Removed edge-case and redundant skills, merged overlapping ones
+- **Claude Code only** - Removed OpenCode and Codex integration (`.opencode/`, `.codex/`, `tests/opencode/`)
+- **Removed checkpoint.md files** - Progress now tracked entirely via git commits with `phase(N): complete` trailers
+
+### Removed
+- **20 skills removed:**
+  - Edge cases: `database-migrations`, `debugging-ci-cd-failures`, `debugging-flaky-tests`, `updating-dependencies`, `resolving-merge-conflicts`, `performance-optimization`, `security-review`, `working-with-legacy-code`, `working-with-monorepos`
+  - Redundant: `receiving-code-review`, `receiving-corrections`, `requesting-code-review`, `dispatching-parallel-agents`, `using-git-worktrees`, `writing-documentation`
+  - Merged: `writing-plans`, `executing-plans`, `handling-context-exhaustion`, `resuming-work`, `finishing-a-development-branch`
+
+### Merged
+- `writing-plans` → `brainstorming` (Step 5: Write Implementation Plan)
+- `executing-plans` → `subagent-driven-development` (unified execution)
+- `handling-context-exhaustion` + `resuming-work` → `using-harness` (Context Management section)
+- `finishing-a-development-branch` → `verification-before-completion` (Finishing Work section)
+
+### Remaining Skills (10)
+1. `using-harness` - Foundation + context management
+2. `brainstorming` - Design + planning
+3. `researching` - Verify current APIs/versions
+4. `test-driven-development` - RED-GREEN-REFACTOR
+5. `systematic-debugging` - Root cause analysis
+6. `verification-before-completion` - Evidence + finishing
+7. `backlog-tracking` - Track deferred items
+8. `subagent-driven-development` - Execute plans
+9. `gamedev-brainstorming` - Game dev variant
+10. `writing-skills` - Meta skill
+
 ## [0.9.0] - 2026-01-01
 
 ### Added

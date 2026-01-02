@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: "MUST invoke when executing implementation plans with independent Phases in the current session."
+description: "MUST invoke when executing implementation plans with Phases."
 ---
 
 # Subagent-Driven Development
@@ -9,44 +9,20 @@ Execute plan by dispatching fresh subagent per **Phase**, with spec + code quali
 
 **Core principle:** Fresh subagent per Phase + two-stage review (spec then quality) = high quality, context-efficient execution
 
-**Key change from task-level:** Each subagent handles an entire Phase (2-6 tasks), not individual tasks. This reduces dispatch overhead while maintaining fresh context.
-
-**Checkpoint Mode:** This skill supports two modes:
-- **Autonomous (checkpoint OFF)** - Runs all Phases without stopping for human input
-- **Checkpoints (checkpoint ON)** - Pauses after each Phase for human approval before proceeding
+**Modes:**
+- **Autonomous** - Runs all Phases without stopping for human input
+- **Checkpoints** - Pauses after each Phase for human approval before proceeding
 
 ## When to Use
 
-```dot
-digraph when_to_use {
-    "Have implementation plan?" [shape=diamond];
-    "Tasks mostly independent?" [shape=diamond];
-    "Stay in this session?" [shape=diamond];
-    "subagent-driven-development" [shape=box];
-    "executing-plans" [shape=box];
-    "Manual execution or brainstorm first" [shape=box];
+Use this skill when you have a `.harness/*/plan.md` to execute.
 
-    "Have implementation plan?" -> "Tasks mostly independent?" [label="yes"];
-    "Have implementation plan?" -> "Manual execution or brainstorm first" [label="no"];
-    "Tasks mostly independent?" -> "Stay in this session?" [label="yes"];
-    "Tasks mostly independent?" -> "Manual execution or brainstorm first" [label="no - tightly coupled"];
-    "Stay in this session?" -> "subagent-driven-development" [label="yes"];
-    "Stay in this session?" -> "executing-plans" [label="no - parallel session"];
-}
-```
-
-**Comparison of execution modes:**
-
-| Factor | Autonomous | Checkpoints | Batch Review |
-|--------|------------|-------------|--------------|
-| Skill | subagent-driven | subagent-driven | executing-plans |
-| Session | Same | Same | Separate (worktree) |
-| Dispatch unit | Phase | Phase | Phase |
-| Human stops | None | After each Phase | After each Phase |
-| Reviews | Automated (subagents) | Automated (subagents) | Human |
-| Context | Fresh per Phase | Fresh per Phase | Accumulates |
-| Speed | Fastest | Medium | Slowest |
-| Best for | Independent Phases, trust process | Want oversight per Phase | Complex/risky changes |
+| Factor | Autonomous | Checkpoints |
+|--------|------------|-------------|
+| Human stops | None | After each Phase |
+| Reviews | Automated (subagents) | Automated + human approval |
+| Speed | Fastest | Medium |
+| Best for | Independent Phases, trust process | Complex/risky changes, want oversight |
 
 ## The Process
 
@@ -330,15 +306,35 @@ This stops the session start hook from prompting about this plan.
 - Dispatch fix subagent with specific instructions
 - Don't try to fix manually (context pollution)
 
+## When to Stop and Ask
+
+**STOP executing immediately when:**
+- Hit a blocker (missing dependency, test fails, instruction unclear)
+- Plan has critical gaps preventing progress
+- You don't understand an instruction
+- Verification fails repeatedly
+
+**Ask for clarification rather than guessing.**
+
+## When Plans Become Invalid
+
+**Signs a plan is invalid:**
+- External changes: new requirements, dependency updates, discovered blockers
+- Completed tasks reveal gaps or incorrect assumptions
+
+**What to do:**
+1. Stop execution immediately
+2. Assess scope: minor issue vs fundamental change
+3. Decide: adapt in place or return to planning phase
+
+**Adapt vs Re-plan:**
+- **Adapt in place:** Small adjustments that don't change overall architecture
+- **Re-plan:** Multiple tasks affected, new dependencies, or approach fundamentally flawed
+
 ## Integration
 
-**Required workflow skills:**
-- **harness:writing-plans** - Creates the plan this skill executes
-- **harness:requesting-code-review** - Code review template for reviewer subagents
-- **harness:finishing-a-development-branch** - Complete development after all tasks
-
 **Subagents should use:**
-- **harness:test-driven-development** - Subagents follow TDD for each task
+- **harness:test-driven-development** - TDD for each task
 
-**Alternative workflow:**
-- **harness:executing-plans** - Use for separate session with batch-level human review (3 tasks at a time)
+**After all Phases complete:**
+- Use **harness:verification-before-completion** to finalize

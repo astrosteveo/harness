@@ -1,1 +1,0 @@
-The API response time is really slow - sometimes taking 5+ seconds. How can I figure out what's causing the slowdown and fix it?

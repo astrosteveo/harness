@@ -1,1 +1,0 @@
-Can you review this authentication code for security vulnerabilities before we deploy it? I want to make sure we're not missing any obvious issues.

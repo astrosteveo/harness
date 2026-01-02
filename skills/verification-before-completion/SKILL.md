@@ -164,6 +164,59 @@ From 24 failure memories:
 - [ ] Add systemic issues to backlog
 - [ ] Update tests to catch this failure mode
 
+## Finishing Work
+
+After verification passes, present completion options:
+
+```
+Implementation complete. What would you like to do?
+
+1. Merge back to <base-branch> locally
+2. Push and create a Pull Request
+3. Keep the branch as-is (I'll handle it later)
+4. Discard this work
+
+Which option?
+```
+
+### Option Handling
+
+**Option 1: Merge Locally**
+```bash
+git checkout <base-branch>
+git pull
+git merge <feature-branch>
+<run tests again>  # verify merged result
+git branch -d <feature-branch>
+```
+
+**Option 2: Push and Create PR**
+```bash
+git push -u origin <feature-branch>
+gh pr create --title "<title>" --body "## Summary
+<bullets>
+
+## Test Plan
+- [ ] <verification steps>"
+```
+
+**Option 3: Keep As-Is**
+Report: "Keeping branch <name>."
+
+**Option 4: Discard**
+Require typed confirmation: "Type 'discard' to confirm."
+```bash
+git checkout <base-branch>
+git branch -D <feature-branch>
+```
+
+| Option | Merge | Push | Keep Branch |
+|--------|-------|------|-------------|
+| 1. Merge locally | ✓ | - | Delete |
+| 2. Create PR | - | ✓ | Keep |
+| 3. Keep as-is | - | - | Keep |
+| 4. Discard | - | - | Force delete |
+
 ## The Bottom Line
 
 **No shortcuts for verification.**
