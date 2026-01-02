@@ -8,6 +8,7 @@
 |-------|-------------|------|
 | using-harness | Entry point - establishes skill discovery | **Meta** |
 | brainstorming | Socratic design refinement | **Flexible** |
+| gamedev-brainstorming | Game development with GDD workflow | **Flexible** |
 | researching | Fetch current versions/APIs | **Flexible** |
 | writing-plans | Create implementation plans | **Flexible** |
 | executing-plans | Batch execution with checkpoints | **Flexible** |
@@ -64,6 +65,10 @@ using-harness (foundation)
 ├── brainstorming
 │   ├── REQUIRES: researching
 │   └── REQUIRES: using-git-worktrees (Phase 4, when implementation follows)
+├── gamedev-brainstorming
+│   ├── REQUIRES: researching
+│   ├── REQUIRES: writing-plans (after GDD)
+│   └── ADAPTS: brainstorming (for game development)
 ├── writing-plans
 │   └── REQUIRES: researching
 ├── executing-plans
@@ -112,3 +117,4 @@ Skills that should be considered during ANY development work:
 | backlog-tracking | When deferring bugs, features, or tech debt |
 | verification-before-completion | Before claiming any work is done |
 | researching | Before using external libraries or APIs |
+| gamedev-brainstorming | For any game development project (replaces brainstorming) |

@@ -10,6 +10,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-01-01
+
+### Added
+- **Gamedev mode** - New `gamedev-brainstorming` skill for game development projects. Replaces standard brainstorming with game-specific workflow:
+  - Game Design Document (GDD) template saved to `.harness/NNN-game-name/gdd.md`
+  - Three design approaches: Minimal Viable Game (MVG), Polished Core, Full Scope
+  - Game-specific research: reference games, engine capabilities, platform requirements
+  - Feel-first development: prioritizes core mechanic feel before features
+  - Playtesting gates: built-in checkpoints for validating gameplay
+- **GDD template** - Comprehensive Game Design Document structure covering:
+  - Overview (high concept, genre, platform, core experience)
+  - Gameplay (core loop, mechanics, progression)
+  - Game World (setting, visual style, audio direction)
+  - Technical (engine, performance targets, challenges)
+  - Scope (MVP features, nice-to-have, out of scope)
+  - References (games to study, documentation links)
+- **Gamedev documentation** - CLAUDE.md updated with Gamedev Mode section and game-specific `.harness/` structure
+
 ## [0.8.0] - 2026-01-01
 
 ### Changed
@@ -221,7 +239,8 @@ Key differences from upstream (obra/superpowers):
 - **backlog-tracking** - Track bugs, deferred features, and tech debt
 - **10 additional skills** - CI/CD, flaky tests, dependencies, migrations, security, performance, monorepos, context exhaustion, merge conflicts, legacy code
 
-[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/astrosteveo/harness/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/astrosteveo/harness/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/astrosteveo/harness/compare/v0.7.1...v0.8.0
 [0.7.1]: https://github.com/astrosteveo/harness/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/astrosteveo/harness/compare/v0.6.1...v0.7.0

@@ -31,6 +31,19 @@ All project documentation is organized in `.harness/`:
 └── ...
 ```
 
+**For game development projects**, the structure includes a GDD:
+
+```
+.harness/
+├── 001-game-name/
+│   ├── gdd.md                    # Game Design Document
+│   ├── requirements.md           # Technical requirements from GDD
+│   ├── research.md               # Reference games, tech research
+│   ├── design.md                 # Architecture decisions
+│   └── plan.md                   # Implementation plan
+└── ...
+```
+
 **Naming Convention:**
 - `NNN` - Zero-padded sequence number (001, 002, 003...)
 - `feature-name` - Kebab-case slug describing the feature
@@ -72,6 +85,7 @@ harness/
 
 ### Core Workflow
 - `harness:brainstorming` - Socratic design refinement
+- `harness:gamedev-brainstorming` - Game development with GDD workflow
 - `harness:researching` - Verify current versions/APIs before planning
 - `harness:writing-plans` - Create detailed implementation plans
 - `harness:executing-plans` - Execute plans with checkpoints
@@ -81,6 +95,33 @@ harness/
 - `harness:test-driven-development` - RED-GREEN-REFACTOR cycle
 - `harness:systematic-debugging` - 4-phase root cause analysis
 - `harness:subagent-driven-development` - Per-task agents with review
+
+## Gamedev Mode
+
+For game development projects, use `harness:gamedev-brainstorming` instead of `harness:brainstorming`. This skill:
+
+1. **Adapts the workflow for games** - Focuses on core loop, feel, and player experience
+2. **Creates a Game Design Document (GDD)** - Saved to `.harness/NNN-game-name/gdd.md`
+3. **Includes game-specific research** - Reference games, engine capabilities, platform requirements
+4. **Prioritizes feel-first development** - Core mechanic feel before features
+
+### GDD Contents
+- High concept and genre
+- Core gameplay loop and mechanics
+- Visual and audio direction
+- Technical requirements
+- Scope (MVP vs nice-to-have)
+- Reference games
+
+### Gamedev Workflow
+```
+1. Invoke harness:gamedev-brainstorming
+2. Research reference games + tech
+3. Choose design approach (MVG / Polished Core / Full Scope)
+4. Create GDD
+5. Transition to harness:writing-plans
+6. Execute with playtesting gates
+```
 
 ## Backlog Tracking
 
